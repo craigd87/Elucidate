@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "984257412818",
+    "project_id": "elucidate-d6c18",
+    "storage_bucket": "elucidate-d6c18.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:984257412818:android:facc982749fbff7a8cf70b",
+        "android_client_info": {
+          "package_name": "com.example.elucidate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "984257412818-3ai22sbop3vtpqj7aaij0vg6buf2qbqd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQwfq74bhWBgfqyGicK1OojDiWUmw0_10"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "984257412818-3ai22sbop3vtpqj7aaij0vg6buf2qbqd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

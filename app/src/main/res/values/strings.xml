@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Elucidate</string>
+    <string name="welcome_message">Welcome to Elucidate</string>
+    <string name="upload_data">Upload data</string>
+    <string name="retrieve_data">Retrieve data</string>
+    <string name="login">Log in</string>
+    <string name="signup">Sign up</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Create an Account</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="account_created">Account Created!</string>
+    <string name="password_hint">Password...</string>
+    <string name="dashboard">Dashboard</string>
+    <string name="log_mood">Log Mood</string>
+    <string name="mood_here">Mood here</string>
+    <string name="mood_logged">Mood Logged!</string>
+    <string name="please_rate_your_mood">Please rate your mood...</string>
+    <string name="rate_mood">Rate Mood</string>
+    <string name="name">Name</string>
+    <string name="emailSignUp">Email...</string>
+    <string name="hi">Hi</string>
+    <string name="user_info">user info</string>
+    <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? Sign up here</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="go_to_dashboard">Go To Dashboard</string>
+</resources>
