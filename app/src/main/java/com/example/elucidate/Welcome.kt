@@ -25,18 +25,23 @@ class Welcome : AppCompatActivity() {
 
 
 
-        val email=intent.getStringExtra("Email")
+        /*val email=intent.getStringExtra("Email")
         val password=intent.getStringExtra("Password")
-        var name=intent.getStringExtra("Name")
+        var name=intent.getStringExtra("Name")*/
+        val intent= intent
+        val userDetails = intent.extras
+        val email= userDetails?.getString("Email")
+        val password= userDetails?.getString("Password")
+        var name= userDetails?.getString("Name")
+
         auth.signInWithEmailAndPassword("$email", "$password")
 
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
-                    //val user = auth.currentUser
-                    val intent = Intent(this, Dashboard::class.java)
-                    startActivity(intent)
+
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)

@@ -1,5 +1,6 @@
 package com.example.elucidate
 
+import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -44,23 +45,75 @@ class SignUp : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
-                        Toast.makeText(
-                            baseContext, "SUCCESS!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        /*Toast.makeText(
+                            baseContext, "Welcome $name, email: $email, password: $password",
+                            Toast.LENGTH_LONG
+                        ).show()*/
 
                     }
 
 
 
                 }
-            val intent= Intent(this, Welcome::class.java).apply{
+            auth.signInWithEmailAndPassword("$email", "$password")
+
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        // Sign in success, update UI with the signed-in user's information
+                        Log.d(com.example.elucidate.TAG, "signInWithEmail:success")
+                        //val user = auth.currentUser
+                        /*Toast.makeText(
+                            baseContext, "Success! welcome $name!",
+                            Toast.LENGTH_SHORT
+                        ).show()*/
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(com.example.elucidate.TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                    }
+                }
+            val user = auth.currentUser
+
+            val profileUpdates =
+                UserProfileChangeRequest.Builder()
+                    .setDisplayName("$name")
+                    .build()
+
+            user!!.updateProfile(profileUpdates)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Log.d(ContentValues.TAG, "User profile updated.")
+
+                        //updateUI(user)
+                    } else {
+                        // If sign in fails, display a message to the user.
+                        Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
+                        Toast.makeText(
+                            baseContext, "profile update failed.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        //updateUI(null)
+                    }
+
+                }
+            /*val intent= Intent(this, Welcome::class.java).apply{
                 intent.putExtra("Name","$name")
                 intent.putExtra("Email","$email")
                 intent.putExtra("Password","$password")
-            }
+            }*/
 
-            startActivity(intent)
+            /*val intent= Intent(this, Welcome::class.java)
+            val userDetails= Bundle()
+            userDetails.putString("Name","$name")
+            userDetails.putString("Email","$email")
+            userDetails.putString("Password","$password")
+            intent.putExtras(userDetails)
+
+            startActivity(intent)*/
         }
 
         val user = auth.currentUser
