@@ -29,7 +29,7 @@ class SignUp : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
-        val name= binding.editTextName.text
+
         val email= binding.btnEmail.text
         val password= binding.btnPassword.text
 
@@ -76,30 +76,7 @@ class SignUp : AppCompatActivity() {
 
                     }
                 }
-            val user = auth.currentUser
 
-            val profileUpdates =
-                UserProfileChangeRequest.Builder()
-                    .setDisplayName("$name")
-                    .build()
-
-            user!!.updateProfile(profileUpdates)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(ContentValues.TAG, "User profile updated.")
-
-                        //updateUI(user)
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            baseContext, "profile update failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        //updateUI(null)
-                    }
-
-                }
             /*val intent= Intent(this, Welcome::class.java).apply{
                 intent.putExtra("Name","$name")
                 intent.putExtra("Email","$email")
@@ -114,6 +91,8 @@ class SignUp : AppCompatActivity() {
             intent.putExtras(userDetails)
 
             startActivity(intent)*/
+            val intent= Intent(this, UpdateProfile::class.java)
+            startActivity(intent)
         }
 
         val user = auth.currentUser

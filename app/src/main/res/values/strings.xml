@@ -25,4 +25,8 @@
     <string name="don_t_have_an_account_sign_up_here">Don\'t have an account? Sign up here</string>
     <string name="sign_out">Sign Out</string>
     <string name="go_to_dashboard">Go To Dashboard</string>
+    <string name="age">Age...</string>
+    <string name="save_complete"><![CDATA[Save & complete]]></string>
+    <string name="profile_name">Name...</string>
+    <string name="please_enter_your_details">Please enter your details...</string>
 </resources>
