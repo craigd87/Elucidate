@@ -55,6 +55,7 @@ class SignUp : AppCompatActivity() {
 
 
                 }
+            Firebase.auth.signOut()
             auth.signInWithEmailAndPassword("$email", "$password")
 
                 .addOnCompleteListener(this) { task ->
@@ -66,6 +67,8 @@ class SignUp : AppCompatActivity() {
                             baseContext, "Success! welcome $name!",
                             Toast.LENGTH_SHORT
                         ).show()*/
+                        val intent= Intent(this, UpdateProfile::class.java)
+                        startActivity(intent)
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(com.example.elucidate.TAG, "signInWithEmail:failure", task.exception)
@@ -91,8 +94,7 @@ class SignUp : AppCompatActivity() {
             intent.putExtras(userDetails)
 
             startActivity(intent)*/
-            val intent= Intent(this, UpdateProfile::class.java)
-            startActivity(intent)
+
         }
 
         val user = auth.currentUser

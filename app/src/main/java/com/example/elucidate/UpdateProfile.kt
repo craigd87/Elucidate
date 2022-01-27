@@ -23,13 +23,13 @@ class UpdateProfile : AppCompatActivity() {
 
         auth = Firebase.auth
         val user = auth.currentUser
-        val name= binding.editTexProfileName.text
-        val age= binding.editTextProfileAge.text
+        val name= binding.editTexProfileName.text.toString()
+        val age= binding.editTextProfileAge.text.toString()
         val uid= user?.uid
         val hashMap = hashMapOf<String, Any>(
-            "id" to "$uid",
-            "name" to "$name",
-            "age" to "$age"
+            //"id" to "${uid}",
+            "name" to name,
+            "age" to age
 
         )
 
