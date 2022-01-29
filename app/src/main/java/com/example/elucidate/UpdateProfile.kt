@@ -23,22 +23,26 @@ class UpdateProfile : AppCompatActivity() {
 
         auth = Firebase.auth
         val user = auth.currentUser
+        val userId= intent.getStringExtra("user_id").toString()
         val name= binding.editTexProfileName.text.toString()
         val age= binding.editTextProfileAge.text.toString()
-        val uid= user?.uid
+
+        binding.textViewEnterDetails.text="User id : "+userId
         val hashMap = hashMapOf<String, Any>(
             //"id" to "${uid}",
+            "id" to userId,
             "name" to name,
-            "age" to age
+            "age" to age,
+            "working?" to "yes this seems to be working!"
 
         )
 
         binding.btnUpdateProfile.setOnClickListener{
 
 
-            /*val profileUpdates =
+            val profileUpdates =
                 UserProfileChangeRequest.Builder()
-                    .setDisplayName("$name")
+                    .setDisplayName(name)
                     .build()
 
             user!!.updateProfile(profileUpdates)
@@ -56,11 +60,11 @@ class UpdateProfile : AppCompatActivity() {
 
                     }
 
-                }*/
+                }
             FirebaseUtils().fireStoreDatabase.collection("users")
                 .add(hashMap)
                 .addOnSuccessListener {
-                    Log.d(TAG, "Added document with ID ${it.id}")
+                    //Log.d(TAG, "Added document with ID ${it.id}")
                     Toast.makeText(
                         baseContext, "SUCCESS!",
                         Toast.LENGTH_SHORT
@@ -78,5 +82,6 @@ class UpdateProfile : AppCompatActivity() {
 
             startActivity(intent)
         }
+
     }
 }

@@ -5,6 +5,8 @@ import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -34,6 +36,8 @@ class SignUp : AppCompatActivity() {
         val password= binding.btnPassword.text
 
 
+
+
         /*fun logIn (binding: ActivitySignUpBinding){
             binding.btnCreateAccount.setOnClickListener{
                 val intent= Intent(this, AccountCreated::class.java)
@@ -45,6 +49,12 @@ class SignUp : AppCompatActivity() {
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "createUserWithEmail:success")
+
+                        //with help from TutorialsEU https://www.youtube.com/watch?v=8I5gCLaS25w
+                        val user : FirebaseUser = task.result!!.user!!
+                        val intent= Intent(this, UpdateProfile::class.java)
+                        intent.putExtra("user_id", user.uid)
+                        startActivity(intent)
                         /*Toast.makeText(
                             baseContext, "Welcome $name, email: $email, password: $password",
                             Toast.LENGTH_LONG
@@ -55,20 +65,37 @@ class SignUp : AppCompatActivity() {
 
 
                 }
-            Firebase.auth.signOut()
-            auth.signInWithEmailAndPassword("$email", "$password")
+
+            /*auth.signInWithEmailAndPassword("$email", "$password")
 
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(com.example.elucidate.TAG, "signInWithEmail:success")
+
                         //val user = auth.currentUser
                         /*Toast.makeText(
                             baseContext, "Success! welcome $name!",
                             Toast.LENGTH_SHORT
                         ).show()*/
-                        val intent= Intent(this, UpdateProfile::class.java)
-                        startActivity(intent)
+
+                        /*auth.addAuthStateListener(FirebaseAuth.AuthStateListener{auth -> user
+                            
+                            if(user!=null){
+                                val intent= Intent(this, UpdateProfile::class.java)
+                                startActivity(intent)
+                            }else{
+
+                                Toast.makeText(
+                                    baseContext, "No user",
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                            }
+                        })*/
+
+
+
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(com.example.elucidate.TAG, "signInWithEmail:failure", task.exception)
@@ -78,7 +105,20 @@ class SignUp : AppCompatActivity() {
                         ).show()
 
                     }
+                }*/
+
+            /*val handler= Handler(Looper.getMainLooper())
+            handler.postDelayed({
+                if(user!=null){
+                    val intent= Intent(this, UpdateProfile::class.java)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(
+                        baseContext, "No user",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
+            }, 5000)*/
 
             /*val intent= Intent(this, Welcome::class.java).apply{
                 intent.putExtra("Name","$name")
@@ -97,9 +137,9 @@ class SignUp : AppCompatActivity() {
 
         }
 
-        val user = auth.currentUser
 
-        binding.btnCheckName.setOnClickListener{
+
+        /*binding.btnCheckName.setOnClickListener{
             if (user != null) {
                 Toast.makeText(baseContext, "welcome "+user.displayName,
                     Toast.LENGTH_SHORT).show()
@@ -110,7 +150,7 @@ class SignUp : AppCompatActivity() {
         }
         binding.btnSignOut.setOnClickListener{
             Firebase.auth.signOut()
-        }
+        }*/
 
 
     }
