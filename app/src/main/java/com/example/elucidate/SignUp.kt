@@ -51,9 +51,12 @@ class SignUp : AppCompatActivity() {
                             Log.d(TAG, "createUserWithEmail:success")
 
                         //with help from TutorialsEU https://www.youtube.com/watch?v=8I5gCLaS25w
+
                         val user : FirebaseUser = task.result!!.user!!
                         val intent= Intent(this, UpdateProfile::class.java)
                         intent.putExtra("user_id", user.uid)
+                        intent.putExtra("email", email)
+                        intent.putExtra("password", password)
                         startActivity(intent)
                         /*Toast.makeText(
                             baseContext, "Welcome $name, email: $email, password: $password",
@@ -158,4 +161,15 @@ class SignUp : AppCompatActivity() {
     /*private fun updateUI(user: FirebaseUser?) {
 
     }*/
+    public override fun onStart() {
+        super.onStart()
+        auth.addAuthStateListener(FirebaseAuth.AuthStateListener {  })
+    }
+
+    public override fun onPause() {
+        super.onPause()
+        auth.removeAuthStateListener(FirebaseAuth.AuthStateListener {  })
+    }
 }
+
+

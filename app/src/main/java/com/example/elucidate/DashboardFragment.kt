@@ -14,6 +14,8 @@ import com.example.elucidate.databinding.ActivityDashboardBinding
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FieldPath
 import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
@@ -53,9 +55,17 @@ class DashboardFragment : Fragment() {
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
         auth= Firebase.auth
         val user = auth.currentUser
+        val uName= user!!.displayName
+        val id= user.uid
+
+        val docRef= FirebaseUtils().fireStoreDatabase.collection("users")
+
+        val docData=docRef.whereEqualTo("id", "$id").get().toString()
+
+
 
         if (user != null) {
-            binding.textDashWelcome.text="Hi " +user.displayName
+            binding.textDashWelcome.text="Hi $docData"
         }else{
             binding.textDashWelcome.text="null"
         }

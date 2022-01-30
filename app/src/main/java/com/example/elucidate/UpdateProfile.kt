@@ -24,25 +24,59 @@ class UpdateProfile : AppCompatActivity() {
         auth = Firebase.auth
         val user = auth.currentUser
         val userId= intent.getStringExtra("user_id").toString()
-        val name= binding.editTexProfileName.text.toString()
-        val age= binding.editTextProfileAge.text.toString()
+        val email=intent.getStringExtra("email").toString()
+        val password=intent.getStringExtra("password").toString()
+        val name= binding.editTexProfileName.text
+        val age= binding.editTextProfileAge.text
+        val users = FirebaseUtils().fireStoreDatabase.collection("users")
 
         binding.textViewEnterDetails.text="User id : "+userId
-        val hashMap = hashMapOf<String, Any>(
+        val uDetails = hashMapOf<String, Any>()
             //"id" to "${uid}",
-            "id" to userId,
-            "name" to name,
-            "age" to age,
-            "working?" to "yes this seems to be working!"
 
-        )
+
+
+
+        FirebaseAuth.AuthStateListener { auth ->
+            val user = auth.currentUser
+            if (user!=null){
+                Toast.makeText(this, "Logged in",
+                Toast.LENGTH_SHORT
+                ).show()
+            }else{
+                auth.signInWithEmailAndPassword(email, password)
+
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d(com.example.elucidate.TAG, "signInWithEmail:success")
+
+                            //val user = auth.currentUser
+                            Toast.makeText(
+                                baseContext, "Success! welcome $name!",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w(com.example.elucidate.TAG, "signInWithEmail:failure", task.exception)
+                            Toast.makeText(
+                                baseContext, "Authentication failed.",
+                                Toast.LENGTH_SHORT
+                            ).show()
+
+                        }
+                    }
+            }
+        }
 
         binding.btnUpdateProfile.setOnClickListener{
 
 
             val profileUpdates =
                 UserProfileChangeRequest.Builder()
-                    .setDisplayName(name)
+                    .setDisplayName("$name")
                     .build()
 
             user!!.updateProfile(profileUpdates)
@@ -61,8 +95,14 @@ class UpdateProfile : AppCompatActivity() {
                     }
 
                 }
-            FirebaseUtils().fireStoreDatabase.collection("users")
-                .add(hashMap)
+            uDetails.put("id", userId)
+            uDetails.put("name", "$name")
+            uDetails.put("age", "$age")
+            uDetails.put("working?", "yes this seems to be working!")
+
+            users.document(userId).set(uDetails)
+
+                //.add(uDetails)
                 .addOnSuccessListener {
                     //Log.d(TAG, "Added document with ID ${it.id}")
                     Toast.makeText(
@@ -83,5 +123,14 @@ class UpdateProfile : AppCompatActivity() {
             startActivity(intent)
         }
 
+    }
+    public override fun onStart() {
+        super.onStart()
+        auth.addAuthStateListener(FirebaseAuth.AuthStateListener {  })
+    }
+
+    public override fun onPause() {
+        super.onPause()
+        auth.removeAuthStateListener(FirebaseAuth.AuthStateListener {  })
     }
 }
