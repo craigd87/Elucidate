@@ -57,18 +57,29 @@ class DashboardFragment : Fragment() {
         val user = auth.currentUser
         val uName= user!!.displayName
         val id= user.uid
+        var name= ""
 
-        val docRef= FirebaseUtils().fireStoreDatabase.collection("users")
+        val docRef= FirebaseUtils().fireStoreDatabase.collection("users").document("$id")
+        docRef.get()
+            .addOnSuccessListener { document ->
+                if (document != null){
+                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                    name= document.getString("name").toString()
+                    binding.textDashWelcome.text="Hi " + name
+                }else{
+                    Log.d("noexist", "no such document")
+                }
+            }
 
-        val docData=docRef.whereEqualTo("id", "$id").get().toString()
 
 
 
-        if (user != null) {
-            binding.textDashWelcome.text="Hi $docData"
+
+        /*if (user != null) {
+            binding.textDashWelcome.text="Hi $name"
         }else{
             binding.textDashWelcome.text="null"
-        }
+        }*/
         val mood=binding.editTextMood.text
         val uid= user?.uid
         val hashMap = hashMapOf<String, Any>(
