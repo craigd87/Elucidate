@@ -58,8 +58,9 @@ class DashboardFragment : Fragment() {
         val uName= user!!.displayName
         val id= user.uid
         var name= ""
+        var age=""
 
-        val docRef= FirebaseUtils().fireStoreDatabase.collection("users").document("$id")
+        /*val docRef= FirebaseUtils().fireStoreDatabase.collection("users").document("$id")
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document != null){
@@ -69,9 +70,18 @@ class DashboardFragment : Fragment() {
                 }else{
                     Log.d("noexist", "no such document")
                 }
+            }*/
+     val queryRef= FirebaseUtils().fireStoreDatabase.collection("users")
+        queryRef.whereEqualTo("name", "Monica")
+            .get()
+            .addOnSuccessListener { documents ->
+                for(document in documents){
+                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                    age= document.getString("age").toString()
+                    binding.textDashWelcome.text= "Hi "+age
+                }
+
             }
-
-
 
 
 
