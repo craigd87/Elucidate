@@ -1,5 +1,6 @@
 package com.example.elucidate
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -42,16 +43,11 @@ class DashboardFragment : Fragment() {
         }
     }
 
-    //var mood= ""
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        //return inflater.inflate(R.layout.fragment_dashboard, container, false)
-        //val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater,
-          //  R.layout.fragment_dashboard,container,false)
-        //return binding.root
+
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
         auth= Firebase.auth
         val user = auth.currentUser
@@ -60,17 +56,6 @@ class DashboardFragment : Fragment() {
         var name= ""
         var age=""
 
-        /*val docRef= FirebaseUtils().fireStoreDatabase.collection("users").document("$id")
-        docRef.get()
-            .addOnSuccessListener { document ->
-                if (document != null){
-                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                    name= document.getString("name").toString()
-                    binding.textDashWelcome.text="Hi " + name
-                }else{
-                    Log.d("noexist", "no such document")
-                }
-            }*/
      val queryRef= FirebaseUtils().fireStoreDatabase.collection("users")
         queryRef.whereEqualTo("name", "Monica")
             .get()
@@ -84,12 +69,6 @@ class DashboardFragment : Fragment() {
             }
 
 
-
-        /*if (user != null) {
-            binding.textDashWelcome.text="Hi $name"
-        }else{
-            binding.textDashWelcome.text="null"
-        }*/
         val mood=binding.editTextMood.text
         val uid= user?.uid
         val hashMap = hashMapOf<String, Any>(
@@ -99,32 +78,37 @@ class DashboardFragment : Fragment() {
         )
 
         binding.btnLogMood.setOnClickListener{view : View ->
-            //var mood= binding.editTextLogMood.text
-            //view.findNavController().navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
 
-            FirebaseUtils().fireStoreDatabase.collection("userMoods")
-                .add(hashMap)
-                .addOnSuccessListener {
-                    Log.d(TAG, "Added document with ID ${it.id}")
-                    Toast.makeText(
-                        context, "SUCCESS!",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error adding document $exception")
-                    Toast.makeText(
-                        context, "Error adding document $exception",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
+            logMood(hashMap)
+
         }
+
         binding.btnDashLogOut.setOnClickListener{
             Firebase.auth.signOut()
             activity?.finish()
         }
 
         return binding.root
+    }
+
+    fun logMood(hashMap: HashMap<String, Any>){
+        FirebaseUtils().fireStoreDatabase.collection("userMoods")
+            .add(hashMap)
+            .addOnSuccessListener {
+                Log.d(TAG, "Added document with ID ${it.id}")
+                Toast.makeText(
+                    context, "SUCCESS!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error adding document $exception")
+                Toast.makeText(
+                    context, "Error adding document $exception",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        //view.findNavController().navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
     }
 
     companion object {

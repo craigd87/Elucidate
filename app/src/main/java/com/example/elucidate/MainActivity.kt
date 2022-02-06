@@ -17,17 +17,18 @@ import com.google.firebase.ktx.Firebase
 private lateinit var auth: FirebaseAuth
 
 class MainActivity() : AppCompatActivity() {
-    private var binding: ActivityMainBinding? = null
+    /*private var binding: ActivityMainBinding? = null
 
     constructor(parcel: Parcel) : this() {
 
-    }
+    }*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
-        //setContentView(R.layout.activity_main)
+
         setContentView(binding?.root)
+
         auth = Firebase.auth
         val currentUser = auth.currentUser
         if(currentUser != null){

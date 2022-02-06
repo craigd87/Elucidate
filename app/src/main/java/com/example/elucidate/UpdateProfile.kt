@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.elucidate.databinding.ActivityUpdateProfileBinding
 import com.example.elucidate.databinding.ActivityWelcomeBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -26,22 +27,30 @@ class UpdateProfile : AppCompatActivity() {
         val userId= intent.getStringExtra("user_id").toString()
         val email=intent.getStringExtra("email").toString()
         val password=intent.getStringExtra("password").toString()
-        val name= binding.editTexProfileName.text
-        val age= binding.editTextProfileAge.text
-        val users = FirebaseUtils().fireStoreDatabase.collection("users")
+        val name= binding.editTexProfileName.text.toString()
+        val age= binding.editTextProfileAge.text.toString()
 
-        binding.textViewEnterDetails.text="User id : "+userId
+
+        //binding.textViewEnterDetails.text="User id : "+userId
         val uDetails = hashMapOf<String, Any>()
-            //"id" to "${uid}",
 
+        login(email, password, name)
 
+        binding.btnUpdateProfile.setOnClickListener{
 
+            if (user != null) {
+                updateProfile(name, age, user, userId, uDetails)
+            }
+        }
 
+    }
+
+    fun login(email: String, password: String, name: String){
         FirebaseAuth.AuthStateListener { auth ->
             val user = auth.currentUser
             if (user!=null){
                 Toast.makeText(this, "Logged in",
-                Toast.LENGTH_SHORT
+                    Toast.LENGTH_SHORT
                 ).show()
             }else{
                 auth.signInWithEmailAndPassword(email, password)
@@ -70,59 +79,54 @@ class UpdateProfile : AppCompatActivity() {
                     }
             }
         }
+    }
 
-        binding.btnUpdateProfile.setOnClickListener{
+    fun updateProfile(name: String, age: String, user: FirebaseUser, userId: String, uDetails: HashMap<String, Any> ){
+        val profileUpdates =
+            UserProfileChangeRequest.Builder()
+                .setDisplayName(name)
+                .build()
 
+        user!!.updateProfile(profileUpdates)
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(ContentValues.TAG, "User profile updated.")
 
-            val profileUpdates =
-                UserProfileChangeRequest.Builder()
-                    .setDisplayName("$name")
-                    .build()
-
-            user!!.updateProfile(profileUpdates)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Log.d(ContentValues.TAG, "User profile updated.")
-
-                    } else {
-                        // If sign in fails, display a message to the user.
-                        Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            baseContext, "profile update failed.",
-                            Toast.LENGTH_SHORT
-                        ).show()
-
-                    }
-
-                }
-            uDetails.put("id", userId)
-            uDetails.put("name", "$name")
-            uDetails.put("age", "$age")
-            uDetails.put("working?", "yes this seems to be working!")
-
-            users.document(userId).set(uDetails)
-
-                //.add(uDetails)
-                .addOnSuccessListener {
-                    //Log.d(TAG, "Added document with ID ${it.id}")
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(ContentValues.TAG, "createUserWithEmail:failure", task.exception)
                     Toast.makeText(
-                        baseContext, "SUCCESS!",
+                        baseContext, "profile update failed.",
                         Toast.LENGTH_SHORT
                     ).show()
+
                 }
-                .addOnFailureListener { exception ->
-                    Log.w(TAG, "Error adding document $exception")
-                    Toast.makeText(
-                        baseContext, "Error adding document $exception",
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-            val intent= Intent(this, Dashboard::class.java)
+
+            }
+        uDetails.put("id", userId)
+        uDetails.put("name", name)
+        uDetails.put("age", age)
+        uDetails.put("working?", "yes this seems to be working!")
+        val users = FirebaseUtils().fireStoreDatabase.collection("users")
+        users.document(userId).set(uDetails)
 
 
-            startActivity(intent)
-        }
-
+            .addOnSuccessListener {
+                //Log.d(TAG, "Added document with ID ${it.id}")
+                Toast.makeText(
+                    baseContext, "SUCCESS!",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            .addOnFailureListener { exception ->
+                Log.w(TAG, "Error adding document $exception")
+                Toast.makeText(
+                    baseContext, "Error adding document $exception",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+        val intent= Intent(this, Dashboard::class.java)
+        startActivity(intent)
     }
     public override fun onStart() {
         super.onStart()
