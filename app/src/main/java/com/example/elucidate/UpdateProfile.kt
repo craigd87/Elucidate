@@ -27,19 +27,19 @@ class UpdateProfile : AppCompatActivity() {
         val userId= intent.getStringExtra("user_id").toString()
         val email=intent.getStringExtra("email").toString()
         val password=intent.getStringExtra("password").toString()
-        val name= binding.editTexProfileName.text.toString()
-        val age= binding.editTextProfileAge.text.toString()
+        val name= binding.editTexProfileName.text
+        val age= binding.editTextProfileAge.text
 
 
         //binding.textViewEnterDetails.text="User id : "+userId
         val uDetails = hashMapOf<String, Any>()
 
-        login(email, password, name)
+        login(email, password, "$name")
 
         binding.btnUpdateProfile.setOnClickListener{
 
             if (user != null) {
-                updateProfile(name, age, user, userId, uDetails)
+                updateProfile("$name", "$age", user, userId, uDetails)
             }
         }
 
@@ -53,7 +53,7 @@ class UpdateProfile : AppCompatActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
             }else{
-                auth.signInWithEmailAndPassword(email, password)
+                auth.signInWithEmailAndPassword("$email", "$password")
 
                     .addOnCompleteListener(this) { task ->
                         if (task.isSuccessful) {
@@ -104,8 +104,8 @@ class UpdateProfile : AppCompatActivity() {
 
             }
         uDetails.put("id", userId)
-        uDetails.put("name", name)
-        uDetails.put("age", age)
+        uDetails.put("name", "$name")
+        uDetails.put("age", "$age")
         uDetails.put("working?", "yes this seems to be working!")
         val users = FirebaseUtils().fireStoreDatabase.collection("users")
         users.document(userId).set(uDetails)

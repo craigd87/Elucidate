@@ -29,13 +29,13 @@ class SignUp : AppCompatActivity() {
         // Initialize Firebase Auth
         auth = Firebase.auth
 
-        val email= binding.btnEmail.text.toString()
-        val password= binding.btnPassword.text.toString()
+        val email= binding.btnEmail.text
+        val password= binding.btnPassword.text
 
 
         binding.btnCreateAccount.setOnClickListener {
 
-            auth.createUserWithEmailAndPassword (email, password)
+            auth.createUserWithEmailAndPassword ("$email", "$password")
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
                         Log.d(TAG, "createUserWithEmail:success")
@@ -45,8 +45,8 @@ class SignUp : AppCompatActivity() {
                         val user : FirebaseUser = task.result!!.user!!
                         val intent= Intent(this, UpdateProfile::class.java)
                         intent.putExtra("user_id", user.uid)
-                        intent.putExtra("email", email)
-                        intent.putExtra("password", password)
+                        intent.putExtra("email", "$email")
+                        intent.putExtra("password", "$password")
                         startActivity(intent)
 
                     }

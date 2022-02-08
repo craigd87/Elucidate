@@ -21,11 +21,11 @@ class Login : AppCompatActivity() {
         setContentView(binding?.root)
 
         auth= Firebase.auth
-        val email = binding.loginEmailAddress.text.toString()
-        val password = binding.loginPassword.text.toString()
+        val email = binding.loginEmailAddress.text
+        val password = binding.loginPassword.text
 
         binding.btnLogin.setOnClickListener{
-            login(email, password)
+            login("$email", "$password")
         }
 
         binding.btnSignUpLink.setOnClickListener{
@@ -34,7 +34,7 @@ class Login : AppCompatActivity() {
     }
 
     fun login(email: String, password: String){
-        auth.signInWithEmailAndPassword(email, password)
+        auth.signInWithEmailAndPassword("$email", "$password")
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")

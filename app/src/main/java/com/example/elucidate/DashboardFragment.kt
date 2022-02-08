@@ -14,6 +14,7 @@ import androidx.navigation.findNavController
 import com.example.elucidate.databinding.ActivityDashboardBinding
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldPath
@@ -71,15 +72,11 @@ class DashboardFragment : Fragment() {
 
         val mood=binding.editTextMood.text
         val uid= user?.uid
-        val hashMap = hashMapOf<String, Any>(
-            "id" to "$uid",
-            "mood" to "$mood"
-
-        )
+        val moodDetails = hashMapOf<String, Any>()
 
         binding.btnLogMood.setOnClickListener{view : View ->
 
-            logMood(hashMap)
+            logMood(moodDetails, uid, "$mood" )
 
         }
 
@@ -91,11 +88,16 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-    fun logMood(hashMap: HashMap<String, Any>){
-        FirebaseUtils().fireStoreDatabase.collection("userMoods")
-            .add(hashMap)
+    fun logMood(moodDetails: HashMap<String, Any>, uid: String, mood: String){
+        /*FirebaseUtils().fireStoreDatabase.collection("userMoods")
+            .add(hashMap)*/
+        moodDetails.put("id", uid)
+        moodDetails.put("mood", "$mood")
+
+        val userMoods = FirebaseUtils().fireStoreDatabase.collection("userMoods")
+        userMoods.document().set(moodDetails)
             .addOnSuccessListener {
-                Log.d(TAG, "Added document with ID ${it.id}")
+                //Log.d(TAG, "Added document with ID ${it.id}")
                 Toast.makeText(
                     context, "SUCCESS!",
                     Toast.LENGTH_SHORT
