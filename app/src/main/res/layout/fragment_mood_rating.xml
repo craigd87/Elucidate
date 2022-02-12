@@ -41,6 +41,8 @@
         android:layout_marginTop="64dp"
         android:layout_marginEnd="61dp"
         android:layout_marginBottom="64dp"
+
+        android:max="10"
         app:layout_constraintBottom_toTopOf="@+id/btnRateMood"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

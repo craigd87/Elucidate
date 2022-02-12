@@ -110,7 +110,7 @@ class DashboardFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        //view.findNavController().navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
+        view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
     }
 
     companion object {
