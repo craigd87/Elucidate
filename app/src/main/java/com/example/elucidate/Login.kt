@@ -38,8 +38,8 @@ class Login : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
-                    val intent= Intent(this, Dashboard::class.java)
-                    startActivity(intent)
+                    /*val intent= Intent(this, Dashboard::class.java)
+                    startActivity(intent)*/
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)

@@ -125,8 +125,8 @@ class UpdateProfile : AppCompatActivity() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        val intent= Intent(this, Dashboard::class.java)
-        startActivity(intent)
+        /*val intent= Intent(this, Dashboard::class.java)
+        startActivity(intent)*/
     }
     public override fun onStart() {
         super.onStart()

@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.findNavController
-import com.example.elucidate.databinding.ActivityDashboardBinding
+
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -50,39 +50,47 @@ class DashboardFragment : Fragment() {
     ): View? {
 
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
-        auth= Firebase.auth
-        val user = auth.currentUser
-        val uName= user!!.displayName
-        val id= user.uid
-        var name= ""
-        var age=""
 
-     val queryRef= FirebaseUtils().fireStoreDatabase.collection("users")
-        queryRef.whereEqualTo("name", "Monica")
-            .get()
-            .addOnSuccessListener { documents ->
-                for(document in documents){
-                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                    age= document.getString("age").toString()
-                    binding.textDashWelcome.text= "Hi "+age
+        val user = auth.currentUser
+        if(user==null) {
+            view?.findNavController()?.navigate(R.id.action_global_LoginFragment)
+        }else {
+
+
+            val uName = user!!.displayName
+            val id = user.uid
+            var name = ""
+            var age = ""
+
+
+            val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
+            queryRef.whereEqualTo("name", "Monica")
+                .get()
+                .addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                        age = document.getString("age").toString()
+                        binding.textDashWelcome.text = "Hi " + age
+                    }
+
                 }
+
+
+            val mood = binding.editTextMood.text
+            val uid = user?.uid
+            val moodDetails = hashMapOf<String, Any>()
+
+            binding.btnLogMood.setOnClickListener { view: View ->
+
+                logMood(moodDetails, uid, "$mood")
 
             }
 
+            binding.btnDashLogOut.setOnClickListener {
+                Firebase.auth.signOut()
+                activity?.finish()
+            }
 
-        val mood=binding.editTextMood.text
-        val uid= user?.uid
-        val moodDetails = hashMapOf<String, Any>()
-
-        binding.btnLogMood.setOnClickListener{view : View ->
-
-            logMood(moodDetails, uid, "$mood" )
-
-        }
-
-        binding.btnDashLogOut.setOnClickListener{
-            Firebase.auth.signOut()
-            activity?.finish()
         }
 
         return binding.root
@@ -110,7 +118,7 @@ class DashboardFragment : Fragment() {
                     Toast.LENGTH_LONG
                 ).show()
             }
-        view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
+        //view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
     }
 
     companion object {
