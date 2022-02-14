@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation"
-    app:startDestination="@id/dashboardFragment">
+    app:startDestination="@id/titleFragment">
 
     <fragment
         android:id="@+id/dashboardFragment"
@@ -18,8 +18,28 @@
     <action
         android:id="@+id/action_global_LoginFragment"
         app:destination="@+id/loginFragment"
+
         app:launchSingleTop="false"
-        app:popUpTo="@+id/main_navigation"
+        app:popUpTo="@+id/navigation"
         app:popUpToInclusive="true"
         />
+    <action
+        android:id="@+id/action_global_DashboardFragment"
+        app:destination="@+id/DashboardFragment"
+        app:launchSingleTop="false"
+        app:popUpTo="@+id/navigation"
+        app:popUpToInclusive="true"
+        />
+    <fragment
+        android:id="@+id/titleFragment"
+        android:name="com.example.elucidate.TitleFragment"
+        android:label="fragment_title"
+        tools:layout="@layout/fragment_title" >
+        <action
+            android:id="@+id/action_titleFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_titleFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 </navigation>

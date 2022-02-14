@@ -29,4 +29,5 @@
     <string name="save_complete"><![CDATA[Save & complete]]></string>
     <string name="profile_name">Name...</string>
     <string name="please_enter_your_details">Please enter your details...</string>
+    <string name="get_started">Get Started</string>
 </resources>

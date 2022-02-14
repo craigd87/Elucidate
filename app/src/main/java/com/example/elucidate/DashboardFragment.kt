@@ -51,11 +51,8 @@ class DashboardFragment : Fragment() {
 
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
 
-        val user = auth.currentUser
-        if(user==null) {
-            view?.findNavController()?.navigate(R.id.action_global_LoginFragment)
-        }else {
 
+    val user= auth.currentUser
 
             val uName = user!!.displayName
             val id = user.uid
@@ -91,7 +88,7 @@ class DashboardFragment : Fragment() {
                 activity?.finish()
             }
 
-        }
+
 
         return binding.root
     }
