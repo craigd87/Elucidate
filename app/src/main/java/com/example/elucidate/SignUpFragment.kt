@@ -1,6 +1,6 @@
 package com.example.elucidate
 
-import android.app.Activity
+import android.content.ContentValues
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -8,12 +8,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.navigation.findNavController
-import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.example.elucidate.databinding.FragmentLoginBinding
-import com.google.android.gms.tasks.Task
+import com.example.elucidate.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -25,10 +23,10 @@ private lateinit var auth: FirebaseAuth
 
 /**
  * A simple [Fragment] subclass.
- * Use the [LoginFragment.newInstance] factory method to
+ * Use the [SignUpFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class LoginFragment : Fragment() {
+class SignUpFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -46,40 +44,56 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding = FragmentLoginBinding.inflate(layoutInflater)
+        val binding = FragmentSignUpBinding.inflate(layoutInflater)
 
-        auth= Firebase.auth
-        val email = binding.loginEmailAddress.text
-        val password = binding.loginPassword.text
+        // Initialize Firebase Auth
+        auth = Firebase.auth
 
-        binding.btnLogin.setOnClickListener{
-            login("$email", "$password")
-        }
+        val email= binding.btnEmail.text
+        val password= binding.btnPassword.text
 
-        binding.btnSignUpLink.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_loginFragment2_to_signUpFragment)
-        }
-        return binding.root
-    }
 
-    fun login(email: String, password: String){
-        auth.signInWithEmailAndPassword("$email", "$password")
-            .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
-                    /*val intent= Intent(this, Dashboard::class.java)
-                    startActivity(intent)*/
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(context,"Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+        binding.btnCreateAccount.setOnClickListener {
+
+            auth.createUserWithEmailAndPassword ("$email", "$password")
+                .addOnCompleteListener() { task ->
+                    if (task.isSuccessful) {
+                        Log.d(ContentValues.TAG, "createUserWithEmail:success")
+
+                        //with help from TutorialsEU https://www.youtube.com/watch?v=8I5gCLaS25w
+
+                        val user : FirebaseUser = task.result!!.user!!
+                        /*val intent= Intent(this, UpdateProfile::class.java)
+                        intent.putExtra("user_id", user.uid)
+                        intent.putExtra("email", "$email")
+                        intent.putExtra("password", "$password")
+                        startActivity(intent)*/
+
+                    }
 
                 }
+
+        }
+
+        /*binding.btnCheckName.setOnClickListener{
+            if (user != null) {
+                Toast.makeText(baseContext, "welcome "+user.displayName,
+                    Toast.LENGTH_SHORT).show()
+            }else{
+                Toast.makeText(baseContext, "user missing",
+                    Toast.LENGTH_SHORT).show()
             }
+        }
+        binding.btnSignOut.setOnClickListener{
+            Firebase.auth.signOut()
+        }*/
+
+
+
+
+
+    return binding.root
     }
-
-
 
     companion object {
         /**
@@ -88,12 +102,12 @@ class LoginFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment LoginFragment.
+         * @return A new instance of fragment SignUpFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            LoginFragment().apply {
+            SignUpFragment().apply {
                 arguments = Bundle().apply {
                     putString(ARG_PARAM1, param1)
                     putString(ARG_PARAM2, param2)
@@ -101,5 +115,3 @@ class LoginFragment : Fragment() {
             }
     }
 }
-
-
