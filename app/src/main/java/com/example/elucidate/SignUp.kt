@@ -49,6 +49,7 @@ class SignUp : AppCompatActivity() {
                         intent.putExtra("password", "$password")
                         startActivity(intent)
 
+
                     }
 
                 }

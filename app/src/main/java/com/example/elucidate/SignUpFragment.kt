@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.example.elucidate.databinding.FragmentLoginBinding
 import com.example.elucidate.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -68,7 +69,8 @@ class SignUpFragment : Fragment() {
                         intent.putExtra("email", "$email")
                         intent.putExtra("password", "$password")
                         startActivity(intent)*/
-
+                        val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment(user.uid, "$email", "$password")
+                        view?.findNavController()?.navigate(action)
                     }
 
                 }

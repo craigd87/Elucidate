@@ -52,7 +52,28 @@
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
         <action
-            android:id="@+id/action_signUpFragment_to_dashboardFragment"
+            android:id="@+id/action_signUpFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/updateProfileFragment"
+        android:name="com.example.elucidate.UpdateProfileFragment"
+        android:label="fragment_update_profile"
+        tools:layout="@layout/fragment_update_profile" >
+        <action
+            android:id="@+id/action_updateProfileFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <argument
+            android:name="userId"
+            app:argType="string"
+            android:defaultValue='"Empty"' />
+        <argument
+            android:name="email"
+            app:argType="string"
+            android:defaultValue='"empty"' />
+        <argument
+            android:name="password"
+            app:argType="string"
+            android:defaultValue='"empty"' />
     </fragment>
 </navigation>
