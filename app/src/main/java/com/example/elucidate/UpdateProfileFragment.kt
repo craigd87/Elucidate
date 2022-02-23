@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.elucidate.databinding.FragmentLoginBinding
 import com.example.elucidate.databinding.FragmentUpdateProfileBinding
@@ -158,6 +159,7 @@ class UpdateProfileFragment : Fragment() {
             }
         /*val intent= Intent(this, Dashboard::class.java)
         startActivity(intent)*/
+        view?.findNavController()?.navigate(R.id.action_updateProfileFragment_to_dashboardFragment)
     }
 
     companion object {

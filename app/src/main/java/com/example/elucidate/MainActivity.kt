@@ -32,8 +32,8 @@ class MainActivity() : AppCompatActivity() {
 
         setContentView(binding?.root)
 
-        auth = Firebase.auth
-        val currentUser = auth.currentUser
+        /*auth = Firebase.auth
+        val currentUser = auth.currentUser*/
 
 
         /*if(currentUser != null){

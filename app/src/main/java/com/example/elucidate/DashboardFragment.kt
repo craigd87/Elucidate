@@ -19,6 +19,12 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.ktx.Firebase
+import com.google.type.Date
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.util.*
+import java.util.logging.Level.parse
+import kotlin.collections.HashMap
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,15 +58,24 @@ class DashboardFragment : Fragment() {
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
 
 
+        auth = Firebase.auth
     val user= auth.currentUser
 
             val uName = user!!.displayName
             val id = user.uid
             var name = ""
             var age = ""
+        val dateString="12-02-2022"
+        val date1= Calendar.getInstance().set(2022,1,12,0,0,0)
+        val date2= Calendar.getInstance().set(2022,1,13,0,0,0)
+
+        //val finalDate =date.set(2022, 1, 12)
+        var moodRating=""
 
 
-            val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
+
+
+            /*val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
             queryRef.whereEqualTo("name", "Monica")
                 .get()
                 .addOnSuccessListener { documents ->
@@ -70,7 +85,26 @@ class DashboardFragment : Fragment() {
                         binding.textDashWelcome.text = "Hi " + age
                     }
 
-                }
+                }*/
+       try {
+           val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
+
+           queryRef.whereGreaterThanOrEqualTo("time", date1).whereLessThan("time", date2)
+               .get()
+               .addOnSuccessListener { documents ->
+                   for (document in documents) {
+                       Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                       moodRating = document.getString("moodRating").toString()
+                       binding.textDashWelcome.text = "Hi " + moodRating
+                   }
+
+               }
+
+       } catch (e:Exception){
+           binding.textDashWelcome.text = "$date1"
+       }
+
+
 
 
             val mood = binding.editTextMood.text
