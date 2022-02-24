@@ -13,11 +13,13 @@ import androidx.databinding.ViewDataBinding
 import androidx.navigation.findNavController
 
 import com.example.elucidate.databinding.FragmentDashboardBinding
+import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FieldPath
+import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.type.Date
 import java.text.SimpleDateFormat
@@ -65,9 +67,23 @@ class DashboardFragment : Fragment() {
             val id = user.uid
             var name = ""
             var age = ""
-        val dateString="12-02-2022"
+        /*val dateString="12-02-2022"
         val date1= Calendar.getInstance().set(2022,1,12,0,0,0)
         val date2= Calendar.getInstance().set(2022,1,13,0,0,0)
+        val dateEx= Calendar.getInstance().timeInMillis*/
+
+        //take date string and parse to obtain value in milliseconds from
+        val simpleDate1= "2022/02/12 00:00:00"
+        val simpleDate2= "2022/02/12 23:59:59"
+        val sdf= SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val date1Parse= sdf.parse(simpleDate1)
+        val date2Parse= sdf.parse(simpleDate2)
+        val date1Millis=date1Parse.time
+        val date2Millis=date2Parse.time
+
+        //create date objects from the milliseconds
+        val finalDate1= Date(date1Millis)
+        val finalDate2= Date(date2Millis)
 
         //val finalDate =date.set(2022, 1, 12)
         var moodRating=""
@@ -86,23 +102,30 @@ class DashboardFragment : Fragment() {
                     }
 
                 }*/
-       try {
+
            val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
 
-           queryRef.whereGreaterThanOrEqualTo("time", date1).whereLessThan("time", date2)
+           queryRef.whereGreaterThanOrEqualTo("time", finalDate1).whereLessThan("time", finalDate2)
                .get()
                .addOnSuccessListener { documents ->
                    for (document in documents) {
+                       if(document!=null){
                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                       moodRating = document.getString("moodRating").toString()
-                       binding.textDashWelcome.text = "Hi " + moodRating
+                       //moodRating = document.getString("moodRating").toString()
+                           moodRating= document.getString("moodRating").toString()
+                           binding.textDashWelcome.text = "Hi " + moodRating
+                       }else{
+                           binding.textDashWelcome.text = "NULL"
+                       }
+
                    }
 
                }
 
-       } catch (e:Exception){
-           binding.textDashWelcome.text = "$date1"
-       }
+       /*} catch (e:Exception){
+           binding.textDashWelcome.text = "eXCEPTION"
+       }*/
+        //binding.textDashWelcome.text="$dateMillis1 then $dateMillis2"
 
 
 

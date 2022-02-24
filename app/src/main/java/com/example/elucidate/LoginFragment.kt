@@ -67,6 +67,7 @@ class LoginFragment : Fragment() {
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
+                    view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
                     /*val intent= Intent(this, Dashboard::class.java)
                     startActivity(intent)*/
                 } else {
