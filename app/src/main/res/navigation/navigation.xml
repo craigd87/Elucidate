@@ -48,6 +48,9 @@
         <action
             android:id="@+id/action_titleFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_stringTestFragment"
+            app:destination="@id/stringTestFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -79,4 +82,9 @@
             app:argType="string"
             android:defaultValue='"empty"' />
     </fragment>
+    <fragment
+        android:id="@+id/stringTestFragment"
+        android:name="com.example.elucidate.StringTestFragment"
+        android:label="fragment_string_test"
+        tools:layout="@layout/fragment_string_test" />
 </navigation>

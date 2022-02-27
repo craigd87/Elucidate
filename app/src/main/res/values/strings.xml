@@ -30,4 +30,6 @@
     <string name="profile_name">Name...</string>
     <string name="please_enter_your_details">Please enter your details...</string>
     <string name="get_started">Get Started</string>
+    <string name="split_tester">Here I am testing my string? I want, to make sure/clarify \n
+                    that it works! If it doesn\'t- I will be angry; and I will be annoyed.</string>
 </resources>
