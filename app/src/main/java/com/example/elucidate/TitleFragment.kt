@@ -54,7 +54,7 @@ class TitleFragment : Fragment() {
 
         }else{
             //view?.findNavController()?.navigate(R.id.action_titleFragment_to_loginFragment2)
-        view?.findNavController()?.navigate(R.id.action_titleFragment_to_stringTestFragment)
+        view?.findNavController()?.navigate(R.id.action_titleFragment_to_chipTestFragment)
         }
         }
 

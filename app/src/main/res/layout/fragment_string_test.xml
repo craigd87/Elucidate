@@ -7,43 +7,33 @@
     android:layout_height="match_parent"
     tools:context=".StringTestFragment">
 
-    <TextView
-        android:id="@+id/textViewTester"
-        android:layout_width="335dp"
-        android:layout_height="72dp"
-        android:layout_marginStart="38dp"
-        android:layout_marginTop="84dp"
-        android:layout_marginEnd="38dp"
-        android:text="@string/split_tester"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btnSplitTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="138dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="138dp"
-        android:text="@string/get_started"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTester" />
-
-    <TextView
-        android:id="@+id/textViewTestResult"
-        android:layout_width="178dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="181dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="230dp"
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroupMain"
+        android:layout_width="155dp"
+        android:layout_height="106dp"
+        android:layout_marginStart="200dp"
+        android:layout_marginEnd="211dp"
+        android:layout_marginBottom="572dp"
         android:background="#00BCD4"
-        android:text="@string/account_created"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.365"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnSplitTest" />
+        app:layout_constraintHorizontal_bias="0.774"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chip5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="chip" />
+
+        <Button
+            android:id="@+id/btnSplitTest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="138dp"
+            android:layout_marginTop="48dp"
+            android:layout_marginEnd="138dp"
+            android:text="@string/get_started" />
+    </com.google.android.material.chip.ChipGroup>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
