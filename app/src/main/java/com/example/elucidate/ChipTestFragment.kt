@@ -1,6 +1,8 @@
 package com.example.elucidate
 
 import android.os.Bundle
+import android.os.ParcelFileDescriptor.open
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,12 @@ import android.view.ViewGroup
 import com.example.elucidate.databinding.FragmentChipTestBinding
 import com.example.elucidate.databinding.FragmentStringTestBinding
 import com.google.android.material.chip.Chip
+import java.io.File
+import java.io.InputStream
+import java.nio.channels.AsynchronousFileChannel.open
+import java.nio.channels.AsynchronousServerSocketChannel.open
+import java.nio.channels.DatagramChannel.open
+import java.nio.channels.FileChannel.open
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,10 +66,28 @@ class ChipTestFragment : Fragment() {
         //val delim15= "\n"
         //val delimRegex= Regex()
 
+
+
         binding.btnChipTest.setOnClickListener{
+            val bufferedReader= File("src/main/res/stopwords.txt").bufferedReader()
+            val words= mutableListOf<String>()
+            bufferedReader.useLines { lines -> lines.forEach { words.add(it) } }
+            words.forEach{ Log.i("Craig", "${it}")}
+
+            //val inputStream: InputStream = File("stopwords.txt").inputStream()
+            val fileName= "stopwords.txt"
+            //val inputString = application.assets.open(fileName).bufferedReader().use { it.readText() }
+            //Log.i("Craig", "${inputString}")
+
             val resultText= stringToSplit.split(delim1,delim2,delim3,delim4,delim5,delim6,delim7,delim8,delim9,delim10,
                 delim11,delim12,delim13,delim14)
-            val printText= resultText.filter{!it.isBlank()}
+            val printText= resultText.filter{
+                !it.isBlank()&&!it.contentEquals("I")
+                //!it.contentEquals("I")
+                //!it.contentEquals("am")
+
+            }
+
             /*var resultTestMut=resultText.toMutableList()
             for(item in resultTestMut){
                 if(item.contentEquals(" ")){
@@ -79,9 +105,9 @@ class ChipTestFragment : Fragment() {
             chip.setCloseIconVisible(true);
 
             binding.chipGroupMain2.addView(chip)
-            for (item in resultText){
+            for (item in printText){
                 val chip2= Chip(activity)
-                chip2.text=item.toString()
+                chip2.text=item
 
                 chip2.setChipBackgroundColorResource(R.color.white)
                 chip2.setCloseIconVisible(true);
