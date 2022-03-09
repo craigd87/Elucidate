@@ -72,15 +72,15 @@
         <argument
             android:name="userId"
             app:argType="string"
-            android:defaultValue='"Empty"' />
+           />
         <argument
             android:name="email"
             app:argType="string"
-            android:defaultValue='"empty"' />
+             />
         <argument
             android:name="password"
             app:argType="string"
-            android:defaultValue='"empty"' />
+             />
     </fragment>
     <fragment
         android:id="@+id/chipTestFragment"

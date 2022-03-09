@@ -70,6 +70,7 @@ class SignUpFragment : Fragment() {
                         intent.putExtra("password", "$password")
                         startActivity(intent)*/
                         val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment(user.uid, "$email", "$password")
+                        //val action2= SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment()
                         view?.findNavController()?.navigate(action)
                     }
 

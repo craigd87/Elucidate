@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import java.io.InputStream
 
 //const val TAG = "FIRESTORE"
 private lateinit var auth: FirebaseAuth
@@ -31,6 +32,7 @@ class MainActivity() : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding?.root)
+        val inputStream: InputStream = assets.open("stopwords.txt")
 
         /*auth = Firebase.auth
         val currentUser = auth.currentUser*/
