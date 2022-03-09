@@ -84,19 +84,44 @@ class ChipTestFragment : Fragment() {
             //val inputStream: InputStream = File("stopwords.txt").inputStream()
 
 val fileName= "stopwords.txt"
-            val inputString = activity?.assets?.open("stopwords.txt")?.bufferedReader().use { it?.readText()
+
+            /*val inputString = activity?.assets?.open("stopwords.txt")?.bufferedReader().use { it?.readText()
                  }
-            //val inputString = application.assets.open(fileName).bufferedReader().use { it.readText() }
-            Log.i("Craig", "${inputString}")
+
+            Log.i("Craig", "${inputString}")*/
+            val lineList = mutableListOf<String>()
+            val inputString = activity?.assets?.open(fileName)?.bufferedReader()?.useLines { lines -> lines.forEach { lineList.add(it)} }
+            lineList.forEach{
+                Log.i("Craig",  it)
+            }
 
             val resultText= stringToSplit.split(delim1,delim2,delim3,delim4,delim5,delim6,delim7,delim8,delim9,delim10,
                 delim11,delim12,delim13,delim14)
-            val printText= resultText.filter{
-                !it.isBlank()&&!it.contentEquals("I")
+            val textList= mutableListOf<String>()
+            resultText.forEach{
+                textList.add(it)
+            }
+
+           /* val iterator=textList.iterator()
+            for (item in lineList){
+                for (subItem in textList){
+                    while (iterator.hasNext()){
+                        if (subItem.contentEquals(item)){
+                            textList.remove(subItem)
+                    }
+
+                    }
+                }
+            }*/
+
+
+           val printText= textList.filter{
+                !it.isBlank()
                 //!it.contentEquals("I")
                 //!it.contentEquals("am")
-
             }
+
+            val distinct=printText.toSet().toList()
 
             /*var resultTestMut=resultText.toMutableList()
             for(item in resultTestMut){
@@ -115,7 +140,7 @@ val fileName= "stopwords.txt"
             chip.setCloseIconVisible(true);
 
             binding.chipGroupMain2.addView(chip)
-            for (item in printText){
+            for (item in distinct){
                 val chip2= Chip(activity)
                 chip2.text=item
 
