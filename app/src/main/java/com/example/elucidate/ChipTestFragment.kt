@@ -55,6 +55,7 @@ class ChipTestFragment : Fragment() {
 
         val stringToSplit= "Here I am testing my string?\n I want, to make sure/clarify \n" +
                 "                    that it works! If it doesn\'t- \n I will be angry; and I will be annoyed."
+
         //var resultText= ""
         val delim1=" "
         val delim2="."
@@ -82,6 +83,7 @@ class ChipTestFragment : Fragment() {
             words.forEach{ Log.i("Craig", "${it}")}*/
 
             //val inputStream: InputStream = File("stopwords.txt").inputStream()
+            val lower= stringToSplit.lowercase()
 
 val fileName= "stopwords.txt"
 
@@ -89,19 +91,31 @@ val fileName= "stopwords.txt"
                  }
 
             Log.i("Craig", "${inputString}")*/
-            val lineList = mutableListOf<String>()
-            val inputString = activity?.assets?.open(fileName)?.bufferedReader()?.useLines { lines -> lines.forEach { lineList.add(it)} }
-            lineList.forEach{
+            val stopWords = mutableListOf<String>()
+            val inputString = activity?.assets?.open(fileName)?.bufferedReader()?.useLines { lines -> lines.forEach { stopWords.add(it)} }
+            stopWords.forEach{
                 Log.i("Craig",  it)
             }
 
-            val resultText= stringToSplit.split(delim1,delim2,delim3,delim4,delim5,delim6,delim7,delim8,delim9,delim10,
+            val moodText= lower.split(delim1,delim2,delim3,delim4,delim5,delim6,delim7,delim8,delim9,delim10,
                 delim11,delim12,delim13,delim14)
-            val textList= mutableListOf<String>()
-            resultText.forEach{
-                textList.add(it)
+            val moodTextList= mutableListOf<String>()
+            moodText.forEach{
+                moodTextList.add(it)
             }
 
+            val finalText= mutableListOf<String>()
+
+            for (item in moodTextList){
+                /*for (subItem in stopWords ){
+                    if (!subItem.contentEquals(item)){
+                        finalText.add(item)
+                    }*/
+                if(item !in stopWords){
+                    finalText.add(item)
+                }
+            }
+            val finalTextDistinct=finalText.toSet().toList()
            /* val iterator=textList.iterator()
             for (item in lineList){
                 for (subItem in textList){
@@ -115,13 +129,13 @@ val fileName= "stopwords.txt"
             }*/
 
 
-           val printText= textList.filter{
+           val printText= finalTextDistinct.filter{
                 !it.isBlank()
                 //!it.contentEquals("I")
                 //!it.contentEquals("am")
             }
 
-            val distinct=printText.toSet().toList()
+
 
             /*var resultTestMut=resultText.toMutableList()
             for(item in resultTestMut){
@@ -140,7 +154,7 @@ val fileName= "stopwords.txt"
             chip.setCloseIconVisible(true);
 
             binding.chipGroupMain2.addView(chip)
-            for (item in distinct){
+            for (item in printText){
                 val chip2= Chip(activity)
                 chip2.text=item
 
