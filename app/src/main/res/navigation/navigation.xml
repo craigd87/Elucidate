@@ -9,11 +9,7 @@
         android:id="@+id/dashboardFragment"
         android:name="com.example.elucidate.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
-        <action
-            android:id="@+id/action_dashboardFragment_to_moodEntry"
-            app:destination="@id/moodEntry" />
-    </fragment>
+        tools:layout="@layout/fragment_dashboard" />
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.elucidate.LoginFragment"
@@ -99,15 +95,6 @@
         android:name="com.example.elucidate.ChartFragment"
         android:label="fragment_chart"
         tools:layout="@layout/fragment_chart" />
-    <fragment
-        android:id="@+id/moodEntry"
-        android:name="com.example.elucidate.MoodEntry"
-        android:label="fragment_mood_entry"
-        tools:layout="@layout/fragment_mood_entry" >
-        <action
-            android:id="@+id/action_moodEntry_to_moodRatingFragment"
-            app:destination="@id/moodRatingFragment" />
-    </fragment>
     <fragment
         android:id="@+id/moodRatingFragment"
         android:name="com.example.elucidate.MoodRatingFragment"

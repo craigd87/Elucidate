@@ -11,27 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Elucidate">
-        <activity
-            android:name=".UpdateProfile"
-            android:exported="true" />
-        <activity
-            android:name=".Welcome"
-            android:exported="true" />
-        <activity
-            android:name=".tester"
-            android:exported="true" />
-        <activity
-            android:name=".Dashboard"
-            android:exported="true" />
-        <activity
-            android:name=".AccountCreated"
-            android:exported="true" />
-        <activity
-            android:name=".SignUp"
-            android:exported="true" />
-        <activity
-            android:name=".Login"
-            android:exported="true" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true">

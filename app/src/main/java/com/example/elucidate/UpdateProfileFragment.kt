@@ -1,7 +1,9 @@
 package com.example.elucidate
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.os.Bundle
+
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -90,7 +92,7 @@ class UpdateProfileFragment : Fragment() {
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d(com.example.elucidate.TAG, "signInWithEmail:success")
+                            Log.d(TAG, "signInWithEmail:success")
 
                             //val user = auth.currentUser
                             Toast.makeText(
@@ -101,7 +103,7 @@ class UpdateProfileFragment : Fragment() {
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w(com.example.elucidate.TAG, "signInWithEmail:failure", task.exception)
+                            Log.w(TAG, "signInWithEmail:failure", task.exception)
                             Toast.makeText(
                                 context, "Authentication failed.",
                                 Toast.LENGTH_SHORT
