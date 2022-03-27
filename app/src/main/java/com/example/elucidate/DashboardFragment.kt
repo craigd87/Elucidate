@@ -29,28 +29,15 @@ import java.util.*
 import java.util.logging.Level.parse
 import kotlin.collections.HashMap
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+
 private lateinit var auth: FirebaseAuth
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DashboardFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class DashboardFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -60,18 +47,14 @@ class DashboardFragment : Fragment() {
 
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
 
-
         auth = Firebase.auth
-    val user= auth.currentUser
+        val user= auth.currentUser
 
-            val uName = user!!.displayName
-            val id = user.uid
-            var name = ""
-            var age = ""
-        /*val dateString="12-02-2022"
-        val date1= Calendar.getInstance().set(2022,1,12,0,0,0)
-        val date2= Calendar.getInstance().set(2022,1,13,0,0,0)
-        val dateEx= Calendar.getInstance().timeInMillis*/
+        val uName = user!!.displayName
+        val id = user.uid
+        var name = ""
+        var age = ""
+
 
         //take date string and parse to obtain value in milliseconds from
         val simpleDate1= "2022/02/12 00:00:00"
@@ -86,7 +69,6 @@ class DashboardFragment : Fragment() {
         val finalDate1= Date(date1Millis)
         val finalDate2= Date(date2Millis)
 
-        //val finalDate =date.set(2022, 1, 12)
         var moodRating=""
 
 
@@ -152,8 +134,7 @@ class DashboardFragment : Fragment() {
     }
 
     fun logMood(moodDetails: HashMap<String, Any>, uid: String, mood: String){
-        /*FirebaseUtils().fireStoreDatabase.collection("userMoods")
-            .add(hashMap)*/
+
         moodDetails.put("id", uid)
         moodDetails.put("mood", "$mood")
 
@@ -176,23 +157,5 @@ class DashboardFragment : Fragment() {
         //view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DashboardFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DashboardFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }
