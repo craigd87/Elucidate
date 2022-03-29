@@ -1,34 +1,24 @@
 package com.example.elucidate
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import com.example.elucidate.databinding.FragmentIdentifyKeywordsBinding
 import com.example.elucidate.databinding.FragmentStringTestBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
 
-/**
- * A simple [Fragment] subclass.
- * Use the [IdentifyKeywordsFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
 class IdentifyKeywordsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
+
     }
 
     override fun onCreateView(
@@ -38,26 +28,46 @@ class IdentifyKeywordsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentIdentifyKeywordsBinding.inflate(layoutInflater)
 
+        //take date string and parse to obtain value in milliseconds from
+        val simpleDate1= "2022/03/29 00:00:00"
+        val simpleDate2= "2022/03/29 23:59:59"
+        val sdf= SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val date1Parse= sdf.parse(simpleDate1)
+        val date2Parse= sdf.parse(simpleDate2)
+        val date1Millis=date1Parse.time
+        val date2Millis=date2Parse.time
+
+        //create date objects from the milliseconds
+        val finalDate1= Date(date1Millis)
+        val finalDate2= Date(date2Millis)
+
+
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
+
+        queryRef.whereGreaterThanOrEqualTo("time", finalDate1).whereLessThan("time", finalDate2)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if(document!=null){
+                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                        //moodRating = document.getString("moodRating").toString()
+                        val mood= document.getString("moodEntry").toString()
+                        /* this retrieves one entry
+                        binding.tvTestRead.text = mood
+                         */
+                        val text= TextView(activity)
+                        text.text = mood
+                        binding.textLayout.addView(text)
+                    }else{
+                        binding.tvTestRead.text = "NULL"
+                    }
+
+                }
+
+            }
+
         return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment IdentifyKeywordsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            IdentifyKeywordsFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
+
 }

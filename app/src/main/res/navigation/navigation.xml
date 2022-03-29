@@ -9,7 +9,11 @@
         android:id="@+id/dashboardFragment"
         android:name="com.example.elucidate.DashboardFragment"
         android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_dashboard" >
+        <action
+            android:id="@+id/action_dashboardFragment_to_moodEntryFragment"
+            app:destination="@id/moodEntryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment2"
         android:name="com.example.elucidate.LoginFragment"
@@ -96,15 +100,6 @@
         android:label="fragment_chart"
         tools:layout="@layout/fragment_chart" />
     <fragment
-        android:id="@+id/moodRatingFragment"
-        android:name="com.example.elucidate.MoodRatingFragment"
-        android:label="fragment_mood_rating"
-        tools:layout="@layout/fragment_mood_rating" >
-        <action
-            android:id="@+id/action_moodRatingFragment_to_identifyKeywordsFragment"
-            app:destination="@id/identifyKeywordsFragment" />
-    </fragment>
-    <fragment
         android:id="@+id/identifyKeywordsFragment"
         android:name="com.example.elucidate.IdentifyKeywordsFragment"
         android:label="fragment_identify_keywords"
@@ -121,5 +116,14 @@
         <action
             android:id="@+id/action_keywordQualityFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/moodEntryFragment"
+        android:name="com.example.elucidate.MoodEntryFragment"
+        android:label="fragment_mood_entry"
+        tools:layout="@layout/fragment_mood_entry" >
+        <action
+            android:id="@+id/action_moodEntryFragment_to_identifyKeywordsFragment"
+            app:destination="@id/identifyKeywordsFragment" />
     </fragment>
 </navigation>

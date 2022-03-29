@@ -33,4 +33,10 @@
     <string name="split_tester">Here I am testing my string? I want, to make sure/clarify \n
                     that it works! If it doesn\'t- I will be angry; and I will be annoyed.</string>
     <string name="chart">Chart</string>
+    <string name="please_enter_details_about_how_you_are_feeling">Please enter details about how you are feeling...</string>
+    <string name="please_rate_your_mood_on_the_slider_below">Please rate your mood on the slider below...</string>
+    <string name="mood">Mood...</string>
+    <string name="low_mood">Low Mood</string>
+    <string name="good_mood">Good Mood</string>
+    <string name="success">SUCCESS!</string>
 </resources>

@@ -47,6 +47,7 @@ class DashboardFragment : Fragment() {
 
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
 
+
         auth = Firebase.auth
         val user= auth.currentUser
 
@@ -72,20 +73,19 @@ class DashboardFragment : Fragment() {
         var moodRating=""
 
 
-
-
-            /*val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
-            queryRef.whereEqualTo("name", "Monica")
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
+            queryRef.whereEqualTo("id", "$id")
                 .get()
                 .addOnSuccessListener { documents ->
                     for (document in documents) {
                         Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                        age = document.getString("age").toString()
-                        binding.textDashWelcome.text = "Hi " + age
+                        name = document.getString("name").toString()
+                        binding.tvDashWelcome.text = "Hi " + name+"!"
                     }
 
-                }*/
+                }
 
+        /* //use this along with above for accessing moods
            val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
 
            queryRef.whereGreaterThanOrEqualTo("time", finalDate1).whereLessThan("time", finalDate2)
@@ -103,7 +103,7 @@ class DashboardFragment : Fragment() {
 
                    }
 
-               }
+               }*/
 
        /*} catch (e:Exception){
            binding.textDashWelcome.text = "eXCEPTION"
@@ -113,13 +113,14 @@ class DashboardFragment : Fragment() {
 
 
 
-            val mood = binding.editTextMood.text
+            /*val mood = binding.editTextMood.text
             val uid = user?.uid
-            val moodDetails = hashMapOf<String, Any>()
+            val moodDetails = hashMapOf<String, Any>()*/
 
             binding.btnLogMood.setOnClickListener { view: View ->
 
-                logMood(moodDetails, uid, "$mood")
+                //logMood(moodDetails, uid, "$mood")
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodEntryFragment)
 
             }
 
@@ -133,7 +134,7 @@ class DashboardFragment : Fragment() {
         return binding.root
     }
 
-    fun logMood(moodDetails: HashMap<String, Any>, uid: String, mood: String){
+    /*fun logMood(moodDetails: HashMap<String, Any>, uid: String, mood: String){
 
         moodDetails.put("id", uid)
         moodDetails.put("mood", "$mood")
@@ -155,7 +156,7 @@ class DashboardFragment : Fragment() {
                 ).show()
             }
         //view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
-    }
+    }*/
 
 
 }
