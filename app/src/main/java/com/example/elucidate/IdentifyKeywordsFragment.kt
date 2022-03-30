@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.example.elucidate.databinding.FilterChipBinding
 import com.example.elucidate.databinding.FragmentIdentifyKeywordsBinding
 import com.example.elucidate.databinding.FragmentStringTestBinding
 import com.google.android.material.chip.Chip
@@ -160,12 +161,23 @@ class IdentifyKeywordsFragment : Fragment() {
 
                         for (item in printText){
                             Log.d("chips", item)
-                            val chip= Chip(activity)
+                            //val chip= Chip(activity)
+                            val chip=inflater.inflate(R.layout.filter_chip, binding.cgKeywords, false) as Chip
                             chip.text=item
 
+
                             chip.setChipBackgroundColorResource(R.color.white)
-                            chip.setCloseIconVisible(true);
+                            //chip.setCloseIconVisible(true);
                             binding.cgKeywords.addView(chip)
+                        }
+
+                        binding.btnCheckWords.setOnClickListener { view: View ->
+                            val ids = binding.cgKeywords.checkedChipIds
+                            for (id in ids) {
+                                val wordSelection =
+                                    binding.cgKeywords.findViewById<Chip>(id).text.toString()
+                                Log.d("favourites", wordSelection)
+                            }
                         }
                     }else{
                         //binding.tvTestRead.text = "NULL"
