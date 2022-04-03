@@ -57,6 +57,7 @@ class MoodRatingFragment : Fragment() {
 
         binding.btnRateMood.setOnClickListener{view : View ->
             val moodRating= binding.seekBar.progress
+            //globalMoodRating=binding.seekBar.progress
             logMood(moodRatingDetails, "$uid", moodRating)
             /*view.findNavController().navigate(R.id.action_moodRatingFragment_to_moodEntry)*/
         }

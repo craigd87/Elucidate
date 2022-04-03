@@ -6,12 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.elucidate.databinding.FragmentKeywordQualityBinding
-import com.example.elucidate.databinding.FragmentStringTestBinding
+import com.example.elucidate.databinding.FragmentIdentifyTriggersBinding
 import com.google.android.material.chip.Chip
 
 
-class KeywordQualityFragment : Fragment() {
+class IdentifyTriggersFragment : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,8 +22,8 @@ class KeywordQualityFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        val binding = FragmentKeywordQualityBinding.inflate(layoutInflater)
+        val binding=FragmentIdentifyTriggersBinding.inflate(layoutInflater)
+
         val chosenTriggers= mutableListOf<String>()
 
         for (item in globalKeywordsList){
@@ -55,7 +54,6 @@ class KeywordQualityFragment : Fragment() {
                 //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
             }
         }
-
         return binding.root
     }
 

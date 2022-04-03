@@ -53,6 +53,10 @@ class MoodEntryFragment : Fragment() {
         binding.btnSubmitMood.setOnClickListener { view: View ->
             val moodRating=binding.sbRateMood.progress
             val mood = binding.etEnterMood.text.toString()
+            //Mood mood= new Mood()
+            globalMoodEntry=binding.etEnterMood.text.toString()
+            globalMoodRating=binding.sbRateMood.progress
+
             logMood(moodDetails, uid, mood, moodRating)
 
         }

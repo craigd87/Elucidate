@@ -7,6 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.Navigation.findNavController
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.elucidate.databinding.FilterChipBinding
 import com.example.elucidate.databinding.FragmentIdentifyKeywordsBinding
 import com.example.elucidate.databinding.FragmentStringTestBinding
@@ -58,6 +63,8 @@ class IdentifyKeywordsFragment : Fragment() {
         //query Firestore to find mood entries from the current date
         val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
         var stringForKeywords=""
+        val chosenKeywords= mutableListOf<String>()
+
         queryRef.whereGreaterThanOrEqualTo("time", finalDateStart).whereLessThanOrEqualTo("time", finalDateEnd)
             .orderBy("time", Query.Direction.DESCENDING).limit(1)
             .get()
@@ -173,10 +180,20 @@ class IdentifyKeywordsFragment : Fragment() {
 
                         binding.btnCheckWords.setOnClickListener { view: View ->
                             val ids = binding.cgKeywords.checkedChipIds
+
                             for (id in ids) {
                                 val wordSelection =
                                     binding.cgKeywords.findViewById<Chip>(id).text.toString()
+                                chosenKeywords.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
+                                globalKeywordsList.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
                                 Log.d("favourites", wordSelection)
+                                Log.d("Mentry", globalMoodEntry)
+                                Log.d("Mrating", globalMoodRating.toString())
+                                Log.d("Mwords", "$globalKeywordsList")
+                                //view?.findNavController()?.navigate(R.id.action_identifyKeywordsFragment_to_identifyTriggersFragment)
+                                findNavController().safeNavigate(IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToIdentifyTriggersFragment())
+
+                                //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
                             }
                         }
                     }else{
@@ -193,5 +210,11 @@ class IdentifyKeywordsFragment : Fragment() {
         return binding.root
     }
 
-
+    fun NavController.safeNavigate(direction: NavDirections) {
+        Log.d("navclick", "Click happened")
+        currentDestination?.getAction(direction.actionId)?.run {
+            Log.d("navclick", "Click Propagated")
+            navigate(direction)
+        }
+    }
 }

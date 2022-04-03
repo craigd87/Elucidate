@@ -19,6 +19,10 @@ import java.io.InputStream
 
 const val TAG = "FIRESTORE"
 private lateinit var auth: FirebaseAuth
+var globalMoodEntry=""
+var globalMoodRating=0
+var globalKeywordsList= mutableListOf<String>()
+var globalTriggerWordsList= mutableListOf<String>()
 
 class MainActivity() : AppCompatActivity() {
 

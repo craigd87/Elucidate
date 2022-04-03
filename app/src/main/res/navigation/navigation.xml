@@ -105,17 +105,8 @@
         android:label="fragment_identify_keywords"
         tools:layout="@layout/fragment_identify_keywords" >
         <action
-            android:id="@+id/action_identifyKeywordsFragment_to_keywordQualityFragment"
-            app:destination="@id/keywordQualityFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/keywordQualityFragment"
-        android:name="com.example.elucidate.KeywordQualityFragment"
-        android:label="fragment_keyword_quality"
-        tools:layout="@layout/fragment_keyword_quality" >
-        <action
-            android:id="@+id/action_keywordQualityFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
+            android:id="@+id/action_identifyKeywordsFragment_to_identifyTriggersFragment"
+            app:destination="@id/identifyTriggersFragment" />
     </fragment>
     <fragment
         android:id="@+id/moodEntryFragment"
@@ -126,4 +117,9 @@
             android:id="@+id/action_moodEntryFragment_to_identifyKeywordsFragment"
             app:destination="@id/identifyKeywordsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/identifyTriggersFragment"
+        android:name="com.example.elucidate.IdentifyTriggersFragment"
+        android:label="fragment_identify_triggers"
+        tools:layout="@layout/fragment_identify_triggers" />
 </navigation>
