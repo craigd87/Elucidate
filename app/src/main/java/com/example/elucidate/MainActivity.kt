@@ -23,6 +23,8 @@ var globalMoodEntry=""
 var globalMoodRating=0
 var globalKeywordsList= mutableListOf<String>()
 var globalTriggerWordsList= mutableListOf<String>()
+var globalNonTriggersList= mutableListOf<String>()
+var globalPositiveWordsList= mutableListOf<String>()
 
 class MainActivity() : AppCompatActivity() {
 

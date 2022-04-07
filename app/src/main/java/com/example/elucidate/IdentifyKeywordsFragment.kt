@@ -20,9 +20,7 @@ import com.google.firebase.firestore.Query
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 class IdentifyKeywordsFragment : Fragment() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -137,15 +135,12 @@ class IdentifyKeywordsFragment : Fragment() {
 
                         Log.d("Potter", "$finalTextDistinct")
 
-
                         val printText= finalTextDistinct.filter{
                             !it.isBlank()
                             //!it.contentEquals("I")
                             //!it.contentEquals("am")
-
                         }
                         Log.d("duck", "$printText")
-
 
                         /*var resultTestMut=resultText.toMutableList()
                         for(item in resultTestMut){
@@ -157,13 +152,10 @@ class IdentifyKeywordsFragment : Fragment() {
                         //Log.i("stringTest", "$printText")
                         //binding.textViewTestResult.text=printText.toString()
                         //binding.btnSplitTest.text=printText.toString()
-
                         //val chip= Chip(activity)
                         //chip.text="HELLO!"
-
                         //chip.setChipBackgroundColorResource(R.color.white)
                         //chip.setCloseIconVisible(true);
-
                         //binding.cgKeywords.addView(chip)
 
                         for (item in printText){
@@ -171,8 +163,6 @@ class IdentifyKeywordsFragment : Fragment() {
                             //val chip= Chip(activity)
                             val chip=inflater.inflate(R.layout.filter_chip, binding.cgKeywords, false) as Chip
                             chip.text=item
-
-
                             chip.setChipBackgroundColorResource(R.color.white)
                             //chip.setCloseIconVisible(true);
                             binding.cgKeywords.addView(chip)
@@ -192,7 +182,6 @@ class IdentifyKeywordsFragment : Fragment() {
                                 Log.d("Mwords", "$globalKeywordsList")
                                 //view?.findNavController()?.navigate(R.id.action_identifyKeywordsFragment_to_identifyTriggersFragment)
                                 findNavController().safeNavigate(IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToIdentifyTriggersFragment())
-
                                 //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
                             }
                         }
@@ -200,12 +189,8 @@ class IdentifyKeywordsFragment : Fragment() {
                         //binding.tvTestRead.text = "NULL"
                         stringForKeywords="none found"
                     }
-
                 }
-
             }
-
-
 
         return binding.root
     }

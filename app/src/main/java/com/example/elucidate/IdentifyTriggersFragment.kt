@@ -6,6 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
+import androidx.navigation.fragment.findNavController
 import com.example.elucidate.databinding.FragmentIdentifyTriggersBinding
 import com.google.android.material.chip.Chip
 
@@ -44,8 +47,9 @@ class IdentifyTriggersFragment : Fragment() {
             for (id in ids) {
                 val wordSelection =
                     binding.cgTriggers.findViewById<Chip>(id).text.toString()
-                chosenTriggers.add(binding.cgTriggers.findViewById<Chip>(id).text.toString())
-                globalTriggerWordsList.add(binding.cgTriggers.findViewById<Chip>(id).text.toString())
+                //chosenTriggers.add(binding.cgTriggers.findViewById<Chip>(id).text.toString())
+                //chosenTriggers.add(wordSelection)
+                globalTriggerWordsList.add(wordSelection)
 
 
                 Log.d("Mtriggers", globalTriggerWordsList.toString())
@@ -53,8 +57,22 @@ class IdentifyTriggersFragment : Fragment() {
 
                 //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
             }
+            for (item in globalKeywordsList){
+                if(item !in globalTriggerWordsList){
+                    globalNonTriggersList.add(item)
+                }
+            }
+            findNavController().safeNavigate(IdentifyTriggersFragmentDirections.actionIdentifyTriggersFragmentToIdentifyPositivesFragment())
         }
         return binding.root
+    }
+
+    fun NavController.safeNavigate(direction: NavDirections) {
+        Log.d("navclick", "Click happened")
+        currentDestination?.getAction(direction.actionId)?.run {
+            Log.d("navclick", "Click Propagated")
+            navigate(direction)
+        }
     }
 
 

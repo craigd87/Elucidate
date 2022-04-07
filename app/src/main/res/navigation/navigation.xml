@@ -121,5 +121,18 @@
         android:id="@+id/identifyTriggersFragment"
         android:name="com.example.elucidate.IdentifyTriggersFragment"
         android:label="fragment_identify_triggers"
-        tools:layout="@layout/fragment_identify_triggers" />
+        tools:layout="@layout/fragment_identify_triggers" >
+        <action
+            android:id="@+id/action_identifyTriggersFragment_to_identifyPositivesFragment"
+            app:destination="@id/identifyPositivesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/identifyPositivesFragment"
+        android:name="com.example.elucidate.IdentifyPositivesFragment"
+        android:label="fragment_identify_positives"
+        tools:layout="@layout/fragment_identify_positives" >
+        <action
+            android:id="@+id/action_identifyPositivesFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 </navigation>

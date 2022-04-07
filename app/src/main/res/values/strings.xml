@@ -41,4 +41,8 @@
     <string name="success">SUCCESS!</string>
     <string name="please_select_your_keywords">Please Select your keywords...</string>
     <string name="check_words">check words</string>
+    <string name="please_select_any_words_that_make_you_feel_good">Please select any words that make you feel good...</string>
+    <string name="finished">Finished!</string>
+    <string name="please_select_any_words_that_make_you_feel_bad">Please select any words that make you feel bad...</string>
+    <string name="next">Next</string>
 </resources>
