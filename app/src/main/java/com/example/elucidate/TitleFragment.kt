@@ -37,7 +37,8 @@ class TitleFragment : Fragment() {
 
         binding.btnGetStarted.setOnClickListener {
             if (user!=null){
-                view?.findNavController()?.navigate(R.id.action_titleFragment_to_dashboardFragment)
+                //view?.findNavController()?.navigate(R.id.action_titleFragment_to_dashboardFragment)
+                view?.findNavController()?.navigate(R.id.action_titleFragment_to_testViewModelFragment)
             }else{
                 view?.findNavController()?.navigate(R.id.action_titleFragment_to_loginFragment2)
             //view?.findNavController()?.navigate(R.id.action_titleFragment_to_chipTestFragment)

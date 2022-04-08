@@ -84,8 +84,19 @@ class DashboardFragment : Fragment() {
                     }
 
                 }
+        /*DO NOT DELETE YET
+        val queryRef=FirebaseUtils().printName("$id")
+            queryRef.addOnSuccessListener { documents ->
+            for (document in documents) {
+                Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                val name = document.getString("name").toString()
+                binding.tvDashWelcome.text = "Hi " + name+"!"
 
-        /* //use this along with above for accessing moods
+            }
+
+        }*/
+
+        /* //use this along with above date data for accessing moods
            val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
 
            queryRef.whereGreaterThanOrEqualTo("time", finalDate1).whereLessThan("time", finalDate2)

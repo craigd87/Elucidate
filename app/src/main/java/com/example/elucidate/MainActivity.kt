@@ -19,6 +19,7 @@ import java.io.InputStream
 
 const val TAG = "FIRESTORE"
 private lateinit var auth: FirebaseAuth
+lateinit var viewModel: ViewModel
 var globalMoodEntry=""
 var globalMoodRating=0
 var globalKeywordsList= mutableListOf<String>()
@@ -35,6 +36,7 @@ class MainActivity() : AppCompatActivity() {
 
         setContentView(binding?.root)
         val inputStream: InputStream = assets.open("stopwords.txt")
+        viewModel= ViewModel()
 
 
     }
