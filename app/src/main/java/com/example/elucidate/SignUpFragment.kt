@@ -43,7 +43,9 @@ class SignUpFragment : Fragment() {
 
         binding.btnCreateAccount.setOnClickListener {
 
-            auth.createUserWithEmailAndPassword ("$email", "$password")
+            viewModel.signup("$email", "$password")
+            viewModel.login("$email", "$password")
+            /*auth.createUserWithEmailAndPassword ("$email", "$password")
                 .addOnCompleteListener() { task ->
                     if (task.isSuccessful) {
                         Log.d(ContentValues.TAG, "createUserWithEmail:success")
@@ -52,13 +54,13 @@ class SignUpFragment : Fragment() {
 
                         val user : FirebaseUser = task.result!!.user!!
 
-                        val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment(user.uid, "$email", "$password")
-                        //val action2= SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment()
-                        view?.findNavController()?.navigate(action)
+
                     }
 
-                }
-
+                }*/
+            val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment("$email", "$password")
+            //val action2= SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment()
+            view?.findNavController()?.navigate(action)
         }
 
     return binding.root

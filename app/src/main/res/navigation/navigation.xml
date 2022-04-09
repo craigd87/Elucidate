@@ -80,10 +80,6 @@
             android:id="@+id/action_updateProfileFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
         <argument
-            android:name="userId"
-            app:argType="string"
-           />
-        <argument
             android:name="email"
             app:argType="string"
              />

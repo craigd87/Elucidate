@@ -40,10 +40,14 @@ class LoginFragment : Fragment() {
         val email = binding.loginEmailAddress.text
         val password = binding.loginPassword.text
 
-        binding.btnLogin.setOnClickListener{
-            login("$email", "$password")
-        }
+        binding.btnLogin.setOnClickListener {
+            //login("$email", "$password")
+            /*view?.let { it1 -> FirebaseUtils().login("$email", "$password", it1) }
+        }*/
+            viewModel.login("$email", "$password")
+            view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
 
+        }
         binding.btnSignUpLink.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_loginFragment2_to_signUpFragment)
         }

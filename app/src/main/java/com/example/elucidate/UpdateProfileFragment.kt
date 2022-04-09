@@ -40,22 +40,48 @@ class UpdateProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentUpdateProfileBinding.inflate(layoutInflater)
 
+
         auth = Firebase.auth
-        val user = auth.currentUser
-        val userId= args.userId.toString()
+        val currentUser = auth.currentUser
+        val uid= currentUser?.uid
+        //val userId= args.userId.toString()
         val email= args.email.toString()
         val password= args.password.toString()
         val name= binding.editTexProfileName.text
         val age= binding.editTextProfileAge.text
         val uDetails = hashMapOf<String, Any>()
 
-        login(email, password, "$name")
+        //login(email, password, "$name")
+        /*try{
+
+            //Log.d("palace", "signed in again")
+        } catch(e: Exception){
+            Log.d("buckingham", "$e")
+        }*/
+
 
         binding.btnUpdateProfile.setOnClickListener{
 
-            if (user != null) {
-                updateProfile("$name", "$age", user, userId, uDetails)
+            //viewModel.loginAfterSignup("$email", "$password")
+            //viewModel.login("$email", "$password")
+            if (currentUser != null) {
+                updateProfile("$name", "$age", currentUser, "$uid", uDetails)
+                /*viewModel.updateProfile("$name")
+                val user= User("$uid","$name","$age")
+                viewModel.saveUserDetailsToFirestore(user)
+                view?.findNavController()?.navigate(R.id.action_updateProfileFragment_to_dashboardFragment)*/
+            }else{
+                Log.d("exnay", "user seems to be null here")
+                /*viewModel.login("$email", "$password")
+                viewModel.updateProfile("$name")
+                val user= User("$uid","$name","$age")
+                viewModel.saveUserDetailsToFirestore(user)
+                Log.d("Hooray!", "user seems to be in here")
+                view?.findNavController()?.navigate(R.id.action_updateProfileFragment_to_dashboardFragment)*/
             }
+
+
+            //view?.findNavController()?.navigate(R.id.action_updateProfileFragment_to_dashboardFragment)
         }
 
         return binding.root

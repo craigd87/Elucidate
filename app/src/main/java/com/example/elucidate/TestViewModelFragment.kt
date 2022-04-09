@@ -35,8 +35,8 @@ class TestViewModelFragment : Fragment() {
         binding.vMTestButton.setOnClickListener{
             val name= binding.vMTestName.text.toString()
             val age= binding.vMTestAge.text.toString()
-            val user= User("$name","$age")
-            viewModel.saveUserDetailsToFirestore(user)
+            //val user= User("$name","$age")
+            //viewModel.saveUserDetailsToFirestore(user)
         }
 
         return binding.root
