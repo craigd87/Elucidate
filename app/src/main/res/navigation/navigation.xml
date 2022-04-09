@@ -70,6 +70,9 @@
         <action
             android:id="@+id/action_signUpFragment_to_updateProfileFragment"
             app:destination="@id/updateProfileFragment" />
+        <action
+            android:id="@+id/action_signUpFragment_to_welcomeFragment"
+            app:destination="@id/welcomeFragment" />
     </fragment>
     <fragment
         android:id="@+id/updateProfileFragment"
@@ -139,4 +142,19 @@
         android:name="com.example.elucidate.TestViewModelFragment"
         android:label="fragment_test_view_model"
         tools:layout="@layout/fragment_test_view_model" />
+    <fragment
+        android:id="@+id/welcomeFragment"
+        android:name="com.example.elucidate.WelcomeFragment"
+        android:label="fragment_welcome"
+        tools:layout="@layout/fragment_welcome" >
+        <action
+            android:id="@+id/action_welcomeFragment_to_updateProfileFragment"
+            app:destination="@id/updateProfileFragment" />
+        <argument
+            android:name="email"
+            app:argType="string" />
+        <argument
+            android:name="password"
+            app:argType="string" />
+    </fragment>
 </navigation>

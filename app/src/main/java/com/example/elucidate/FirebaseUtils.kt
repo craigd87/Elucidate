@@ -110,16 +110,8 @@ class FirebaseUtils {
                 }
             }
     }
-    public override fun onStart() {
 
-        auth.addAuthStateListener(FirebaseAuth.AuthStateListener {  })
-    }
 
-    public override fun onPause() {
-
-        auth.removeAuthStateListener(FirebaseAuth.AuthStateListener {  })
-    }
-}
 
 
 

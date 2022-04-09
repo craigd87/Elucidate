@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.example.elucidate.databinding.FragmentWelcomeBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -34,6 +36,7 @@ class WelcomeFragment : Fragment() {
         }
     }
 
+    private val args: UpdateProfileFragmentArgs by navArgs<UpdateProfileFragmentArgs>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -41,11 +44,14 @@ class WelcomeFragment : Fragment() {
         // Inflate the layout for this fragment
         auth = Firebase.auth
         val binding = FragmentWelcomeBinding.inflate(layoutInflater)
-        val user = auth.currentUser
-        val name = user?.displayName
-        val greeting = "Welcome "+name+"!"
 
-        binding.welcome.text=greeting
+        val email= args.email.toString()
+        val password= args.password.toString()
+        binding.btnLog.setOnClickListener{
+            viewModel.login("$email", "$password")
+            val action = WelcomeFragmentDirections.actionWelcomeFragmentToUpdateProfileFragment("$email", "$password")
+            view?.findNavController()?.navigate(action)
+        }
 
         return binding.root
     }

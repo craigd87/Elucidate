@@ -58,8 +58,9 @@ class SignUpFragment : Fragment() {
                     }
 
                 }*/
-            val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment("$email", "$password")
+            //val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment("$email", "$password")
             //val action2= SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment()
+            val action = SignUpFragmentDirections.actionSignUpFragmentToWelcomeFragment("$email", "$password")
             view?.findNavController()?.navigate(action)
         }
 
