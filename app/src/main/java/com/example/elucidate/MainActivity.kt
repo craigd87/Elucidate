@@ -35,7 +35,7 @@ class MainActivity() : AppCompatActivity() {
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding?.root)
-        val inputStream: InputStream = assets.open("stopwords.txt")
+        //val inputStream: InputStream = assets.open("stopwords.txt")
         viewModel= ViewModel()
 
 

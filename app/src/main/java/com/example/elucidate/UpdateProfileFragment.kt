@@ -63,13 +63,13 @@ class UpdateProfileFragment : Fragment() {
         binding.btnUpdateProfile.setOnClickListener{
 
             //viewModel.loginAfterSignup("$email", "$password")
-            //viewModel.login("$email", "$password")
+            viewModel.login("$email", "$password")
             if (currentUser != null) {
                 updateProfile("$name", "$age", currentUser, "$uid", uDetails)
                 /*viewModel.updateProfile("$name")
                 val user= User("$uid","$name","$age")
-                viewModel.saveUserDetailsToFirestore(user)
-                view?.findNavController()?.navigate(R.id.action_updateProfileFragment_to_dashboardFragment)*/
+                viewModel.saveUserDetailsToFirestore(user)*/
+                view?.findNavController()?.navigate(R.id.action_updateProfileFragment_to_dashboardFragment)
             }else{
                 Log.d("exnay", "user seems to be null here")
                 /*viewModel.login("$email", "$password")
