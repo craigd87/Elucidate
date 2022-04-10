@@ -13,6 +13,8 @@ class ViewModel() {
     fun saveUserDetailsToFirestore(user: User){
         firebaseUtils.saveUserDetails(user).addOnFailureListener {
             Log.e("vmtest","Failed to save Address!")
+        }.addOnSuccessListener {
+            Log.d("slainte!", "working!")
         }
     }
 

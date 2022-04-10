@@ -29,6 +29,8 @@ class FirebaseUtils {
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "createUserWithEmail:success")
 
+
+
                     //with help from TutorialsEU https://www.youtube.com/watch?v=8I5gCLaS25w
 
                     //val user: FirebaseUser = task.result!!.user!!
