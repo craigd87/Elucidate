@@ -23,19 +23,40 @@ class FirebaseUtils {
     var userAuth = FirebaseAuth.getInstance().currentUser
     val uid= userAuth?.uid
 
-    fun signup(email: String, password: String){
+    fun signup(email: String, password: String, name: String, age: String) {
+
         auth.createUserWithEmailAndPassword ("$email", "$password")
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     Log.d(ContentValues.TAG, "createUserWithEmail:success")
 
+                    //with help from TutorialsEU https://www.youtube.com/watch?v=8I5gCLaS25w
 
+                    val user : FirebaseUser = task.result!!.user!!
+                    val userId=user.uid
+
+                    val user1=User("$userId", "$name", "$age")
+                    viewModel.saveUserDetailsToFirestore(user1)
+
+                    /*val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment( "$email","$password", "$userId")
+                    //val action2= SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment()
+                    view?.findNavController()?.navigate(action)*/
+
+
+                }
+
+            }
+        /*auth.createUserWithEmailAndPassword ("$email", "$password")
+            .addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
+                    Log.d(ContentValues.TAG, "createUserWithEmail:success")
 
                     //with help from TutorialsEU https://www.youtube.com/watch?v=8I5gCLaS25w
 
-                    //val user: FirebaseUser = task.result!!.user!!
-
-
+                    val currentUser: FirebaseUser = task.result!!.user!!
+                    val id = currentUser.uid
+                    val user = User("$id", "$name", "$age")
+                    viewModel.saveUserDetailsToFirestore(user)
 
                     /*val action =
                         SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment(
@@ -45,8 +66,8 @@ class FirebaseUtils {
                         )*/
                 }
 
-            }
-
+            }*/
+    //return user
     }
     fun loginAfterSignup(email: String, password: String){
         FirebaseAuth.AuthStateListener { auth ->
@@ -59,6 +80,13 @@ class FirebaseUtils {
                     .addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
 
+                            val currentUser: FirebaseUser = task.result!!.user!!
+                            if(currentUser!=null){
+                                Log.d("queen2", "hearts")
+
+                            }else{
+                                Log.d("king2", "user is still null")
+                            }
                             Log.d(ContentValues.TAG, "signInWithEmail:success")
 
                         } else {
@@ -75,7 +103,27 @@ class FirebaseUtils {
         auth.signInWithEmailAndPassword("$email", "$password")
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
+                    Log.d(TAG, "signInWithEmail:success")
+                    //view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    //Toast.makeText(context,"Authentication failed.", Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        /*auth.signInWithEmailAndPassword("$email", "$password")
+            .addOnCompleteListener() { task ->
+                if (task.isSuccessful) {
                     Log.d(TAG, "logInWithEmail:success")
+                    val currentUser: FirebaseUser = task.result!!.user!!
+                    if(currentUser!=null){
+                        Log.d("queen", "hearts")
+
+                    }else{
+                        Log.d("king", "user is still null")
+                    }
 
 
                 } else {
@@ -85,7 +133,7 @@ class FirebaseUtils {
                       //  Toast.LENGTH_SHORT).show()
 
                 }
-            }
+            }*/
     }
     fun saveUserDetails(user: User): Task<Void> {
         //var

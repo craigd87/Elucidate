@@ -51,8 +51,8 @@ class DashboardFragment : Fragment() {
         auth = Firebase.auth
         val user= auth.currentUser
 
-        val uName = user!!.displayName
-        val id = user.uid
+        //val uName = user!!.displayName
+        val id = user?.uid
         var name = ""
         var age = ""
 
@@ -73,7 +73,7 @@ class DashboardFragment : Fragment() {
         var moodRating=""
 
 
-        val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
+        /*val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
             queryRef.whereEqualTo("id", "$id")
                 .get()
                 .addOnSuccessListener { documents ->
@@ -83,7 +83,7 @@ class DashboardFragment : Fragment() {
                         binding.tvDashWelcome.text = "Hi " + name+"!"
                     }
 
-                }
+                }*/
         /*DO NOT DELETE YET
         val queryRef=FirebaseUtils().printName("$id")
             queryRef.addOnSuccessListener { documents ->
@@ -137,7 +137,7 @@ class DashboardFragment : Fragment() {
 
             binding.btnDashLogOut.setOnClickListener {
                 Firebase.auth.signOut()
-                activity?.finish()
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_titleFragment)
             }
 
 

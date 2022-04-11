@@ -37,8 +37,8 @@ class WelcomeFragment : Fragment() {
         val password= args.password.toString()
         binding.btnLog.setOnClickListener{
             //viewModel.loginAfterSignup("$email", "$password")
-            val action = WelcomeFragmentDirections.actionWelcomeFragmentToUpdateProfileFragment("$email", "$password")
-            view?.findNavController()?.navigate(action)
+            /*val action = WelcomeFragmentDirections.actionWelcomeFragmentToUpdateProfileFragment("$email", "$password")
+            view?.findNavController()?.navigate(action)*/
         }
 
         return binding.root

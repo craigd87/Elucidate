@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_moodEntryFragment"
             app:destination="@id/moodEntryFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -93,6 +96,9 @@
             android:name="password"
             app:argType="string"
              />
+        <argument
+            android:name="id"
+            app:argType="string" />
     </fragment>
     <fragment
         android:id="@+id/chipTestFragment"

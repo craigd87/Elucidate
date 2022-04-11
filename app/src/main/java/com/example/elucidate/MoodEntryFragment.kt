@@ -43,6 +43,17 @@ class MoodEntryFragment : Fragment() {
         val uid = user?.uid.toString()
         val moodDetails = hashMapOf<Any, Any>()
 
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
+        queryRef.whereEqualTo("id", "$uid")
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                    val name = document.getString("name").toString()
+                    binding.tvEnterMood.text = "Hi " + name+"! please enter details about how you are feeling"
+                }
+
+            }
 
         /*binding.sbRateMood.setOnClickListener{view : View ->
             moodRating= binding.sbRateMood.progress

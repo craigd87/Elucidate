@@ -1,5 +1,6 @@
 package com.example.elucidate
 
+import android.app.backup.BackupAgent
 import android.util.Log
 import android.view.View
 import androidx.navigation.findNavController
@@ -18,8 +19,8 @@ class ViewModel() {
         }
     }
 
-    fun signup(email: String, password: String){
-        firebaseUtils.signup(email, password)
+    fun signup(email: String, password: String, name: String, age: String){
+        firebaseUtils.signup(email, password, name, age)
     }
 
     fun loginAfterSignup(email: String, password: String){
