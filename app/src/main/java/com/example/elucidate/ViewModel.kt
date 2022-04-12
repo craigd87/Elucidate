@@ -74,6 +74,13 @@ class ViewModel() {
             Log.d("slainte!", "working!")
         }
     }
+    fun saveMoodDetailsToFirestore(mood: Mood){
+        firebaseUtils.saveMoodDetails(mood).addOnFailureListener {
+            Log.e("vmtest","Failed to save Address!")
+        }.addOnSuccessListener {
+            Log.d("slainte!", "working!")
+        }
+    }
 
     fun signup(email: String, password: String, name: String, age: String){
         firebaseUtils.signup(email, password, name, age)

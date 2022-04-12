@@ -27,7 +27,7 @@ class IdentifyTriggersFragment : Fragment() {
     ): View? {
         val binding=FragmentIdentifyTriggersBinding.inflate(layoutInflater)
 
-        val chosenTriggers= mutableListOf<String>()
+        //val chosenTriggers= mutableListOf<String>()
 
         //val keywordsList= viewModel.keywordsList.value
 

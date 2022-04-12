@@ -60,8 +60,8 @@ class IdentifyKeywordsFragment : Fragment() {
 
         //query Firestore to find mood entries from the current date
         val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-        //var stringForKeywords=""
-        val stringForKeywords= viewModel.moodEntry.toString()
+        var stringForKeywords= globalMoodEntry
+        //val stringForKeywords= viewModel.moodEntry.toString()
         val chosenKeywords= mutableListOf<String>()
 
         /*queryRef.whereGreaterThanOrEqualTo("time", finalDateStart).whereLessThanOrEqualTo("time", finalDateEnd)
@@ -178,8 +178,8 @@ class IdentifyKeywordsFragment : Fragment() {
                                 val wordSelection =
                                     binding.cgKeywords.findViewById<Chip>(id).text.toString()
                                 chosenKeywords.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
-                                //globalKeywordsList.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
-                                viewModel.logKeywords(chosenKeywords)
+                                globalKeywordsList.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
+                                //viewModel.logKeywords(chosenKeywords)
                                 Log.d("favourites", wordSelection)
                                 Log.d("Mentry", globalMoodEntry)
                                 Log.d("Mrating", globalMoodRating.toString())

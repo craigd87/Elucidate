@@ -67,11 +67,11 @@ class MoodEntryFragment : Fragment() {
             val moodRating=binding.sbRateMood.progress
             val mood = binding.etEnterMood.text.toString()
             //Mood mood= new Mood()
-            //globalMoodEntry=binding.etEnterMood.text.toString()
-            //globalMoodRating=binding.sbRateMood.progress
+            globalMoodEntry=binding.etEnterMood.text.toString()
+            globalMoodRating=binding.sbRateMood.progress
 
-            viewModel.enterMood(mood)
-            viewModel.enterMoodRating("$moodRating")
+            //viewModel.enterMood(mood)
+            //viewModel.enterMoodRating("$moodRating")
             view?.findNavController()?.navigate(R.id.action_moodEntryFragment_to_identifyKeywordsFragment)
             //logMood(moodDetails, uid, mood, moodRating)
 

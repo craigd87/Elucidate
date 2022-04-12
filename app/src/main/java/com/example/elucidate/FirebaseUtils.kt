@@ -151,6 +151,12 @@ class FirebaseUtils {
 
         return documentReference.set(user)
     }
+    fun saveMoodDetails(mood: Mood): Task<Void> {
+        //var
+        var documentReference = fireStoreDatabase.collection("userMoods").document("TESTINGMOOD2")
+
+        return documentReference.set(mood)
+    }
 
     fun updateProfile(name: String){
         val profileUpdates =

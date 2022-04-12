@@ -6,10 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.example.elucidate.databinding.FragmentIdentifyPositivesBinding
 import com.example.elucidate.databinding.FragmentIdentifyTriggersBinding
 import com.google.android.material.chip.Chip
+import com.google.firebase.Timestamp
+import java.util.*
 
 
 class IdentifyPositivesFragment : Fragment() {
@@ -59,12 +63,26 @@ class IdentifyPositivesFragment : Fragment() {
                     globalNonTriggersList.add(item)
                 }
             }*/
-            //findNavController().safeNavigate(IdentifyTriggersFragmentDirections.actionIdentifyTriggersFragmentToIdentifyPositivesFragment())
+            val id= viewModel.getCurrentUserId()
+            val time= Timestamp(Date())
+            val mood= Mood("$id", globalMoodEntry,"$globalMoodRating", globalKeywordsList, globalTriggerWordsList, globalPositiveWordsList, time)
+            Log.d("fandabidosi", "user created")
+            viewModel.saveMoodDetailsToFirestore(mood)
+            Log.d("fandabidosi", "user added")
+
+            findNavController().safeNavigate(IdentifyPositivesFragmentDirections.actionIdentifyPositivesFragmentToDashboardFragment())
         }
 
 
         return binding.root
 
+    }
+    fun NavController.safeNavigate(direction: NavDirections) {
+        Log.d("navclick", "Click happened")
+        currentDestination?.getAction(direction.actionId)?.run {
+            Log.d("navclick", "Click Propagated")
+            navigate(direction)
+        }
     }
 
 
