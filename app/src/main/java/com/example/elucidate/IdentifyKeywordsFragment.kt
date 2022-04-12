@@ -60,10 +60,11 @@ class IdentifyKeywordsFragment : Fragment() {
 
         //query Firestore to find mood entries from the current date
         val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-        var stringForKeywords=""
+        //var stringForKeywords=""
+        val stringForKeywords= viewModel.moodEntry.toString()
         val chosenKeywords= mutableListOf<String>()
 
-        queryRef.whereGreaterThanOrEqualTo("time", finalDateStart).whereLessThanOrEqualTo("time", finalDateEnd)
+        /*queryRef.whereGreaterThanOrEqualTo("time", finalDateStart).whereLessThanOrEqualTo("time", finalDateEnd)
             .orderBy("time", Query.Direction.DESCENDING).limit(1)
             .get()
             .addOnSuccessListener { documents ->
@@ -72,6 +73,8 @@ class IdentifyKeywordsFragment : Fragment() {
                         Log.d("exist", "DocumentSnapshot data: ${document.data}")
                         stringForKeywords= document.getString("moodEntry").toString()
                         Log.d("keywords", stringForKeywords)
+
+         */
                         /* this retrieves one entry
                         binding.tvTestRead.text = mood
                          */
@@ -175,7 +178,8 @@ class IdentifyKeywordsFragment : Fragment() {
                                 val wordSelection =
                                     binding.cgKeywords.findViewById<Chip>(id).text.toString()
                                 chosenKeywords.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
-                                globalKeywordsList.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
+                                //globalKeywordsList.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
+                                viewModel.logKeywords(chosenKeywords)
                                 Log.d("favourites", wordSelection)
                                 Log.d("Mentry", globalMoodEntry)
                                 Log.d("Mrating", globalMoodRating.toString())
@@ -185,12 +189,9 @@ class IdentifyKeywordsFragment : Fragment() {
                                 //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
                             }
                         }
-                    }else{
-                        //binding.tvTestRead.text = "NULL"
-                        stringForKeywords="none found"
-                    }
-                }
-            }
+
+
+
 
         return binding.root
     }

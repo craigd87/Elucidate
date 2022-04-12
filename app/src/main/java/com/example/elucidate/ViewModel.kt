@@ -3,13 +3,69 @@ package com.example.elucidate
 import android.app.backup.BackupAgent
 import android.util.Log
 import android.view.View
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
-
+//private lateinit var auth: FirebaseAuth
 class ViewModel() {
     var firebaseUtils= FirebaseUtils()
 
+    /*private var _globalMoodEntry=""
+
+    var globalMoodEntry: String
+    get()=_globalMoodEntry
+    set(value) {}*/
+    /*private val _moodEntry= MutableLiveData<String>()
+    val moodEntry: LiveData<String> = _moodEntry*/
+    private var _moodEntry= MutableLiveData<String>()
+    val moodEntry: LiveData<String> get()=_moodEntry
+
+    var _moodRating=MutableLiveData<String>()
+    val moodRating: LiveData<String> get()=_moodRating
+
+    var _keywordsList= MutableLiveData<MutableList<String>>(mutableListOf())
+    val keywordsList: LiveData<MutableList<String>> get()=_keywordsList
+
+    var _triggerWordsList= MutableLiveData<MutableList<String>>(mutableListOf())
+    val triggerWordsList: LiveData<MutableList<String>> get()=_triggerWordsList
+
+    var _nonTriggersList= MutableLiveData<MutableList<String>>(mutableListOf())
+    val nonTriggersList: LiveData<MutableList<String>> get()=_nonTriggersList
+
+    var _positiveWordsList= MutableLiveData<MutableList<String>>(mutableListOf())
+    val positiveWordsList: LiveData<MutableList<String>> get() = _positiveWordsList
+
+    fun enterMood(mood: String){
+        _moodEntry.value=mood
+    }
+    fun enterMoodRating(moodRating: String){
+        _moodRating.value=moodRating
+    }
+    fun logKeywords(keywords: MutableList<String>){
+        _keywordsList.value=keywords
+    }
+    fun logTriggers(triggers: MutableList<String>){
+        _triggerWordsList.value=triggers
+    }
+    fun logNonTriggers(nonTriggers: MutableList<String>){
+       _nonTriggersList.value=nonTriggers
+    }
+    fun logPositiveWords(positiveWords: MutableList<String>){
+        _positiveWordsList.value=positiveWords
+    }
+
+
+
+    /*var moodRating
+    var keywordsList
+    var triggerWordsList
+    var nonTriggersList
+    var positiveWordsList*/
 
     fun saveUserDetailsToFirestore(user: User){
         firebaseUtils.saveUserDetails(user).addOnFailureListener {
@@ -33,6 +89,15 @@ class ViewModel() {
 
     fun updateProfile(name: String){
         firebaseUtils.updateProfile(name)
+    }
+    /*fun initializeAuth(auth: FirebaseAuth): FirebaseAuth{
+        firebaseUtils.initializeAuth()
+        return auth
+    }*/
+    fun getCurrentUserId(): String {
+        val currentUser=firebaseUtils.getCurrentUserId()
+        return currentUser
+
     }
 
 

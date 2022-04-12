@@ -18,7 +18,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-private lateinit var auth: FirebaseAuth
+//private lateinit var auth: FirebaseAuth
 class MoodEntryFragment : Fragment() {
 
 
@@ -37,10 +37,12 @@ class MoodEntryFragment : Fragment() {
             Log.e("Confirmation", "Mood entry not logged")
             return null
         }*/
-        auth = Firebase.auth
-        val user= auth.currentUser
+        //auth = Firebase.auth
+        //val user= auth.currentUser
 
-        val uid = user?.uid.toString()
+        //val uid = user?.uid.toString()
+        val user=viewModel.getCurrentUserId()
+        val uid= viewModel.getCurrentUserId()
         val moodDetails = hashMapOf<Any, Any>()
 
         val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
@@ -65,10 +67,13 @@ class MoodEntryFragment : Fragment() {
             val moodRating=binding.sbRateMood.progress
             val mood = binding.etEnterMood.text.toString()
             //Mood mood= new Mood()
-            globalMoodEntry=binding.etEnterMood.text.toString()
-            globalMoodRating=binding.sbRateMood.progress
+            //globalMoodEntry=binding.etEnterMood.text.toString()
+            //globalMoodRating=binding.sbRateMood.progress
 
-            logMood(moodDetails, uid, mood, moodRating)
+            viewModel.enterMood(mood)
+            viewModel.enterMoodRating("$moodRating")
+            view?.findNavController()?.navigate(R.id.action_moodEntryFragment_to_identifyKeywordsFragment)
+            //logMood(moodDetails, uid, mood, moodRating)
 
         }
 

@@ -17,7 +17,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
-private lateinit var auth: FirebaseAuth
+//private lateinit var auth: FirebaseAuth
 
 
 class SignUpFragment : Fragment() {
@@ -35,12 +35,15 @@ class SignUpFragment : Fragment() {
         val binding = FragmentSignUpBinding.inflate(layoutInflater)
 
         // Initialize Firebase Auth
-        auth = Firebase.auth
+        //auth = Firebase.auth
+        //viewModel.initializeAuth(auth)
 
         val email= binding.btnEmail.text
         val password= binding.btnPassword.text
         val name=binding.editTextName.text
         val age=242
+
+        //auth.currentUser
 
 
         binding.btnCreateAccount.setOnClickListener {

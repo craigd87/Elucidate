@@ -15,14 +15,24 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 
-//lateinit var auth: FirebaseAuth
+//private lateinit var auth: FirebaseAuth
 //Serves as a API to allow adding getting, deleting and updating (section.io link)
 class FirebaseUtils {
     val fireStoreDatabase = FirebaseFirestore.getInstance()
-    var auth=Firebase.auth
+    val auth=Firebase.auth
     var userAuth = FirebaseAuth.getInstance().currentUser
     val uid= userAuth?.uid
 
+    /*fun initializeAuth(): FirebaseAuth{
+        auth=Firebase.auth
+        return auth
+    }*/
+    fun getCurrentUserId(): String{
+        val currentUser=auth.currentUser
+        val currentUserId= currentUser?.uid.toString()
+        return currentUserId
+
+    }
     fun signup(email: String, password: String, name: String, age: String) {
 
         auth.createUserWithEmailAndPassword ("$email", "$password")
@@ -35,8 +45,8 @@ class FirebaseUtils {
                     val user : FirebaseUser = task.result!!.user!!
                     val userId=user.uid
 
-                    val user1=User("$userId", "$name", "$age")
-                    viewModel.saveUserDetailsToFirestore(user1)
+                    val userDetails=User("$userId", "$name", "$age")
+                    viewModel.saveUserDetailsToFirestore(userDetails)
 
                     /*val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment( "$email","$password", "$userId")
                     //val action2= SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment()

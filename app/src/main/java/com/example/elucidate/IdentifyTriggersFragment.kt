@@ -29,7 +29,10 @@ class IdentifyTriggersFragment : Fragment() {
 
         val chosenTriggers= mutableListOf<String>()
 
+        //val keywordsList= viewModel.keywordsList.value
+
         for (item in globalKeywordsList){
+
             Log.d("triggerChips", item)
             //val chip= Chip(activity)
             val chip=inflater.inflate(R.layout.filter_chip, binding.cgTriggers, false) as Chip
