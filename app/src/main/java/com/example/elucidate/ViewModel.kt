@@ -99,7 +99,7 @@ class ViewModel() {
         firebaseUtils.retrieveMoodEntryByDate(dateStart, dateEnd).observe(this, observer:Observer)
 
     }*/
-    var moodRetrieved : MutableLiveData<String> = MutableLiveData()
+    /*var moodRetrieved : MutableLiveData<String> = MutableLiveData()
     fun retrieveMoodEntryByDate(dateStart: Date, dateEnd:Date){
         firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThan("time", dateEnd).get().addOnSuccessListener { documents ->
@@ -113,7 +113,33 @@ class ViewModel() {
 
                 }
             }
+        }*/
+    var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
+    // get realtime updates from firebase regarding saved addresses
+    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
+        //firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
+        //.whereLessThan("time", dateEnd).addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
+        firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThan("time", dateEnd).addSnapshotListener { snapshot, e ->
+
+        if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                moodRetrieved.value = emptyList()
+                return@addSnapshotListener
+            }
+
+            //var savedAddressList : MutableList<AddressItem> = mutableListOf()
+            var moodItemList: MutableList<Mood> = mutableListOf()
+            for (doc in snapshot!!) {
+               var moodItem = doc.toObject(Mood::class.java)
+                moodItemList.add(moodItem)
+               // savedAddressList.add(addressItem)
+            }
+           moodRetrieved.value = moodItemList
         }
+
+        return moodRetrieved
+    }
 
 
         //var savedAddressList : MutableList<AddressItem> = mutableListOf()
@@ -125,7 +151,7 @@ class ViewModel() {
     })*/
 
 
-    }
+
     /*fun initializeAuth(auth: FirebaseAuth): FirebaseAuth{
         firebaseUtils.initializeAuth()
         return auth

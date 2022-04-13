@@ -184,7 +184,7 @@ class FirebaseUtils {
         return mutableLiveData
     }*/
     fun retrieveMoodEntryByDate(): CollectionReference {
-        var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userMoods/MoodEntry")
+        var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userMoods")
         return collectionReference
     }
 
