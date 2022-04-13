@@ -1,15 +1,9 @@
 package com.example.elucidate
 
-import android.app.backup.BackupAgent
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.navigation.findNavController
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
+import java.util.*
 
 //private lateinit var auth: FirebaseAuth
 class ViewModel() {
@@ -96,6 +90,11 @@ class ViewModel() {
 
     fun updateProfile(name: String){
         firebaseUtils.updateProfile(name)
+    }
+
+    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): String {
+        return firebaseUtils.retrieveMoodEntryByDate(dateStart, dateEnd)
+
     }
     /*fun initializeAuth(auth: FirebaseAuth): FirebaseAuth{
         firebaseUtils.initializeAuth()

@@ -14,6 +14,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 //private lateinit var auth: FirebaseAuth
 //Serves as a API to allow adding getting, deleting and updating (section.io link)
@@ -156,6 +157,25 @@ class FirebaseUtils {
         var documentReference = fireStoreDatabase.collection("userMoods").document("TESTINGMOOD2")
 
         return documentReference.set(mood)
+    }
+
+    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): String {
+
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
+        var moodEntry=""
+        queryRef.whereGreaterThanOrEqualTo("time", dateStart).whereLessThan("time", dateEnd)
+            .get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (document != null) {
+                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
+
+                        moodEntry = document.getString("moodRating").toString()
+
+                    }
+                }
+            }
+        return moodEntry
     }
 
     fun updateProfile(name: String){

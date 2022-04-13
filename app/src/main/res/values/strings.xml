@@ -45,4 +45,8 @@
     <string name="finished">Finished!</string>
     <string name="please_select_any_words_that_make_you_feel_bad">Please select any words that make you feel bad...</string>
     <string name="next">Next</string>
+    <string name="please_select_a_date">Please select a date...</string>
+    <string name="yyyy_mm_dd">yyyy/mm/dd</string>
+    <string name="select">select</string>
+    <string name="insights">Insights</string>
 </resources>

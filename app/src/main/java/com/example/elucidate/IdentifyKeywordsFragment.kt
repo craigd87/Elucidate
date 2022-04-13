@@ -86,20 +86,7 @@ class IdentifyKeywordsFragment : Fragment() {
                          */
 
                         //var resultText= ""
-                        val delim1=" "
-                        val delim2="."
-                        val delim3="?"
-                        val delim4="-"
-                        val delim5="!"
-                        val delim6="/"
-                        val delim7=";"
-                        val delim8=","
-                        val delim9=". "
-                        val delim10=".  "
-                        val delim11="? "
-                        val delim12="! "
-                        val delim13="; "
-                        val delim14=", "
+
                         //val delim15= "\n"
                         //val delimRegex= Regex()
 
@@ -113,37 +100,7 @@ class IdentifyKeywordsFragment : Fragment() {
                             Log.i("Craig",  it)
                         }
 
-                        val moodText= lower.split(delim1,delim2,delim3,delim4,delim5,delim6,delim7,delim8,delim9,delim10,
-                            delim11,delim12,delim13,delim14)
-                        val moodTextList= mutableListOf<String>()
-                        moodText.forEach{
-                            moodTextList.add(it)
-                            Log.d("niles", it)
-                        }
 
-                        val finalText= mutableListOf<String>()
-
-                        for (item in moodTextList){
-                            /*for (subItem in stopWords ){
-                                if (!subItem.contentEquals(item)){
-                                    finalText.add(item)
-                                }*/
-                            Log.d("frasier", item)
-                            if(item !in stopWords){
-                                finalText.add(item)
-                                Log.d("witch", item)
-                            }
-                        }
-                        val finalTextDistinct=finalText.toSet().toList()
-
-                        Log.d("Potter", "$finalTextDistinct")
-
-                        val printText= finalTextDistinct.filter{
-                            !it.isBlank()
-                            //!it.contentEquals("I")
-                            //!it.contentEquals("am")
-                        }
-                        Log.d("duck", "$printText")
 
                         /*var resultTestMut=resultText.toMutableList()
                         for(item in resultTestMut){
@@ -160,6 +117,8 @@ class IdentifyKeywordsFragment : Fragment() {
                         //chip.setChipBackgroundColorResource(R.color.white)
                         //chip.setCloseIconVisible(true);
                         //binding.cgKeywords.addView(chip)
+                        val keywordCreator=KeywordCreator()
+                        val printText=keywordCreator.createKeywordList(lower, stopWords)
 
                         for (item in printText){
                             Log.d("chips", item)
