@@ -134,6 +134,9 @@ class DashboardFragment : Fragment() {
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodEntryFragment)
 
             }
+            binding.btnInsights.setOnClickListener {
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_retreiveMoodEntriesFragment)
+            }
 
             binding.btnDashLogOut.setOnClickListener {
                 Firebase.auth.signOut()

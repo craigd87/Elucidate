@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_titleFragment"
             app:destination="@id/titleFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_retreiveMoodEntriesFragment"
+            app:destination="@id/retreiveMoodEntriesFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -166,4 +169,9 @@
             android:name="password"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/retreiveMoodEntriesFragment"
+        android:name="com.example.elucidate.RetreiveMoodEntriesFragment"
+        android:label="fragment_retreive_mood_entries"
+        tools:layout="@layout/fragment_retreive_mood_entries" />
 </navigation>

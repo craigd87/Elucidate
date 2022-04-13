@@ -6,13 +6,17 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
@@ -159,23 +163,29 @@ class FirebaseUtils {
         return documentReference.set(mood)
     }
 
-    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): String {
+    /*fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): MutableLiveData<String> {
+
+        var mutableLiveData= MutableLiveData<String>()
 
         val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-        var moodEntry=""
-        queryRef.whereGreaterThanOrEqualTo("time", dateStart).whereLessThan("time", dateEnd)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    if (document != null) {
-                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
+        val moodEntry= queryRef.whereGreaterThanOrEqualTo("time", dateStart).whereLessThan("time", dateEnd).get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                if (document != null) {
+                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
 
-                        moodEntry = document.getString("moodRating").toString()
+                    //moodEntry = document.getString("moodRating").toString()
+                    val docString =document.getString("moodEntry").toString()
+                    mutableLiveData.value=docString
 
-                    }
                 }
             }
-        return moodEntry
+        }
+
+        return mutableLiveData
+    }*/
+    fun retrieveMoodEntryByDate(): CollectionReference {
+        var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userMoods/MoodEntry")
+        return collectionReference
     }
 
     fun updateProfile(name: String){

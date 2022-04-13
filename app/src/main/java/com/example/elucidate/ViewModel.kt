@@ -1,8 +1,11 @@
 package com.example.elucidate
 
 import android.util.Log
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.elucidate.databinding.FragmentRetreiveMoodEntriesBinding
+import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
 //private lateinit var auth: FirebaseAuth
@@ -92,8 +95,35 @@ class ViewModel() {
         firebaseUtils.updateProfile(name)
     }
 
-    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): String {
-        return firebaseUtils.retrieveMoodEntryByDate(dateStart, dateEnd)
+    /*fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): String {
+        firebaseUtils.retrieveMoodEntryByDate(dateStart, dateEnd).observe(this, observer:Observer)
+
+    }*/
+    var moodRetrieved : MutableLiveData<String> = MutableLiveData()
+    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd:Date){
+        firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThan("time", dateEnd).get().addOnSuccessListener { documents ->
+            for (document in documents) {
+                if (document != null) {
+                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
+
+                    //moodEntry = document.getString("moodRating").toString()
+                    val docString =document.getString("moodEntry").toString()
+                    moodRetrieved.value=docString
+
+                }
+            }
+        }
+
+
+        //var savedAddressList : MutableList<AddressItem> = mutableListOf()
+        /*for (doc in documents!!) {
+            var addressItem = doc.toObject(AddressItem::class.java)
+            savedAddressList.add(addressItem)
+        }
+        savedAddresses.value = savedAddressList
+    })*/
+
 
     }
     /*fun initializeAuth(auth: FirebaseAuth): FirebaseAuth{

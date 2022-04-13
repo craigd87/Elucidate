@@ -24,16 +24,17 @@ class RetreiveMoodEntriesFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentRetreiveMoodEntriesBinding.inflate(layoutInflater)
 
-        val date= binding.etEnterDate.text.toString()
-        val simpleDateStart=date+" 00:00:00"
-        val simpleDateEnd=date+" 23:59:59"
-        val dateCreator= DateMillisCreator()
-        val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
-        val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
+
 
         binding.btnCheckDate.setOnClickListener {
+            val date= binding.etEnterDate.text.toString()
+            val simpleDateStart="$date 00:00:00"
+            val simpleDateEnd="$date 23:59:59"
+            val dateCreator= DateMillisCreator()
+            val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
+            val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
             val moodText= viewModel.retrieveMoodEntryByDate(dateStartTime,dateEndTime)
-            binding.textView2.text=moodText
+            binding.textView2.text=moodText.toString()
 
         }
 
