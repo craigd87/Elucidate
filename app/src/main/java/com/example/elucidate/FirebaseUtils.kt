@@ -152,13 +152,13 @@ class FirebaseUtils {
     }
     fun saveUserDetails(user: User): Task<Void> {
         //var
-        var documentReference = fireStoreDatabase.collection("users").document("TESTING")
+        var documentReference = fireStoreDatabase.collection("users").document()
 
         return documentReference.set(user)
     }
     fun saveMoodDetails(mood: Mood): Task<Void> {
         //var
-        var documentReference = fireStoreDatabase.collection("userMoods").document("TESTINGMOOD2")
+        var documentReference = fireStoreDatabase.collection("userMoods").document()
 
         return documentReference.set(mood)
     }
