@@ -1,6 +1,7 @@
 package com.example.elucidate
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -38,13 +39,17 @@ class RetreiveMoodEntriesFragment : Fragment() {
             //binding.textView2.text=moodText.toString()
             viewModel.retrieveMoodEntryByDate(dateStartTime,dateEndTime).observe(viewLifecycleOwner, Observer { it->
                 retrievedMood = it as MutableList<Mood>
+                Log.d("retrieved mood", "$retrievedMood")
+                var mood:Mood
+                for(item in retrievedMood){
+                    mood=item
+                    Log.d("Mood details", mood.toString())
+                    binding.textView2.text=mood.moodEntry
+                    Log.d("mood received",mood.moodEntry)
+                }
 
         })
-            var mood:Mood
-            for(item in retrievedMood){
-                mood=item
-                binding.textView2.text=mood.moodEntry
-            }
+
 
 
 
