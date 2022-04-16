@@ -67,6 +67,9 @@
         <action
             android:id="@+id/action_titleFragment_to_testViewModelFragment"
             app:destination="@id/testViewModelFragment" />
+        <action
+            android:id="@+id/action_titleFragment_to_cloudFragment"
+            app:destination="@id/cloudFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -174,4 +177,9 @@
         android:name="com.example.elucidate.RetreiveMoodEntriesFragment"
         android:label="fragment_retreive_mood_entries"
         tools:layout="@layout/fragment_retreive_mood_entries" />
+    <fragment
+        android:id="@+id/cloudFragment"
+        android:name="com.example.elucidate.CloudFragment"
+        android:label="fragment_cloud"
+        tools:layout="@layout/fragment_cloud" />
 </navigation>
