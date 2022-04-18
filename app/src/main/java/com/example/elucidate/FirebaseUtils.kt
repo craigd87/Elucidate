@@ -13,10 +13,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.CollectionReference
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
@@ -186,6 +183,11 @@ class FirebaseUtils {
     fun retrieveMoodEntryByDate(): CollectionReference {
         var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userMoods")
         return collectionReference
+    }
+
+    fun retrieveAllMoodEntries(): Query {
+        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", uid)
+        return queryRef
     }
 
     fun updateProfile(name: String){

@@ -141,6 +141,34 @@ class ViewModel() {
         return moodRetrieved
     }
 
+    var allMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
+    // get realtime updates from firebase regarding saved addresses
+    fun retrieveAllMoodEntries() : LiveData<List<Mood>>{
+        //firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
+        //.whereLessThan("time", dateEnd).addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
+
+        firebaseUtils.retrieveAllMoodEntries().orderBy("time").addSnapshotListener { snapshot, e ->
+
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    moodRetrieved.value = emptyList()
+                    return@addSnapshotListener
+                }
+
+                //var savedAddressList : MutableList<AddressItem> = mutableListOf()
+                var moodItemList: MutableList<Mood> = mutableListOf()
+                for (doc in snapshot!!) {
+                    var moodItem = doc.toObject(Mood::class.java)
+                    moodItemList.add(moodItem)
+                    Log.d("list", moodItemList.toString())
+                    // savedAddressList.add(addressItem)
+                }
+                allMoodsRetrieved.value = moodItemList
+            }
+
+        return moodRetrieved
+    }
+
 
         //var savedAddressList : MutableList<AddressItem> = mutableListOf()
         /*for (doc in documents!!) {

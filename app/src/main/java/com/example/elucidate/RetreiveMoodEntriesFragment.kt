@@ -29,19 +29,44 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
 
         var retrievedMood= mutableListOf<Mood>()
-        var moodEntries= mutableListOf(
-            MoodView("hello"),
-            MoodView("testing"),
-            MoodView("my"),
-            MoodView("Recycle"),
-            MoodView("View"),
-            MoodView("ENTRIES!")
-        )
+        /*var moodEntries= mutableListOf(
+            MoodView("hello", ""),
+            MoodView("testing", ""),
+            MoodView("my", ""),
+            MoodView("Recycle", ""),
+            MoodView("View", ""),
+            MoodView("ENTRIES!", "")
+        )*/
+        var moodEntries= mutableListOf<MoodView>()
 
-        val adapter=MoodAdapter(moodEntries)
+        //val adapter=MoodAdapter(moodEntries)
+
         binding.btnCheckDate.setOnClickListener {
-            binding.rvMoodEntries.adapter= adapter
-            binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+            //binding.rvMoodEntries.adapter= adapter
+            //binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+            //val uid=viewModel.getCurrentUserId()
+
+            viewModel.retrieveAllMoodEntries().observe(viewLifecycleOwner, Observer { it ->
+                retrievedMood = it as MutableList<Mood>
+                Log.d("retrieved mood", "$retrievedMood")
+                var mood: Mood
+                for (item in retrievedMood) {
+                    mood = item
+                    /*Log.d("Mood details", mood.toString())
+                    binding.textView2.text = mood.moodEntry
+                    Log.d("mood received", mood.moodEntry)*/
+                    val entry= mood.moodEntry
+                    val time= mood.time.toString()
+                    val moodView= MoodView(entry, time)
+                    moodEntries.add(moodView)
+
+
+                }
+                val adapter=MoodAdapter(moodEntries)
+                binding.rvMoodEntries.adapter= adapter
+                binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+
+            })
         }
 
         /*binding.btnCheckDate.setOnClickListener {
