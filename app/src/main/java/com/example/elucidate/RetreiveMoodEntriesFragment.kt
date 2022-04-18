@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.elucidate.databinding.FragmentRetreiveMoodEntriesBinding
 
 
@@ -28,7 +29,22 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
 
         var retrievedMood= mutableListOf<Mood>()
+        var moodEntries= mutableListOf(
+            MoodView("hello"),
+            MoodView("testing"),
+            MoodView("my"),
+            MoodView("Recycle"),
+            MoodView("View"),
+            MoodView("ENTRIES!")
+        )
+
+        val adapter=MoodAdapter(moodEntries)
         binding.btnCheckDate.setOnClickListener {
+            binding.rvMoodEntries.adapter= adapter
+            binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+        }
+
+        /*binding.btnCheckDate.setOnClickListener {
             val date= binding.etEnterDate.text.toString()
             val simpleDateStart="$date 00:00:00"
             val simpleDateEnd="$date 23:59:59"
@@ -54,7 +70,7 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
 
 
-    }
+    }*/
         return binding.root
     }
 
