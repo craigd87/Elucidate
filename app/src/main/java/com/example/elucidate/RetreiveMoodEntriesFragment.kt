@@ -8,7 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.elucidate.databinding.FragmentRetreiveMoodEntriesBinding
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class RetreiveMoodEntriesFragment : Fragment() {
@@ -47,6 +50,7 @@ class RetreiveMoodEntriesFragment : Fragment() {
             //val uid=viewModel.getCurrentUserId()
 
             viewModel.retrieveAllMoodEntries().observe(viewLifecycleOwner, Observer { it ->
+                Log.d("garfield", "$it")
                 retrievedMood = it as MutableList<Mood>
                 Log.d("retrieved mood", "$retrievedMood")
                 var mood: Mood
@@ -56,14 +60,24 @@ class RetreiveMoodEntriesFragment : Fragment() {
                     binding.textView2.text = mood.moodEntry
                     Log.d("mood received", mood.moodEntry)*/
                     val entry= mood.moodEntry
-                    val time= mood.time.toString()
-                    val moodView= MoodView(entry, time)
+                    val time= mood.time?.toDate()
+                    //val cal= Calendar.getInstance()
+                    //cal.time=time
+                    //val dayName=cal.get(Calendar.DAY_OF_WEEK_IN_MONTH).toString()
+                    //val day=cal.get(Calendar.DAY_OF_MONTH).toString()
+                    //val hour=cal.get(Calendar.HOUR_OF_DAY).toString()
+                    val formatedTime= SimpleDateFormat("HH:mm -dd/MM/yyyy").format(time)
+                    //val finalTime=dayName+" "+hour
+
+                    val moodView= MoodView(entry, formatedTime)
                     moodEntries.add(moodView)
 
 
                 }
                 val adapter=MoodAdapter(moodEntries)
                 binding.rvMoodEntries.adapter= adapter
+                //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
+                binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
                 binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
 
             })

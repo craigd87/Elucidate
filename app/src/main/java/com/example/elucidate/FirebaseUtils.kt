@@ -35,7 +35,7 @@ class FirebaseUtils {
         return currentUserId
 
     }
-    fun signup(email: String, password: String, name: String, age: String) {
+    fun signup(email: String, password: String, name: String) {
 
         auth.createUserWithEmailAndPassword ("$email", "$password")
             .addOnCompleteListener() { task ->
@@ -47,7 +47,7 @@ class FirebaseUtils {
                     val user : FirebaseUser = task.result!!.user!!
                     val userId=user.uid
 
-                    val userDetails=User("$userId", "$name", "$age")
+                    val userDetails=User("$userId", "$name")
                     viewModel.saveUserDetailsToFirestore(userDetails)
 
                     /*val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment( "$email","$password", "$userId")

@@ -42,7 +42,7 @@ class MoodAdapter(var moodViews: List<MoodView>) : RecyclerView.Adapter<MoodAdap
         //val moodView: MoodView = moodViews[position]
         //holder.bind(moodView)
         holder.binding.apply {
-            tvMood.text = moodViews[position].moodEntry
+            tvMood.text = moodViews[position].moodEntry+"\n"+moodViews[position].time
         }
 
         }

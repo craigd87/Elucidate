@@ -55,7 +55,7 @@ class UpdateProfileFragment : Fragment() {
 
             if (user != null) {
                 //updateProfile("$name", "$age", user, userId, uDetails)
-                val user1=User("$userId", "$name", "$age")
+                val user1=User("$userId", "$name")
                 viewModel.saveUserDetailsToFirestore(user1)
                 view?.findNavController()?.navigate(R.id.action_updateProfileFragment_to_dashboardFragment)
             }

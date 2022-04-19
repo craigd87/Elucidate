@@ -79,8 +79,8 @@ class ViewModel() {
         }
     }
 
-    fun signup(email: String, password: String, name: String, age: String){
-        firebaseUtils.signup(email, password, name, age)
+    fun signup(email: String, password: String, name: String){
+        firebaseUtils.signup(email, password, name)
     }
 
     fun loginAfterSignup(email: String, password: String){
@@ -151,7 +151,7 @@ class ViewModel() {
 
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
-                    moodRetrieved.value = emptyList()
+                    allMoodsRetrieved.value = emptyList()
                     return@addSnapshotListener
                 }
 
@@ -165,8 +165,9 @@ class ViewModel() {
                 }
                 allMoodsRetrieved.value = moodItemList
             }
+        Log.d("sancho", "moo")
 
-        return moodRetrieved
+        return allMoodsRetrieved
     }
 
 

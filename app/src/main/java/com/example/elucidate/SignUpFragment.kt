@@ -41,7 +41,7 @@ class SignUpFragment : Fragment() {
         val email= binding.btnEmail.text
         val password= binding.btnPassword.text
         val name=binding.editTextName.text
-        val age=242
+        //val age=242
 
         //auth.currentUser
 
@@ -49,7 +49,7 @@ class SignUpFragment : Fragment() {
         binding.btnCreateAccount.setOnClickListener {
 
            //signin("$email", "$password", "$name", "$age")
-            viewModel.signup("$email", "$password", "$name", "$age")
+            viewModel.signup("$email", "$password", "$name")
             view?.findNavController()?.navigate(R.id.action_signUpFragment_to_dashboardFragment)
 
         }
