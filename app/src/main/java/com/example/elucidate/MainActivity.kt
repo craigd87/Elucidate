@@ -26,6 +26,7 @@ var globalKeywordsList= mutableListOf<String>()
 var globalTriggerWordsList= mutableListOf<String>()
 var globalNonTriggersList= mutableListOf<String>()
 var globalPositiveWordsList= mutableListOf<String>()
+lateinit var globalUser: User
 
 class MainActivity() : AppCompatActivity() {
 

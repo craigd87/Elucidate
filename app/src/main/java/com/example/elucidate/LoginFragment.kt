@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.example.elucidate.databinding.FragmentLoginBinding
@@ -40,17 +41,30 @@ class LoginFragment : Fragment() {
         val email = binding.loginEmailAddress.text
         val password = binding.loginPassword.text
 
-        binding.btnLogin.setOnClickListener {
+            binding.btnLogin.setOnClickListener {
             //login("$email", "$password")
             /*view?.let { it1 -> FirebaseUtils().login("$email", "$password", it1) }
-        }*/
-            viewModel.login("$email", "$password")
-            view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
+                   }*/var retrievedUser= mutableListOf<User>()
+                    val id=viewModel.login("$email", "$password")
+                Log.d("Belfast", id)
+                    viewModel.retrieveUser(id).observe(viewLifecycleOwner, Observer { it ->
+                        Log.d("garfield", "$it")
+                        retrievedUser = it as MutableList<User>
+                        Log.d("retrieved mood", "$retrievedUser")
+                        //var user: Mood
+                        for (item in retrievedUser) {
+                            globalUser = item
+                        }
 
-        }
-        binding.btnSignUpLink.setOnClickListener{
-            view?.findNavController()?.navigate(R.id.action_loginFragment2_to_signUpFragment)
-        }
+                    } )
+                            view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
+            }
+
+
+            binding.btnSignUpLink.setOnClickListener{
+                view?.findNavController()?.navigate(R.id.action_loginFragment2_to_signUpFragment)
+            }
+
         return binding.root
     }
 

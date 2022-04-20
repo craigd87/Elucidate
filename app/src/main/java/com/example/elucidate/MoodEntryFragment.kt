@@ -45,7 +45,7 @@ class MoodEntryFragment : Fragment() {
         val uid= viewModel.getCurrentUserId()
         val moodDetails = hashMapOf<Any, Any>()
 
-        val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
+        /*val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
         queryRef.whereEqualTo("id", "$uid")
             .get()
             .addOnSuccessListener { documents ->
@@ -55,7 +55,8 @@ class MoodEntryFragment : Fragment() {
                     binding.tvEnterMood.text = "Hi " + name+"! please enter details about how you are feeling"
                 }
 
-            }
+            }*/
+        binding.tvEnterMood.text = "Hi " + globalUser.name+"! please enter details about how you are feeling"
 
         /*binding.sbRateMood.setOnClickListener{view : View ->
             moodRating= binding.sbRateMood.progress

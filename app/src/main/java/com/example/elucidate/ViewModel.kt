@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.elucidate.databinding.FragmentRetreiveMoodEntriesBinding
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
@@ -87,8 +88,11 @@ class ViewModel() {
         firebaseUtils.loginAfterSignup(email, password)
     }
 
-    fun login(email: String, password: String,){
-        firebaseUtils.login(email, password)
+    fun login(email: String, password: String,): String{
+       val id= firebaseUtils.login(email, password)
+        Log.d("Derry", id)
+        return id
+
     }
 
     fun updateProfile(name: String){
@@ -169,8 +173,54 @@ class ViewModel() {
 
         return allMoodsRetrieved
     }
+    //var retrievedUsers= mutableListOf<User>()
+    var retrievedUsers : MutableLiveData<List<User>> = MutableLiveData()
+    fun retrieveUser(id: String): LiveData<List<User>> {
+        Log.d("oak", id)
+        firebaseUtils.retrieveUser().whereEqualTo("id", id).addSnapshotListener { snapshot, e ->
+
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                retrievedUsers.value = emptyList()
+                return@addSnapshotListener
+            }
+            Log.d("snip","$snapshot")
+
+            //var savedAddressList : MutableList<AddressItem> = mutableListOf()
+            var userList: MutableList<User> = mutableListOf()
+            for (doc in snapshot!!) {
+                Log.d("dox", "$doc")
+                var retrievedUser = doc.toObject(User::class.java)
+                Log.d("retuse", "$retrievedUser")
+                userList.add(retrievedUser)
+                Log.d("userlist", userList.toString())
+                // savedAddressList.add(addressItem)
+            }
+            retrievedUsers.value = userList
+        }
+        Log.d("sancho", retrievedUsers.value.toString())
+
+        return retrievedUsers
+
+            /*.get()
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
+                    if (document != null) {
+                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
+
+                        //moodEntry = document.getString("moodRating").toString()
+                        val retrievedUser = document.toObject(User::class.java)
+                        retrievedUsers.add(retrievedUser)
 
 
+                    }else{
+                        Log.d("pain", "null")
+                    }
+                }
+
+            }
+        return retrievedUsers*/
+    }
         //var savedAddressList : MutableList<AddressItem> = mutableListOf()
         /*for (doc in documents!!) {
             var addressItem = doc.toObject(AddressItem::class.java)

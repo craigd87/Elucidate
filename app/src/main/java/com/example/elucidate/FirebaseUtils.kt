@@ -111,19 +111,42 @@ class FirebaseUtils {
         }
     }
 
-    fun login(email: String, password: String){
+    fun login(email: String, password: String): String{
+        //var userId=""
+        var idList= mutableListOf<String>()
         auth.signInWithEmailAndPassword("$email", "$password")
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     //view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
+                    val user : FirebaseUser = task.result!!.user!!
+                    val userId=user.uid
+                    idList.add(userId)
+                    Log.d("wtf", userId)
+                    Log.d("wtf2", idList.toString())
 
+                    /*val userList=viewModel.retrieveUser(userId).observe(viewLifecycleOwner, Observer { it ->
+                        Log.d("garfield", "$it")
+                        retrievedMood = it as MutableList<Mood>
+                        Log.d("retrieved mood", "$retrievedMood")
+                        var mood: Mood
+                        for (item in retrievedMood) {
+                            mood = item
+                    /*Log.d("ulist", "$userList")
+                    for (item in userList){
+                        Log.d("item", "Stark")
+                        globalUser=User(item.id,item.name)
+                    }*/
+                    //return@addOnCompleteListener
+                            */
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     //Toast.makeText(context,"Authentication failed.", Toast.LENGTH_SHORT).show()
 
                 }
+
+                //return user
             }
         /*auth.signInWithEmailAndPassword("$email", "$password")
             .addOnCompleteListener() { task ->
@@ -146,6 +169,8 @@ class FirebaseUtils {
 
                 }
             }*/
+        Log.d("wtf3", idList.toString())
+        return idList.toString()
     }
     fun saveUserDetails(user: User): Task<Void> {
         //var
@@ -207,6 +232,11 @@ class FirebaseUtils {
 
                 }
             }
+    }
+
+    fun retrieveUser(): CollectionReference{
+        var collectionReference = FirebaseUtils().fireStoreDatabase.collection("users")
+        return collectionReference
     }
 
 
