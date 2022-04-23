@@ -16,6 +16,7 @@ import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.example.elucidate.databinding.FragmentLoginBinding
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -45,18 +46,59 @@ class LoginFragment : Fragment() {
             //login("$email", "$password")
             /*view?.let { it1 -> FirebaseUtils().login("$email", "$password", it1) }
                    }*/var retrievedUser= mutableListOf<User>()
-                    val id=viewModel.login("$email", "$password")
-                Log.d("Belfast", id)
-                    viewModel.retrieveUser(id).observe(viewLifecycleOwner, Observer { it ->
-                        Log.d("garfield", "$it")
-                        retrievedUser = it as MutableList<User>
-                        Log.d("retrieved mood", "$retrievedUser")
-                        //var user: Mood
-                        for (item in retrievedUser) {
-                            globalUser = item
-                        }
+                    //val task=viewModel.login("$email", "$password")
+                //Log.d("Belfast", id)
+                auth.signInWithEmailAndPassword("$email", "$password")
+                    .addOnCompleteListener() { task ->
+                        if (task.isSuccessful) {
+                            Log.d(TAG, "signInWithEmail:success")
+                            //view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
+                            val user: FirebaseUser = task.result!!.user!!
+                            val userId = user.uid
+                            //idList.add(userId)
+                            var query=viewModel.retrieveUser(userId)
+                            query.addOnCompleteListener() { task->
+                                if(task.isSuccessful){
+                                    val documents=query.result
+                                    Log.d("Marnie", "$documents")
+                                    if (documents != null) {
+                                        for (document in documents){
+                                            Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                                            val retrievedUser = document.toObject(User::class.java)
+                                            globalUser = retrievedUser
+                                            Log.d("Hannah", "$globalUser")
+                                        }
+                                    }else{
+                                        //if (document != null) {
+                                        //Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                                        //document.
+                                        //moodEntry = document.getString("moodRating").toString()
+                                        //val retrievedUser = document.toObject(User::class.java)
+                                        //retrievedUsers.add(retrievedUser)
 
-                    } )
+
+                                        //}
+                                        Log.d("pain", "null")
+                                    }
+
+                                }
+                            }
+
+                                /*.observe(viewLifecycleOwner, Observer { it ->
+                                    Log.d("garfield", "$it")
+                                    retrievedUser = it as MutableList<User>
+                                    Log.d("retrieved mood", "$retrievedUser")*/
+                                    //var user: Mood
+
+                            /*for (item in retrievedUser) {
+                                        globalUser = item
+                                        Log.d("Hannah", "$globalUser")
+                                    }*/
+
+                                }
+
+
+                    }
                             view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
             }
 

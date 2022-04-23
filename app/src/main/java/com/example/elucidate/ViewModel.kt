@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.elucidate.databinding.FragmentRetreiveMoodEntriesBinding
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.QueryDocumentSnapshot
 import com.google.firebase.firestore.QuerySnapshot
 import java.util.*
 
@@ -88,10 +91,10 @@ class ViewModel() {
         firebaseUtils.loginAfterSignup(email, password)
     }
 
-    fun login(email: String, password: String,): String{
-       val id= firebaseUtils.login(email, password)
-        Log.d("Derry", id)
-        return id
+    fun login(email: String, password: String,): Task<AuthResult> {
+       val task= firebaseUtils.login(email, password)
+        //Log.d("Derry", id)
+        return task
 
     }
 
@@ -147,11 +150,11 @@ class ViewModel() {
 
     var allMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
     // get realtime updates from firebase regarding saved addresses
-    fun retrieveAllMoodEntries() : LiveData<List<Mood>>{
+    fun retrieveAllMoodEntries(id: String) : LiveData<List<Mood>>{
         //firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
         //.whereLessThan("time", dateEnd).addSnapshotListener(EventListener<QuerySnapshot> { value, e ->
 
-        firebaseUtils.retrieveAllMoodEntries().orderBy("time").addSnapshotListener { snapshot, e ->
+        firebaseUtils.retrieveAllMoodEntries("$id").orderBy("time").addSnapshotListener { snapshot, e ->
 
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
@@ -173,12 +176,12 @@ class ViewModel() {
 
         return allMoodsRetrieved
     }
-    //var retrievedUsers= mutableListOf<User>()
-    var retrievedUsers : MutableLiveData<List<User>> = MutableLiveData()
-    fun retrieveUser(id: String): LiveData<List<User>> {
+    var retrievedUsers= mutableListOf<User>()
+    //var retrievedUsers : MutableLiveData<List<User>> = MutableLiveData()
+    fun retrieveUser(id: String): Task<QuerySnapshot> {
         Log.d("oak", id)
-        firebaseUtils.retrieveUser().whereEqualTo("id", id).addSnapshotListener { snapshot, e ->
-
+        /*firebaseUtils.retrieveUser().whereEqualTo("id", id).addSnapshotListener { snapshot, e ->
+            Log.d("Idris", "got to here")
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 retrievedUsers.value = emptyList()
@@ -200,17 +203,17 @@ class ViewModel() {
         }
         Log.d("sancho", retrievedUsers.value.toString())
 
-        return retrievedUsers
-
-            /*.get()
-            .addOnSuccessListener { documents ->
+        return retrievedUsers*/
+            val query=firebaseUtils.retrieveUser().whereEqualTo("id", "$id").get()
+            /*.addOnSuccessListener { documents ->
                 for (document in documents) {
                     if (document != null) {
                         Log.d("exist", "DocumentSnapshot data: ${document.data}")
 
                         //moodEntry = document.getString("moodRating").toString()
-                        val retrievedUser = document.toObject(User::class.java)
-                        retrievedUsers.add(retrievedUser)
+                        //val retrievedUser =
+                    //document.toObject(User::class.java)
+                        //retrievedUsers.add(retrievedUser)
 
 
                     }else{
@@ -218,8 +221,9 @@ class ViewModel() {
                     }
                 }
 
-            }
-        return retrievedUsers*/
+            }*/
+        //Log.d("Elba", "$retrievedUsers")
+        return query
     }
         //var savedAddressList : MutableList<AddressItem> = mutableListOf()
         /*for (doc in documents!!) {

@@ -49,11 +49,12 @@ class RetreiveMoodEntriesFragment : Fragment() {
             //binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
             //val uid=viewModel.getCurrentUserId()
 
-            viewModel.retrieveAllMoodEntries().observe(viewLifecycleOwner, Observer { it ->
+            viewModel.retrieveAllMoodEntries(globalUser.id).observe(viewLifecycleOwner, Observer { it ->
                 Log.d("garfield", "$it")
                 retrievedMood = it as MutableList<Mood>
                 Log.d("retrieved mood", "$retrievedMood")
                 var mood: Mood
+                moodEntries.clear()
                 for (item in retrievedMood) {
                     mood = item
                     /*Log.d("Mood details", mood.toString())
@@ -70,15 +71,29 @@ class RetreiveMoodEntriesFragment : Fragment() {
                     //val finalTime=dayName+" "+hour
 
                     val moodView= MoodView(entry, formatedTime)
+
                     moodEntries.add(moodView)
+
+
 
 
                 }
                 val adapter=MoodAdapter(moodEntries)
+                adapter.notifyDataSetChanged()
                 binding.rvMoodEntries.adapter= adapter
+
+
+                //adapter.notifyDataSetChanged()
                 //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
                 binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
                 binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+                //moodEntries.clear()
+                //adapter.notifyDataSetChanged()
+                /*adapter.run {
+                    setData(moodEntries)
+                    notifyDataSetChanged()
+                }*/
+
 
             })
         }
@@ -112,6 +127,8 @@ class RetreiveMoodEntriesFragment : Fragment() {
     }*/
         return binding.root
     }
+
+
 
 
 }

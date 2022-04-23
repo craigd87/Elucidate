@@ -9,6 +9,7 @@ import androidx.annotation.NonNull
 import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -111,19 +112,19 @@ class FirebaseUtils {
         }
     }
 
-    fun login(email: String, password: String): String{
+    fun login(email: String, password: String): Task<AuthResult>{
         //var userId=""
-        var idList= mutableListOf<String>()
-        auth.signInWithEmailAndPassword("$email", "$password")
+        //var idList= mutableListOf<String>()
+        val task =auth.signInWithEmailAndPassword("$email", "$password")
             .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
+                /*if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
                     //view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
                     val user : FirebaseUser = task.result!!.user!!
                     val userId=user.uid
                     idList.add(userId)
                     Log.d("wtf", userId)
-                    Log.d("wtf2", idList.toString())
+                    Log.d("wtf2", idList.toString())*/
 
                     /*val userList=viewModel.retrieveUser(userId).observe(viewLifecycleOwner, Observer { it ->
                         Log.d("garfield", "$it")
@@ -139,12 +140,12 @@ class FirebaseUtils {
                     }*/
                     //return@addOnCompleteListener
                             */
-                } else {
+               // } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    //Log.w(TAG, "signInWithEmail:failure", task.exception)
                     //Toast.makeText(context,"Authentication failed.", Toast.LENGTH_SHORT).show()
 
-                }
+                //}
 
                 //return user
             }
@@ -169,8 +170,9 @@ class FirebaseUtils {
 
                 }
             }*/
-        Log.d("wtf3", idList.toString())
-        return idList.toString()
+        //Log.d("wtf3", idList.toString())
+        //return idList.toString()
+        return task
     }
     fun saveUserDetails(user: User): Task<Void> {
         //var
@@ -210,8 +212,8 @@ class FirebaseUtils {
         return collectionReference
     }
 
-    fun retrieveAllMoodEntries(): Query {
-        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", uid)
+    fun retrieveAllMoodEntries(id: String): Query {
+        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
         return queryRef
     }
 

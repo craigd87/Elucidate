@@ -139,6 +139,8 @@ class DashboardFragment : Fragment() {
             }
 
             binding.btnDashLogOut.setOnClickListener {
+                //globalUser.
+
                 Firebase.auth.signOut()
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_titleFragment)
             }

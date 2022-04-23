@@ -1,5 +1,6 @@
 package com.example.elucidate
 
+import android.text.method.TextKeyListener.clear
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,7 @@ by
 A1m
  */
 
-class MoodAdapter(var moodViews: List<MoodView>) : RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {
+class MoodAdapter(var moodViews: MutableList<MoodView>) : RecyclerView.Adapter<MoodAdapter.MoodViewHolder>() {
 
     //inner class MoodViewHolder(moodView: View): RecyclerView.ViewHolder(moodView){
     inner class MoodViewHolder(val binding: ItemMoodEntryBinding): RecyclerView.ViewHolder(binding.root){
@@ -46,6 +47,7 @@ class MoodAdapter(var moodViews: List<MoodView>) : RecyclerView.Adapter<MoodAdap
         }
 
         }
+
 
 
 
