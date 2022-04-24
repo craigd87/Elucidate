@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.view.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.example.elucidate.R
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.example.elucidate.databinding.FragmentTitleBinding
 import com.google.firebase.auth.FirebaseAuth

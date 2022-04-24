@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.dto
 
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseUser
@@ -19,7 +19,5 @@ data class Mood (var id: String,
         "", mutableListOf(), mutableListOf(),
         mutableListOf(), null
     )
-
-
 
 }

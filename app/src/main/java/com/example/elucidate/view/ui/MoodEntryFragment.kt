@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.view.ui
 
 import android.content.ContentValues
 import android.os.Bundle
@@ -9,11 +9,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.findNavController
+import com.example.elucidate.*
 import com.example.elucidate.databinding.FragmentMoodEntryBinding
+import com.example.elucidate.model.FirebaseUtils
 import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import java.util.*
 import kotlin.collections.HashMap
 

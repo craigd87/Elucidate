@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.view.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -6,17 +6,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
-import androidx.navigation.Navigation.findNavController
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import com.example.elucidate.databinding.FilterChipBinding
+import com.example.elucidate.*
 import com.example.elucidate.databinding.FragmentIdentifyKeywordsBinding
-import com.example.elucidate.databinding.FragmentStringTestBinding
+import com.example.elucidate.model.FirebaseUtils
 import com.google.android.material.chip.Chip
-import com.google.firebase.firestore.Query
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -117,7 +113,7 @@ class IdentifyKeywordsFragment : Fragment() {
                         //chip.setChipBackgroundColorResource(R.color.white)
                         //chip.setCloseIconVisible(true);
                         //binding.cgKeywords.addView(chip)
-                        val keywordCreator=KeywordCreator()
+                        val keywordCreator= KeywordCreator()
                         val printText=keywordCreator.createKeywordList(lower, stopWords)
 
                         for (item in printText){
@@ -144,7 +140,7 @@ class IdentifyKeywordsFragment : Fragment() {
                                 Log.d("Mrating", globalMoodRating.toString())
                                 Log.d("Mwords", "$globalKeywordsList")
                                 //view?.findNavController()?.navigate(R.id.action_identifyKeywordsFragment_to_identifyTriggersFragment)
-                                findNavController().safeNavigate(IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToIdentifyTriggersFragment())
+                                findNavController().safeNavigate(com.example.elucidate.view.ui.IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToIdentifyTriggersFragment())
                                 //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
                             }
                         }

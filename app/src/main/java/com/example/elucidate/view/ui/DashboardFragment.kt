@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.view.ui
 
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -12,6 +12,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.navigation.findNavController
+import com.example.elucidate.R
 
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.google.firebase.Timestamp

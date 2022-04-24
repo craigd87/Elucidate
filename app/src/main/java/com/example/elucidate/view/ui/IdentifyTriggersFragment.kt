@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.view.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -9,7 +9,11 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.example.elucidate.R
 import com.example.elucidate.databinding.FragmentIdentifyTriggersBinding
+import com.example.elucidate.globalKeywordsList
+import com.example.elucidate.globalNonTriggersList
+import com.example.elucidate.globalTriggerWordsList
 import com.google.android.material.chip.Chip
 
 
@@ -65,7 +69,7 @@ class IdentifyTriggersFragment : Fragment() {
                     globalNonTriggersList.add(item)
                 }
             }
-            findNavController().safeNavigate(IdentifyTriggersFragmentDirections.actionIdentifyTriggersFragmentToIdentifyPositivesFragment())
+            findNavController().safeNavigate(com.example.elucidate.view.ui.IdentifyTriggersFragmentDirections.actionIdentifyTriggersFragmentToIdentifyPositivesFragment())
         }
         return binding.root
     }

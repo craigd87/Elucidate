@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="com.example.elucidate.DashboardFragment"
+        android:name="com.example.elucidate.view.ui.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
-        android:name="com.example.elucidate.LoginFragment"
+        android:name="com.example.elucidate.view.ui.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
@@ -49,7 +49,7 @@
         />
     <fragment
         android:id="@+id/titleFragment"
-        android:name="com.example.elucidate.TitleFragment"
+        android:name="com.example.elucidate.view.ui.TitleFragment"
         android:label="fragment_title"
         tools:layout="@layout/fragment_title" >
         <action
@@ -59,58 +59,21 @@
             android:id="@+id/action_titleFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
         <action
-            android:id="@+id/action_titleFragment_to_chipTestFragment"
-            app:destination="@id/chipTestFragment" />
-        <action
             android:id="@+id/action_titleFragment_to_chartFragment"
             app:destination="@id/chartFragment" />
-        <action
-            android:id="@+id/action_titleFragment_to_testViewModelFragment"
-            app:destination="@id/testViewModelFragment" />
         <action
             android:id="@+id/action_titleFragment_to_cloudFragment"
             app:destination="@id/cloudFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
-        android:name="com.example.elucidate.SignUpFragment"
+        android:name="com.example.elucidate.view.ui.SignUpFragment"
         android:label="fragment_sign_up"
         tools:layout="@layout/fragment_sign_up" >
-        <action
-            android:id="@+id/action_signUpFragment_to_updateProfileFragment"
-            app:destination="@id/updateProfileFragment" />
-        <action
-            android:id="@+id/action_signUpFragment_to_welcomeFragment"
-            app:destination="@id/welcomeFragment" />
         <action
             android:id="@+id/action_signUpFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/updateProfileFragment"
-        android:name="com.example.elucidate.UpdateProfileFragment"
-        android:label="fragment_update_profile"
-        tools:layout="@layout/fragment_update_profile" >
-        <action
-            android:id="@+id/action_updateProfileFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
-        <argument
-            android:name="email"
-            app:argType="string"
-             />
-        <argument
-            android:name="password"
-            app:argType="string"
-             />
-        <argument
-            android:name="id"
-            app:argType="string" />
-    </fragment>
-    <fragment
-        android:id="@+id/chipTestFragment"
-        android:name="com.example.elucidate.ChipTestFragment"
-        android:label="fragment_chip_test"
-        tools:layout="@layout/fragment_chip_test" />
     <fragment
         android:id="@+id/chartFragment"
         android:name="com.example.elucidate.ChartFragment"
@@ -118,7 +81,7 @@
         tools:layout="@layout/fragment_chart" />
     <fragment
         android:id="@+id/identifyKeywordsFragment"
-        android:name="com.example.elucidate.IdentifyKeywordsFragment"
+        android:name="com.example.elucidate.view.ui.IdentifyKeywordsFragment"
         android:label="fragment_identify_keywords"
         tools:layout="@layout/fragment_identify_keywords" >
         <action
@@ -127,7 +90,7 @@
     </fragment>
     <fragment
         android:id="@+id/moodEntryFragment"
-        android:name="com.example.elucidate.MoodEntryFragment"
+        android:name="com.example.elucidate.view.ui.MoodEntryFragment"
         android:label="fragment_mood_entry"
         tools:layout="@layout/fragment_mood_entry" >
         <action
@@ -136,7 +99,7 @@
     </fragment>
     <fragment
         android:id="@+id/identifyTriggersFragment"
-        android:name="com.example.elucidate.IdentifyTriggersFragment"
+        android:name="com.example.elucidate.view.ui.IdentifyTriggersFragment"
         android:label="fragment_identify_triggers"
         tools:layout="@layout/fragment_identify_triggers" >
         <action
@@ -145,7 +108,7 @@
     </fragment>
     <fragment
         android:id="@+id/identifyPositivesFragment"
-        android:name="com.example.elucidate.IdentifyPositivesFragment"
+        android:name="com.example.elucidate.view.ui.IdentifyPositivesFragment"
         android:label="fragment_identify_positives"
         tools:layout="@layout/fragment_identify_positives" >
         <action
@@ -153,28 +116,8 @@
             app:destination="@id/dashboardFragment" />
     </fragment>
     <fragment
-        android:id="@+id/testViewModelFragment"
-        android:name="com.example.elucidate.TestViewModelFragment"
-        android:label="fragment_test_view_model"
-        tools:layout="@layout/fragment_test_view_model" />
-    <fragment
-        android:id="@+id/welcomeFragment"
-        android:name="com.example.elucidate.WelcomeFragment"
-        android:label="fragment_welcome"
-        tools:layout="@layout/fragment_welcome" >
-        <action
-            android:id="@+id/action_welcomeFragment_to_updateProfileFragment"
-            app:destination="@id/updateProfileFragment" />
-        <argument
-            android:name="email"
-            app:argType="string" />
-        <argument
-            android:name="password"
-            app:argType="string" />
-    </fragment>
-    <fragment
         android:id="@+id/retreiveMoodEntriesFragment"
-        android:name="com.example.elucidate.RetreiveMoodEntriesFragment"
+        android:name="com.example.elucidate.view.ui.RetreiveMoodEntriesFragment"
         android:label="fragment_retreive_mood_entries"
         tools:layout="@layout/fragment_retreive_mood_entries" />
     <fragment

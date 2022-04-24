@@ -1,13 +1,12 @@
-package com.example.elucidate
+package com.example.elucidate.model
 
-import android.app.Activity
 import android.content.ContentValues
 import android.util.Log
-import android.view.View
-import android.widget.Toast
-import androidx.annotation.NonNull
-import androidx.lifecycle.MutableLiveData
-import androidx.navigation.findNavController
+import com.example.elucidate.dto.Mood
+import com.example.elucidate.dto.User
+import com.example.elucidate.view.viewmodel.ViewModel
+import com.example.elucidate.viewModel
+
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -16,7 +15,6 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
-import java.util.*
 
 //private lateinit var auth: FirebaseAuth
 //Serves as a API to allow adding getting, deleting and updating (section.io link)
@@ -48,7 +46,7 @@ class FirebaseUtils {
                     val user : FirebaseUser = task.result!!.user!!
                     val userId=user.uid
 
-                    val userDetails=User("$userId", "$name")
+                    val userDetails= User("$userId", "$name")
                     viewModel.saveUserDetailsToFirestore(userDetails)
 
                     /*val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment( "$email","$password", "$userId")

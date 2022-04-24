@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.view.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -8,10 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.example.elucidate.dto.Mood
+import com.example.elucidate.dto.MoodView
 import com.example.elucidate.databinding.FragmentRetreiveMoodEntriesBinding
+import com.example.elucidate.globalUser
+import com.example.elucidate.view.adapter.MoodAdapter
+import com.example.elucidate.viewModel
 import java.text.SimpleDateFormat
-import java.util.*
 
 
 class RetreiveMoodEntriesFragment : Fragment() {
@@ -78,7 +81,7 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
 
                 }
-                val adapter=MoodAdapter(moodEntries)
+                val adapter= MoodAdapter(moodEntries)
                 adapter.notifyDataSetChanged()
                 binding.rvMoodEntries.adapter= adapter
 

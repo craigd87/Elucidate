@@ -1,11 +1,9 @@
-package com.example.elucidate
+package com.example.elucidate.view.adapter
 
-import android.text.method.TextKeyListener.clear
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.elucidate.dto.MoodView
 import com.example.elucidate.databinding.ItemMoodEntryBinding
 
 /*

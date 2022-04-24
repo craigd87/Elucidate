@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.view.ui
 
 import android.os.Bundle
 import android.util.Log
@@ -9,8 +9,9 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
+import com.example.elucidate.*
+import com.example.elucidate.dto.Mood
 import com.example.elucidate.databinding.FragmentIdentifyPositivesBinding
-import com.example.elucidate.databinding.FragmentIdentifyTriggersBinding
 import com.google.android.material.chip.Chip
 import com.google.firebase.Timestamp
 import java.util.*
@@ -70,7 +71,7 @@ class IdentifyPositivesFragment : Fragment() {
             viewModel.saveMoodDetailsToFirestore(mood)
             Log.d("fandabidosi", "user added")
 
-            findNavController().safeNavigate(IdentifyPositivesFragmentDirections.actionIdentifyPositivesFragmentToDashboardFragment())
+            findNavController().safeNavigate(com.example.elucidate.view.ui.IdentifyPositivesFragmentDirections.actionIdentifyPositivesFragmentToDashboardFragment())
         }
 
 

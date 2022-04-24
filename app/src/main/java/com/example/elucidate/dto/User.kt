@@ -1,4 +1,4 @@
-package com.example.elucidate
+package com.example.elucidate.dto
 
 import java.io.Serializable
 
@@ -6,9 +6,4 @@ data class User (var id: String, var name: String): Serializable{
     constructor() : this("", ""
     )
 
-
-    /*fun getUserName():String{
-        var userName = "$name"
-        return userName
-    }*/
 }

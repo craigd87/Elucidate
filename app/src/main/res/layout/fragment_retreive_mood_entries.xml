@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout16"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RetreiveMoodEntriesFragment">
+    tools:context=".view.ui.RetreiveMoodEntriesFragment">
 
     <TextView
         android:id="@+id/tvSelectDate"
