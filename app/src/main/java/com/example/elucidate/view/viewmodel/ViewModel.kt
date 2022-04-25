@@ -7,9 +7,11 @@ import com.example.elucidate.dto.Mood
 import com.example.elucidate.dto.User
 import com.example.elucidate.model.FirebaseUtils
 import com.example.elucidate.TAG
+import com.example.elucidate.dto.MoodView
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.firestore.QuerySnapshot
+import java.text.SimpleDateFormat
 import java.util.*
 
 //private lateinit var auth: FirebaseAuth
@@ -72,10 +74,10 @@ class ViewModel() {
     var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
     // get realtime updates from firebase regarding saved moods
 
-    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
+    fun retrieveMoodEntryByDate(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
 
-        firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
-            .whereLessThan("time", dateEnd).addSnapshotListener { snapshot, e ->
+        firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThan("time", dateEnd).orderBy("time").addSnapshotListener { snapshot, e ->
 
         if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -120,6 +122,28 @@ class ViewModel() {
 
         return allMoodsRetrieved
     }
+
+    fun accessRetrievedMoodListData(list: List<Mood>): MutableList<MoodView>{
+
+        val moodEntries= mutableListOf<MoodView>()
+        var mood: Mood
+        val retrievedMood = list as MutableList<Mood>
+        //Log.d("retrieved mood", "$retrievedMood")
+        moodEntries.clear()
+
+        for (item in retrievedMood) {
+
+            mood = item
+            val entry = mood.moodEntry
+            val time = mood.time?.toDate()
+            val formatedTime = SimpleDateFormat("HH:mm -dd/MM/yyyy").format(time)
+            val moodView = MoodView(entry, formatedTime)
+            moodEntries.add(moodView)
+        }
+
+        return moodEntries
+    }
+
     var retrievedUsers= mutableListOf<User>()
     //var retrievedUsers : MutableLiveData<List<User>> = MutableLiveData()
     fun retrieveUser(id: String): Task<QuerySnapshot> {

@@ -57,4 +57,5 @@
     <string name="_7_days">7 Days</string>
     <string name="_30_days">30 Days</string>
     <string name="by_date">By Date</string>
+    <string name="all_entries">All Entries</string>
 </resources>

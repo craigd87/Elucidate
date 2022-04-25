@@ -15,6 +15,7 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
+import java.util.*
 
 //private lateinit var auth: FirebaseAuth
 //Serves as a API to allow adding getting, deleting and updating (section.io link)
@@ -205,12 +206,20 @@ class FirebaseUtils {
 
         return mutableLiveData
     }*/
-    fun retrieveMoodEntryByDate(): CollectionReference {
+    fun retrieveMoodEntry(): CollectionReference {
         var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userMoods")
         return collectionReference
     }
 
     fun retrieveAllMoodEntries(id: String): Query {
+        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
+        return queryRef
+    }
+
+    val date=Calendar.getInstance()
+    val currentDate=date.timeInMillis
+
+    fun retrieveMoodEntriesForTimePeriod(id: String, date: Date): Query {
         var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
         return queryRef
     }
