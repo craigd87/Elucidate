@@ -73,18 +73,20 @@ class RetreiveMoodEntriesFragment : Fragment() {
         }
 
         binding.btnToday.setOnClickListener {
-            val date= Calendar.getInstance()
+            /*val date= Calendar.getInstance()
             val currentDate = date.time
             val formatedDate = SimpleDateFormat("yyyy/MM/dd").format(currentDate)
             val simpleDateStart="$formatedDate 00:00:00"
             val simpleDateEnd="$formatedDate 23:59:59"
             val dateCreator= DateMillisCreator()
             val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
-            val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
+            val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)*/
             //val moodText= viewModel.retrieveMoodEntryByDate(dateStartTime,dateEndTime)
             //binding.textView2.text=moodText.toString()
-            viewModel.retrieveMoodEntryByDate(globalUser.id, dateStartTime,dateEndTime).observe(viewLifecycleOwner, Observer { it->
-                val moodEntries= viewModel.accessRetrievedMoodListData(it)
+            //viewModel.retrieveMoodEntryByDate(globalUser.id, dateStartTime,dateEndTime).observe(viewLifecycleOwner, Observer { it->
+            val retrieveCurrentDayMood= viewModel.retrieveCurrentDayMood(globalUser.id)
+            retrieveCurrentDayMood.observe(viewLifecycleOwner, Observer { it->
+            val moodEntries= viewModel.accessRetrievedMoodListData(it)
 
                 val adapter= MoodAdapter(moodEntries)
                 adapter.notifyDataSetChanged()
@@ -96,6 +98,42 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
         })
     }
+
+        binding.btn7Days.setOnClickListener {
+
+            val retrieve7DaysMoods= viewModel.retrieve7DaysMoods(globalUser.id)
+            retrieve7DaysMoods.observe(viewLifecycleOwner, Observer { it->
+                val moodEntries= viewModel.accessRetrievedMoodListData(it)
+
+                val adapter= MoodAdapter(moodEntries)
+                adapter.notifyDataSetChanged()
+                binding.rvMoodEntries.adapter= adapter
+
+                //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
+                binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
+                binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+
+            })
+        }
+
+        binding.btn30Days.setOnClickListener {
+
+            val retrieve30DaysMoods= viewModel.retrieve30DaysMoods(globalUser.id)
+            retrieve30DaysMoods.observe(viewLifecycleOwner, Observer { it->
+                val moodEntries= viewModel.accessRetrievedMoodListData(it)
+
+                val adapter= MoodAdapter(moodEntries)
+                adapter.notifyDataSetChanged()
+                binding.rvMoodEntries.adapter= adapter
+
+                //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
+                binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
+                binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+
+            })
+        }
+
+        
 
 
         return binding.root

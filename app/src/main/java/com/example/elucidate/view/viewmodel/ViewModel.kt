@@ -3,11 +3,14 @@ package com.example.elucidate.view.viewmodel
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.elucidate.DateMillisCreator
 import com.example.elucidate.dto.Mood
 import com.example.elucidate.dto.User
 import com.example.elucidate.model.FirebaseUtils
 import com.example.elucidate.TAG
 import com.example.elucidate.dto.MoodView
+import com.example.elucidate.globalUser
+import com.example.elucidate.viewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.firestore.QuerySnapshot
@@ -96,6 +99,72 @@ class ViewModel() {
 
         return moodRetrieved
     }
+
+    fun retrieveCurrentDayMood(id: String): LiveData<List<Mood>>{
+        val date= Calendar.getInstance()
+        val currentDate = date.time
+        val formatedDate = SimpleDateFormat("yyyy/MM/dd").format(currentDate)
+        val simpleDateStart="$formatedDate 00:00:00"
+        val simpleDateEnd="$formatedDate 23:59:59"
+        val dateCreator= DateMillisCreator()
+        val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
+        val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
+
+        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,dateEndTime)
+
+        return retrieved
+    }
+
+    fun retrieve7DaysMoods(id: String): LiveData<List<Mood>>{
+        val date= Calendar.getInstance()
+        val currentDate = date.time
+        //val formatedDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(currentDate)
+        val millisFor7Days: Long= 604800000
+        val dateCreator=DateMillisCreator()
+        val dateEndTimeMillis=date.timeInMillis
+        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
+        val simpleDateStartTime=SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(dateStartTimeMillis)
+        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
+
+        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
+
+        return retrieved
+    }
+
+    fun retrieve30DaysMoods(id: String): LiveData<List<Mood>>{
+        val date= Calendar.getInstance()
+        val currentDate = date.time
+        //val formatedDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(currentDate)
+        val millisFor7Days: Long= 2592000000
+        val dateCreator=DateMillisCreator()
+        val dateEndTimeMillis=date.timeInMillis
+        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
+        val simpleDateStartTime=SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(dateStartTimeMillis)
+        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
+
+        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
+
+        return retrieved
+    }
+
+    fun retrieve1YearMoods(id: String): LiveData<List<Mood>>{
+        val date= Calendar.getInstance()
+        val currentDate = date.time
+        //val formatedDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(currentDate)
+        val millisFor7Days: Long=  31556952000
+        val dateCreator=DateMillisCreator()
+        val dateEndTimeMillis=date.timeInMillis
+        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
+        val simpleDateStartTime=SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(dateStartTimeMillis)
+        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
+
+        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
+
+        return retrieved
+    }
+
+
+
 
     var allMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
     // get realtime updates from firebase regarding saved moods
