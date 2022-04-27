@@ -21,20 +21,18 @@ import java.util.*
 //Serves as a API to allow adding getting, deleting and updating (section.io link)
 class FirebaseUtils {
     val fireStoreDatabase = FirebaseFirestore.getInstance()
-    val auth=Firebase.auth
-    var userAuth = FirebaseAuth.getInstance().currentUser
-    val uid= userAuth?.uid
+    private val auth=Firebase.auth
+    private val currentUser=auth.currentUser
+    //var userAuth = FirebaseAuth.getInstance().currentUser
+    //val uid= userAuth?.uid
 
-    /*fun initializeAuth(): FirebaseAuth{
-        auth=Firebase.auth
-        return auth
-    }*/
     fun getCurrentUserId(): String{
-        val currentUser=auth.currentUser
+
         val currentUserId= currentUser?.uid.toString()
         return currentUserId
 
     }
+
     fun signup(email: String, password: String, name: String) {
 
         auth.createUserWithEmailAndPassword ("$email", "$password")
@@ -50,38 +48,13 @@ class FirebaseUtils {
                     val userDetails= User("$userId", "$name")
                     viewModel.saveUserDetailsToFirestore(userDetails)
 
-                    /*val action = SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment( "$email","$password", "$userId")
-                    //val action2= SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment()
-                    view?.findNavController()?.navigate(action)*/
-
-
                 }
 
             }
-        /*auth.createUserWithEmailAndPassword ("$email", "$password")
-            .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
-                    Log.d(ContentValues.TAG, "createUserWithEmail:success")
 
-                    //with help from TutorialsEU https://www.youtube.com/watch?v=8I5gCLaS25w
-
-                    val currentUser: FirebaseUser = task.result!!.user!!
-                    val id = currentUser.uid
-                    val user = User("$id", "$name", "$age")
-                    viewModel.saveUserDetailsToFirestore(user)
-
-                    /*val action =
-                        SignUpFragmentDirections.actionSignUpFragmentToUpdateProfileFragment(
-                            //user.uid,
-                            "$email",
-                            "$password"
-                        )*/
-                }
-
-            }*/
-    //return user
     }
-    fun loginAfterSignup(email: String, password: String){
+
+    /*fun loginAfterSignup(email: String, password: String){
         FirebaseAuth.AuthStateListener { auth ->
             val user = auth.currentUser
             if (user!=null){
@@ -109,7 +82,7 @@ class FirebaseUtils {
                     }
             }
         }
-    }
+    }*/
 
     fun login(email: String, password: String): Task<AuthResult>{
         //var userId=""
@@ -173,14 +146,15 @@ class FirebaseUtils {
         //return idList.toString()
         return task
     }
+
     fun saveUserDetails(user: User): Task<Void> {
-        //var
+
         var documentReference = fireStoreDatabase.collection("users").document()
 
         return documentReference.set(user)
     }
     fun saveMoodDetails(mood: Mood): Task<Void> {
-        //var
+
         var documentReference = fireStoreDatabase.collection("userMoods").document()
 
         return documentReference.set(mood)
@@ -216,15 +190,13 @@ class FirebaseUtils {
         return queryRef
     }
 
-    val date=Calendar.getInstance()
-    val currentDate=date.timeInMillis
 
-    fun retrieveMoodEntriesForTimePeriod(id: String, date: Date): Query {
+    /*fun retrieveMoodEntriesForTimePeriod(id: String, date: Date): Query {
         var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
         return queryRef
-    }
+    }*/
 
-    fun updateProfile(name: String){
+    /*fun updateProfile(name: String){
         val profileUpdates =
             UserProfileChangeRequest.Builder()
                 .setDisplayName(name)
@@ -241,32 +213,11 @@ class FirebaseUtils {
 
                 }
             }
-    }
+    }*/
 
     fun retrieveUser(): CollectionReference{
         var collectionReference = FirebaseUtils().fireStoreDatabase.collection("users")
         return collectionReference
     }
 
-
-
-
-
-//auth= Firebase.auth
-
-
-    /*fun printName(id :String){
-        fireStoreDatabase.collection("users").whereEqualTo("id", "$id")
-            .get()
-            /*.addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                    val name = document.getString("name").toString()
-                    binding.tvDashWelcome.text = "Hi " + name+"!"
-
-                }
-
-            }*/
-
-    }*/
 }

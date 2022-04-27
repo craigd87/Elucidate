@@ -70,6 +70,12 @@ class IdentifyPositivesFragment : Fragment() {
             Log.d("fandabidosi", "user created")
             viewModel.saveMoodDetailsToFirestore(mood)
             Log.d("fandabidosi", "user added")
+            globalMoodEntry=""
+            globalMoodRating=0
+            globalKeywordsList.clear()
+            globalTriggerWordsList.clear()
+            globalNonTriggersList.clear()
+            globalPositiveWordsList.clear()
 
             findNavController().safeNavigate(com.example.elucidate.view.ui.IdentifyPositivesFragmentDirections.actionIdentifyPositivesFragmentToDashboardFragment())
         }

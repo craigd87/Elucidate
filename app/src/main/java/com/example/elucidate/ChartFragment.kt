@@ -37,44 +37,15 @@ class ChartFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val binding = FragmentChartBinding.inflate(layoutInflater)
-        var barChart= binding.barChart
         var lineChart= binding.lineChart
-        var pieChart= binding.pieChart
-
-        setupBarChartData(barChart)
-
+        //var barChart= binding.barChart
+        //var pieChart= binding.pieChart
+        
         setupLineChartData(lineChart)
-
-        setUpPieChartData(pieChart)
+        //setupBarChartData(barChart)
+        //setUpPieChartData(pieChart)
 
         return binding.root
-    }
-
-    private fun setUpPieChartData(pieChart: PieChart) {
-
-        val yVals = ArrayList<PieEntry>()
-        yVals.add(PieEntry(30f))
-        yVals.add(PieEntry(2f))
-        yVals.add(PieEntry(4f))
-        yVals.add(PieEntry(22f))
-        yVals.add(PieEntry(12.5f))
-
-        val dataSet = PieDataSet(yVals, "")
-        dataSet.valueTextSize=0f
-        val colors = java.util.ArrayList<Int>()
-        colors.add(Color.GRAY)
-        colors.add(Color.BLUE)
-        colors.add(Color.RED)
-        colors.add(Color.GREEN)
-        colors.add(Color.MAGENTA)
-
-        dataSet.setColors(colors)
-        val data = PieData(dataSet)
-        pieChart.data = data
-        pieChart.centerTextRadiusPercent = 0f
-        pieChart.isDrawHoleEnabled = false
-        pieChart.legend.isEnabled = false
-        pieChart.description.isEnabled = false
     }
 
     private fun setupLineChartData(lineChart: LineChart) {
@@ -126,6 +97,37 @@ class ChartFragment : Fragment() {
         lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
     }
 
+    /*
+    private fun setUpPieChartData(pieChart: PieChart) {
+
+        val yVals = ArrayList<PieEntry>()
+        yVals.add(PieEntry(30f))
+        yVals.add(PieEntry(2f))
+        yVals.add(PieEntry(4f))
+        yVals.add(PieEntry(22f))
+        yVals.add(PieEntry(12.5f))
+
+        val dataSet = PieDataSet(yVals, "")
+        dataSet.valueTextSize=0f
+        val colors = java.util.ArrayList<Int>()
+        colors.add(Color.GRAY)
+        colors.add(Color.BLUE)
+        colors.add(Color.RED)
+        colors.add(Color.GREEN)
+        colors.add(Color.MAGENTA)
+
+        dataSet.setColors(colors)
+        val data = PieData(dataSet)
+        pieChart.data = data
+        pieChart.centerTextRadiusPercent = 0f
+        pieChart.isDrawHoleEnabled = false
+        pieChart.legend.isEnabled = false
+        pieChart.description.isEnabled = false
+    }
+*/
+
+
+    /*
     private fun setupBarChartData(barChart : BarChart) {
         // create BarEntry for Bar Group
         val bargroup = ArrayList<BarEntry>()
@@ -160,6 +162,6 @@ class ChartFragment : Fragment() {
         barChart.setPinchZoom(true)
         barChart.data.setDrawValues(false)
     }
-
+*/
 
 }

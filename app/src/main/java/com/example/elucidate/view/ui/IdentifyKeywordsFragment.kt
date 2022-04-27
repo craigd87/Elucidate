@@ -30,63 +30,11 @@ class IdentifyKeywordsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentIdentifyKeywordsBinding.inflate(layoutInflater)
 
-        //take date string and parse to obtain value in milliseconds from
-
-        /*//val simpleDate1= "2022/03/29 00:00:00"
-        //val simpleDate2= "2022/03/30 23:59:59"
-        use above for searching specific dates
-         */
-        val formatCurrentDateWithoutTime= SimpleDateFormat("yyyy/MM/dd")
-
-        //get current date without time
-        val currentDateWithoutTime= formatCurrentDateWithoutTime.format(Date())
-
-        //set values from start to end of current date as String and parse to get value in milliseconds
-        val simpleCurrentDateStart= "$currentDateWithoutTime 00:00:00"
-        val simpleCurrentDateEnd= "$currentDateWithoutTime 23:59:59"
-        val sdf= SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-        val dateStartParse= sdf.parse(simpleCurrentDateStart)
-        val dateEndParse= sdf.parse(simpleCurrentDateEnd)
-        val dateStartMillis=dateStartParse.time
-        val dateEndMillis=dateEndParse.time
-
-        //create date objects from the milliseconds
-        val finalDateStart= Date(dateStartMillis)
-        val finalDateEnd= Date(dateEndMillis)
-
-        //query Firestore to find mood entries from the current date
-        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-        var stringForKeywords= globalMoodEntry
+        val stringForKeywords= globalMoodEntry
         //val stringForKeywords= viewModel.moodEntry.toString()
         val chosenKeywords= mutableListOf<String>()
 
-        /*queryRef.whereGreaterThanOrEqualTo("time", finalDateStart).whereLessThanOrEqualTo("time", finalDateEnd)
-            .orderBy("time", Query.Direction.DESCENDING).limit(1)
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    if(document!=null){
-                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                        stringForKeywords= document.getString("moodEntry").toString()
-                        Log.d("keywords", stringForKeywords)
-
-         */
-                        /* this retrieves one entry
-                        binding.tvTestRead.text = mood
-                         */
-                        /*
-                        for test purposes to show how tv can display entries, tv no longer exists
-                        val text= TextView(activity)
-                        text.text = mood
-                        binding.textLayout.addView(text)
-                         */
-
-                        //var resultText= ""
-
-                        //val delim15= "\n"
-                        //val delimRegex= Regex()
-
-                        val lower= stringForKeywords.lowercase()
+        val lower= stringForKeywords.lowercase()
                         Log.d("lowwwwer", lower)
 
                         val fileName= "stopwords.txt"
@@ -96,23 +44,6 @@ class IdentifyKeywordsFragment : Fragment() {
                             Log.i("Craig",  it)
                         }
 
-
-
-                        /*var resultTestMut=resultText.toMutableList()
-                        for(item in resultTestMut){
-                            if(item.contentEquals(" ")){
-                                resultTestMut.remove(item)
-                            }
-                        }
-                        val length= resultTestMut.size*/
-                        //Log.i("stringTest", "$printText")
-                        //binding.textViewTestResult.text=printText.toString()
-                        //binding.btnSplitTest.text=printText.toString()
-                        //val chip= Chip(activity)
-                        //chip.text="HELLO!"
-                        //chip.setChipBackgroundColorResource(R.color.white)
-                        //chip.setCloseIconVisible(true);
-                        //binding.cgKeywords.addView(chip)
                         val keywordCreator= KeywordCreator()
                         val printText=keywordCreator.createKeywordList(lower, stopWords)
 

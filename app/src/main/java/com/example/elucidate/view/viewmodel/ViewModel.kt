@@ -13,6 +13,7 @@ import com.example.elucidate.globalUser
 import com.example.elucidate.viewModel
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import java.text.SimpleDateFormat
 import java.util.*
@@ -20,6 +21,18 @@ import java.util.*
 //private lateinit var auth: FirebaseAuth
 class ViewModel() {
     var firebaseUtils= FirebaseUtils()
+
+    //vals for working out date ranges
+    private val calendar= Calendar.getInstance()
+    private val currentDate= calendar.time
+    private val dateCreator=DateMillisCreator()
+    private val dateEndTimeMillis=calendar.timeInMillis
+    private val sdf=SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+    private val millisFor7Days: Long= 604800000
+    private val millisFor30Days: Long= 2592000000
+    private val millisFor1Year: Long=  31556952000
+
+    var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
 
 
     fun saveUserDetailsToFirestore(user: User){
@@ -42,24 +55,32 @@ class ViewModel() {
         firebaseUtils.signup(email, password, name)
     }
 
-    /*fun loginAfterSignup(email: String, password: String){
-        firebaseUtils.loginAfterSignup(email, password)
-    }*/
+    //var retrievedUsers= mutableListOf<User>()
+    //var retrievedUsers : MutableLiveData<List<User>> = MutableLiveData()
+    fun retrieveUser(id: String): Task<QuerySnapshot> {
+        Log.d("oak", id)
 
-    fun login(email: String, password: String,): Task<AuthResult> {
-       val task= firebaseUtils.login(email, password)
-        //Log.d("Derry", id)
-        return task
+        val query=firebaseUtils.retrieveUser().whereEqualTo("id", "$id").get()
+
+        return query
+    }
+
+    fun getCurrentUserId(): String {
+        val currentUser=firebaseUtils.getCurrentUserId()
+        return currentUser
 
     }
 
-
+    /*fun login(email: String, password: String,): Task<AuthResult> {
+       val task= firebaseUtils.login(email, password)
+        //Log.d("Derry", id)
+        return task
+    }*/
 
     /*fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): String {
         firebaseUtils.retrieveMoodEntryByDate(dateStart, dateEnd).observe(this, observer:Observer)
-
     }*/
-    /*var moodRetrieved : MutableLiveData<String> = MutableLiveData()
+    /*
     fun retrieveMoodEntryByDate(dateStart: Date, dateEnd:Date){
         firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThan("time", dateEnd).get().addOnSuccessListener { documents ->
@@ -74,13 +95,13 @@ class ViewModel() {
                 }
             }
         }*/
-    var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
-    // get realtime updates from firebase regarding saved moods
 
+    // get realtime updates from firebase regarding saved moods
     fun retrieveMoodEntryByDate(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
 
         firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
-            .whereLessThan("time", dateEnd).orderBy("time").addSnapshotListener { snapshot, e ->
+            .whereLessThan("time", dateEnd).orderBy("time",
+                Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->
 
         if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -88,9 +109,9 @@ class ViewModel() {
                 return@addSnapshotListener
             }
 
-            var moodItemList: MutableList<Mood> = mutableListOf()
+            val moodItemList: MutableList<Mood> = mutableListOf()
             for (doc in snapshot!!) {
-               var moodItem = doc.toObject(Mood::class.java)
+               val moodItem = doc.toObject(Mood::class.java)
                 moodItemList.add(moodItem)
 
             }
@@ -100,70 +121,48 @@ class ViewModel() {
         return moodRetrieved
     }
 
+
     fun retrieveCurrentDayMood(id: String): LiveData<List<Mood>>{
-        val date= Calendar.getInstance()
-        val currentDate = date.time
+
         val formatedDate = SimpleDateFormat("yyyy/MM/dd").format(currentDate)
         val simpleDateStart="$formatedDate 00:00:00"
         val simpleDateEnd="$formatedDate 23:59:59"
-        val dateCreator= DateMillisCreator()
         val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
         val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
-
         val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,dateEndTime)
 
         return retrieved
     }
 
     fun retrieve7DaysMoods(id: String): LiveData<List<Mood>>{
-        val date= Calendar.getInstance()
-        val currentDate = date.time
-        //val formatedDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(currentDate)
-        val millisFor7Days: Long= 604800000
-        val dateCreator=DateMillisCreator()
-        val dateEndTimeMillis=date.timeInMillis
-        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
-        val simpleDateStartTime=SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(dateStartTimeMillis)
-        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
 
+        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
+        val simpleDateStartTime=sdf.format(dateStartTimeMillis)
+        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
         val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
 
         return retrieved
     }
 
     fun retrieve30DaysMoods(id: String): LiveData<List<Mood>>{
-        val date= Calendar.getInstance()
-        val currentDate = date.time
-        //val formatedDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(currentDate)
-        val millisFor7Days: Long= 2592000000
-        val dateCreator=DateMillisCreator()
-        val dateEndTimeMillis=date.timeInMillis
-        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
-        val simpleDateStartTime=SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(dateStartTimeMillis)
-        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
 
+        val dateStartTimeMillis= dateEndTimeMillis-millisFor30Days
+        val simpleDateStartTime=sdf.format(dateStartTimeMillis)
+        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
         val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
 
         return retrieved
     }
 
     fun retrieve1YearMoods(id: String): LiveData<List<Mood>>{
-        val date= Calendar.getInstance()
-        val currentDate = date.time
-        //val formatedDate = SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(currentDate)
-        val millisFor7Days: Long=  31556952000
-        val dateCreator=DateMillisCreator()
-        val dateEndTimeMillis=date.timeInMillis
-        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
-        val simpleDateStartTime=SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(dateStartTimeMillis)
-        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
 
+        val dateStartTimeMillis= dateEndTimeMillis-millisFor1Year
+        val simpleDateStartTime=sdf.format(dateStartTimeMillis)
+        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
         val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
 
         return retrieved
     }
-
-
 
 
     var allMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
@@ -178,9 +177,9 @@ class ViewModel() {
                     return@addSnapshotListener
                 }
 
-                var moodItemList: MutableList<Mood> = mutableListOf()
+                val moodItemList: MutableList<Mood> = mutableListOf()
                 for (doc in snapshot!!) {
-                    var moodItem = doc.toObject(Mood::class.java)
+                    val moodItem = doc.toObject(Mood::class.java)
                     moodItemList.add(moodItem)
                     Log.d("list", moodItemList.toString())
 
@@ -213,60 +212,5 @@ class ViewModel() {
         return moodEntries
     }
 
-    var retrievedUsers= mutableListOf<User>()
-    //var retrievedUsers : MutableLiveData<List<User>> = MutableLiveData()
-    fun retrieveUser(id: String): Task<QuerySnapshot> {
-        Log.d("oak", id)
-        /*firebaseUtils.retrieveUser().whereEqualTo("id", id).addSnapshotListener { snapshot, e ->
-            Log.d("Idris", "got to here")
-            if (e != null) {
-                Log.w(TAG, "Listen failed.", e)
-                retrievedUsers.value = emptyList()
-                return@addSnapshotListener
-            }
-            Log.d("snip","$snapshot")
-
-            //var savedAddressList : MutableList<AddressItem> = mutableListOf()
-            var userList: MutableList<User> = mutableListOf()
-            for (doc in snapshot!!) {
-                Log.d("dox", "$doc")
-                var retrievedUser = doc.toObject(User::class.java)
-                Log.d("retuse", "$retrievedUser")
-                userList.add(retrievedUser)
-                Log.d("userlist", userList.toString())
-                // savedAddressList.add(addressItem)
-            }
-            retrievedUsers.value = userList
-        }
-        Log.d("sancho", retrievedUsers.value.toString())
-
-        return retrievedUsers*/
-            val query=firebaseUtils.retrieveUser().whereEqualTo("id", "$id").get()
-            /*.addOnSuccessListener { documents ->
-                for (document in documents) {
-                    if (document != null) {
-                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
-
-                        //moodEntry = document.getString("moodRating").toString()
-                        //val retrievedUser =
-                    //document.toObject(User::class.java)
-                        //retrievedUsers.add(retrievedUser)
-
-
-                    }else{
-                        Log.d("pain", "null")
-                    }
-                }
-
-            }*/
-        //Log.d("Elba", "$retrievedUsers")
-        return query
-    }
-
-    fun getCurrentUserId(): String {
-        val currentUser=firebaseUtils.getCurrentUserId()
-        return currentUser
-
-    }
 
 }

@@ -47,8 +47,8 @@ class TitleFragment : Fragment() {
         }
 
         binding.btnChart.setOnClickListener{
-            //view?.findNavController()?.navigate(R.id.action_titleFragment_to_chartFragment)
-            view?.findNavController()?.navigate(R.id.action_titleFragment_to_cloudFragment)
+            view?.findNavController()?.navigate(R.id.action_titleFragment_to_chartFragment)
+            //view?.findNavController()?.navigate(R.id.action_titleFragment_to_cloudFragment)
         }
 
         return binding.root
