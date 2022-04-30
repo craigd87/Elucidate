@@ -30,8 +30,8 @@ class IdentifyKeywordsFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding = FragmentIdentifyKeywordsBinding.inflate(layoutInflater)
 
-        val stringForKeywords= globalMoodEntry
-        //val stringForKeywords= viewModel.moodEntry.toString()
+
+        val stringForKeywords= globalMoodEntryDetails.moodEntry
         val chosenKeywords= mutableListOf<String>()
 
         val lower= stringForKeywords.lowercase()
@@ -49,7 +49,7 @@ class IdentifyKeywordsFragment : Fragment() {
 
                         for (item in printText){
                             Log.d("chips", item)
-                            //val chip= Chip(activity)
+
                             val chip=inflater.inflate(R.layout.filter_chip, binding.cgKeywords, false) as Chip
                             chip.text=item
                             chip.setChipBackgroundColorResource(R.color.white)
@@ -64,20 +64,15 @@ class IdentifyKeywordsFragment : Fragment() {
                                 val wordSelection =
                                     binding.cgKeywords.findViewById<Chip>(id).text.toString()
                                 chosenKeywords.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
-                                globalKeywordsList.add(binding.cgKeywords.findViewById<Chip>(id).text.toString())
-                                //viewModel.logKeywords(chosenKeywords)
+                                globalMoodEntryDetails.keywords= chosenKeywords
+
+
                                 Log.d("favourites", wordSelection)
-                                Log.d("Mentry", globalMoodEntry)
-                                Log.d("Mrating", globalMoodRating.toString())
-                                Log.d("Mwords", "$globalKeywordsList")
-                                //view?.findNavController()?.navigate(R.id.action_identifyKeywordsFragment_to_identifyTriggersFragment)
+
                                 findNavController().safeNavigate(com.example.elucidate.view.ui.IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToIdentifyTriggersFragment())
-                                //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
+
                             }
                         }
-
-
-
 
         return binding.root
     }

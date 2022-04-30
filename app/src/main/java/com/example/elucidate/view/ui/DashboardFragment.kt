@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import com.example.elucidate.R
 
 import com.example.elucidate.databinding.FragmentDashboardBinding
+import com.example.elucidate.globalUser
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -141,6 +142,10 @@ class DashboardFragment : Fragment() {
 
             binding.btnDashLogOut.setOnClickListener {
                 //globalUser.
+                if(globalUser!=null){
+                    globalUser.id=""
+                    globalUser.name=""
+                }
 
                 Firebase.auth.signOut()
 

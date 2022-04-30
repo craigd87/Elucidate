@@ -17,7 +17,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-//private lateinit var auth: FirebaseAuth
+
 class MoodEntryFragment : Fragment() {
 
 
@@ -31,18 +31,8 @@ class MoodEntryFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentMoodEntryBinding.inflate(layoutInflater)
-        /*val bundle = arguments
-        if (bundle==null){
-            Log.e("Confirmation", "Mood entry not logged")
-            return null
-        }*/
-        //auth = Firebase.auth
-        //val user= auth.currentUser
 
-        //val uid = user?.uid.toString()
-        val user=viewModel.getCurrentUserId()
-        val uid= viewModel.getCurrentUserId()
-        val moodDetails = hashMapOf<Any, Any>()
+
 
         /*val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
         queryRef.whereEqualTo("id", "$uid")
@@ -57,23 +47,16 @@ class MoodEntryFragment : Fragment() {
             }*/
         binding.tvEnterMood.text = "Hi " + globalUser.name+"! please enter details about how you are feeling"
 
-        /*binding.sbRateMood.setOnClickListener{view : View ->
-            moodRating= binding.sbRateMood.progress
-            //logMood(moodDetails, "$uid", moodRating)
-            /*view.findNavController().navigate(R.id.action_moodRatingFragment_to_moodEntry)*/
-        }*/
+
 
         binding.btnSubmitMood.setOnClickListener { view: View ->
-            val moodRating=binding.sbRateMood.progress
-            val mood = binding.etEnterMood.text.toString()
-            //Mood mood= new Mood()
-            globalMoodEntry=binding.etEnterMood.text.toString()
-            globalMoodRating=binding.sbRateMood.progress
 
-            //viewModel.enterMood(mood)
-            //viewModel.enterMoodRating("$moodRating")
+            globalMoodEntryDetails.moodEntry=binding.etEnterMood.text.toString()
+            globalMoodEntryDetails.moodRating=binding.sbRateMood.progress.toString()
+
+
             view?.findNavController()?.navigate(R.id.action_moodEntryFragment_to_identifyKeywordsFragment)
-            //logMood(moodDetails, uid, mood, moodRating)
+
 
         }
 

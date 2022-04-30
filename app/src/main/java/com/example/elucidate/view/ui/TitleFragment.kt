@@ -1,6 +1,7 @@
 package com.example.elucidate.view.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +11,9 @@ import androidx.navigation.findNavController
 import com.example.elucidate.R
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.example.elucidate.databinding.FragmentTitleBinding
+import com.example.elucidate.dto.User
+import com.example.elucidate.globalUser
+import com.example.elucidate.viewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -35,11 +39,30 @@ class TitleFragment : Fragment() {
 
         auth = Firebase.auth
         val user= auth.currentUser
+        val id = user?.uid
 
         binding.btnGetStarted.setOnClickListener {
             if (user!=null){
+
+                //globalUser.id=user.uid
+                //Log.d("Jessa", "$globalUser")
+                val getName= viewModel.getCurrentUserName("$id")
+                getName.addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        //Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                        val name = document.getString("name").toString()
+                        globalUser= User("$id", name)
+                        Log.d("Manie", "$globalUser")
+                    }
+                }
+
+                //globalUser.name=name
+
+
+
                 view?.findNavController()?.navigate(R.id.action_titleFragment_to_dashboardFragment)
                 //view?.findNavController()?.navigate(R.id.action_titleFragment_to_testViewModelFragment)
+
             }else{
                 view?.findNavController()?.navigate(R.id.action_titleFragment_to_loginFragment2)
             //view?.findNavController()?.navigate(R.id.action_titleFragment_to_chipTestFragment)

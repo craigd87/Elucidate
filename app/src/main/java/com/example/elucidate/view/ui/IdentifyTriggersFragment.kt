@@ -9,11 +9,8 @@ import android.view.ViewGroup
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import com.example.elucidate.R
+import com.example.elucidate.*
 import com.example.elucidate.databinding.FragmentIdentifyTriggersBinding
-import com.example.elucidate.globalKeywordsList
-import com.example.elucidate.globalNonTriggersList
-import com.example.elucidate.globalTriggerWordsList
 import com.google.android.material.chip.Chip
 
 
@@ -31,14 +28,12 @@ class IdentifyTriggersFragment : Fragment() {
     ): View? {
         val binding=FragmentIdentifyTriggersBinding.inflate(layoutInflater)
 
-        //val chosenTriggers= mutableListOf<String>()
+        val chosenTriggers= mutableListOf<String>()
 
-        //val keywordsList= viewModel.keywordsList.value
 
-        for (item in globalKeywordsList){
+        for (item in globalMoodEntryDetails.keywords){
 
             Log.d("triggerChips", item)
-            //val chip= Chip(activity)
             val chip=inflater.inflate(R.layout.filter_chip, binding.cgTriggers, false) as Chip
             chip.text=item
 
@@ -54,18 +49,17 @@ class IdentifyTriggersFragment : Fragment() {
             for (id in ids) {
                 val wordSelection =
                     binding.cgTriggers.findViewById<Chip>(id).text.toString()
-                //chosenTriggers.add(binding.cgTriggers.findViewById<Chip>(id).text.toString())
-                //chosenTriggers.add(wordSelection)
-                globalTriggerWordsList.add(wordSelection)
+                chosenTriggers.add(wordSelection)
+
+                globalMoodEntryDetails.triggers=chosenTriggers
 
 
-                Log.d("Mtriggers", globalTriggerWordsList.toString())
-
-
-                //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
             }
-            for (item in globalKeywordsList){
-                if(item !in globalTriggerWordsList){
+
+
+            for (item in globalMoodEntryDetails.keywords){
+
+                if(item !in globalMoodEntryDetails.triggers){
                     globalNonTriggersList.add(item)
                 }
             }

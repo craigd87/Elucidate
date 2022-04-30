@@ -212,5 +212,14 @@ class ViewModel() {
         return moodEntries
     }
 
+    fun getCurrentUserName(id: String): Task<QuerySnapshot>{
+
+           val query= firebaseUtils.getCurrentUserName(id).get()
+
+
+
+        return query
+    }
+
 
 }

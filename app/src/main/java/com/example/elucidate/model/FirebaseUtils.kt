@@ -33,6 +33,11 @@ class FirebaseUtils {
 
     }
 
+    fun getCurrentUserName(id: String): Query{
+        var queryRef = FirebaseUtils().fireStoreDatabase.collection("users").whereEqualTo("id", "$id")
+        return queryRef
+    }
+
     fun signup(email: String, password: String, name: String) {
 
         auth.createUserWithEmailAndPassword ("$email", "$password")

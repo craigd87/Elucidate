@@ -34,7 +34,6 @@ class IdentifyPositivesFragment : Fragment() {
 
         for (item in globalNonTriggersList){
             Log.d("triggerChips", item)
-            //val chip= Chip(activity)
             val chip=inflater.inflate(R.layout.filter_chip, binding.cgPositives, false) as Chip
             chip.text=item
 
@@ -48,34 +47,25 @@ class IdentifyPositivesFragment : Fragment() {
             val ids = binding.cgPositives.checkedChipIds
 
             for (id in ids) {
-                val wordSelection =
-                    binding.cgPositives.findViewById<Chip>(id).text.toString()
-                //chosenPositives.add(binding.cgPositives.findViewById<Chip>(id).text.toString())
-                //globalTriggerWordsList.add(binding.cgPositives.findViewById<Chip>(id).text.toString())
-                globalPositiveWordsList.add(wordSelection)
+                val wordSelection = binding.cgPositives.findViewById<Chip>(id).text.toString()
 
-                Log.d("Mpos", globalPositiveWordsList.toString())
+                chosenPositives.add(wordSelection)
+                globalMoodEntryDetails.positives=chosenPositives
 
-
-                //val action=IdentifyKeywordsFragmentDirections.actionIdentifyKeywordsFragmentToKeywordQualityFragment(chosenKeywords)
             }
-            /*for (item in globalKeywordsList){
-                if(item !in globalTriggerWordsList){
-                    globalNonTriggersList.add(item)
-                }
-            }*/
-            val id= viewModel.getCurrentUserId()
+
+            val id= globalUser.id
             val time= Timestamp(Date())
-            val mood= Mood("$id", globalMoodEntry,"$globalMoodRating", globalKeywordsList, globalTriggerWordsList, globalPositiveWordsList, time)
+            globalMoodEntryDetails.id=id
+            globalMoodEntryDetails.time=time
+            //val mood= Mood("$id", globalMoodEntry,"$globalMoodRating", globalKeywordsList, globalTriggerWordsList, globalPositiveWordsList, time)
             Log.d("fandabidosi", "user created")
-            viewModel.saveMoodDetailsToFirestore(mood)
+            viewModel.saveMoodDetailsToFirestore(globalMoodEntryDetails)
+            //viewModel.saveMoodDetailsToFirestore(mood)
             Log.d("fandabidosi", "user added")
-            globalMoodEntry=""
-            globalMoodRating=0
-            globalKeywordsList.clear()
-            globalTriggerWordsList.clear()
+
             globalNonTriggersList.clear()
-            globalPositiveWordsList.clear()
+
 
             findNavController().safeNavigate(com.example.elucidate.view.ui.IdentifyPositivesFragmentDirections.actionIdentifyPositivesFragmentToDashboardFragment())
         }
