@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.elucidate.DateMillisCreator
@@ -133,11 +134,18 @@ class RetreiveMoodEntriesFragment : Fragment() {
             })
         }
 
-        
+        binding.btnByDate.setOnClickListener {
+    showDatePickerDialog(it)
+        }
 
 
         return binding.root
     }
+    fun showDatePickerDialog(v: View) {
+        val newFragment = DatePickerFragment()
+        newFragment.show(requireActivity().supportFragmentManager, "datePicker")
+    }
+
 
 /*binding.btnCheckDate.setOnClickListener {
             val date= binding.etEnterDate.text.toString()

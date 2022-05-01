@@ -1,6 +1,8 @@
 package com.example.elucidate.view.ui
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -41,7 +43,7 @@ class TitleFragment : Fragment() {
         val user= auth.currentUser
         val id = user?.uid
 
-        binding.btnGetStarted.setOnClickListener {
+        Handler(Looper.getMainLooper()).postDelayed({
             if (user!=null){
 
                 //globalUser.id=user.uid
@@ -56,7 +58,36 @@ class TitleFragment : Fragment() {
                     }
                 }
 
-                //globalUser.name=name
+
+
+
+
+                view?.findNavController()?.navigate(R.id.action_titleFragment_to_dashboardFragment)
+                //view?.findNavController()?.navigate(R.id.action_titleFragment_to_testViewModelFragment)
+
+            }else{
+                view?.findNavController()?.navigate(R.id.action_titleFragment_to_loginFragment2)
+                //view?.findNavController()?.navigate(R.id.action_titleFragment_to_chipTestFragment)
+            }
+
+        },5000)
+
+        /*binding.btnGetStarted.setOnClickListener {
+            if (user!=null){
+
+                //globalUser.id=user.uid
+                //Log.d("Jessa", "$globalUser")
+                val getName= viewModel.getCurrentUserName("$id")
+                getName.addOnSuccessListener { documents ->
+                    for (document in documents) {
+                        //Log.d("exist", "DocumentSnapshot data: ${document.data}")
+                        val name = document.getString("name").toString()
+                        globalUser= User("$id", name)
+                        Log.d("Manie", "$globalUser")
+                    }
+                }
+
+
 
 
 
@@ -72,7 +103,7 @@ class TitleFragment : Fragment() {
         binding.btnChart.setOnClickListener{
             view?.findNavController()?.navigate(R.id.action_titleFragment_to_chartFragment)
             //view?.findNavController()?.navigate(R.id.action_titleFragment_to_cloudFragment)
-        }
+        }*/
 
         return binding.root
     }
