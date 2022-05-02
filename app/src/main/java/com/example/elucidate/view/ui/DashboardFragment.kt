@@ -137,7 +137,17 @@ class DashboardFragment : Fragment() {
 
             }
             binding.btnInsights.setOnClickListener {
+
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_retreiveMoodEntriesFragment)
+            }
+            binding.btnPopularKeywords.setOnClickListener {
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_cloudFragment)
+            }
+            binding.btnPopularTriggers.setOnClickListener {
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_triggerCloudFragment)
+            }
+            binding.btnPopularPositives.setOnClickListener {
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_positiveCloudFragment)
             }
 
             binding.btnDashLogOut.setOnClickListener {

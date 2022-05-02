@@ -195,6 +195,10 @@ class FirebaseUtils {
         return queryRef
     }
 
+    /*fun retrieveMoodByKeyword(id:String, keyword: String): Query {
+        var queryRef=FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
+    }*/
+
 
     /*fun retrieveMoodEntriesForTimePeriod(id: String, date: Date): Query {
         var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")

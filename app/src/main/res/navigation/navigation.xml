@@ -19,6 +19,15 @@
         <action
             android:id="@+id/action_dashboardFragment_to_retreiveMoodEntriesFragment"
             app:destination="@id/retreiveMoodEntriesFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_cloudFragment"
+            app:destination="@id/cloudFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_positiveCloudFragment"
+            app:destination="@id/positiveCloudFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_triggerCloudFragment"
+            app:destination="@id/triggerCloudFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -125,4 +134,12 @@
         android:name="com.example.elucidate.CloudFragment"
         android:label="fragment_cloud"
         tools:layout="@layout/fragment_cloud" />
+    <fragment
+        android:id="@+id/positiveCloudFragment"
+        android:name="com.example.elucidate.view.ui.PositiveCloudFragment"
+        android:label="PositiveCloudFragment" />
+    <fragment
+        android:id="@+id/triggerCloudFragment"
+        android:name="com.example.elucidate.view.ui.TriggerCloudFragment"
+        android:label="TriggerCloudFragment" />
 </navigation>

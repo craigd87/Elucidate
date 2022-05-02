@@ -211,6 +211,76 @@ class ViewModel() {
 
         return moodEntries
     }
+    fun accessRetrievedKeywordData(list: List<Mood>): MutableList<String>{
+
+        val moodKeywords= mutableListOf<String>()
+        var mood: Mood
+        val retrievedMood = list as MutableList<Mood>
+        //Log.d("retrieved mood", "$retrievedMood")
+        moodKeywords.clear()
+
+        for (item in retrievedMood) {
+
+            mood = item
+            val keywordList=mood.keywords
+
+            for (word in keywordList){
+                moodKeywords.add(word)
+
+            }
+
+        }
+        Log.d("merlin", "$moodKeywords")
+        return moodKeywords
+
+    }
+    fun accessRetrievedTriggerData(list: List<Mood>): MutableList<String>{
+
+        val moodKeywords= mutableListOf<String>()
+        var mood: Mood
+        val retrievedMood = list as MutableList<Mood>
+        //Log.d("retrieved mood", "$retrievedMood")
+        moodKeywords.clear()
+
+        for (item in retrievedMood) {
+
+            mood = item
+            val keywordList=mood.triggers
+
+            for (word in keywordList){
+                moodKeywords.add(word)
+
+            }
+
+        }
+        Log.d("merlin", "$moodKeywords")
+        return moodKeywords
+
+    }
+
+    fun accessRetrievedPositivesData(list: List<Mood>): MutableList<String>{
+
+        val moodKeywords= mutableListOf<String>()
+        var mood: Mood
+        val retrievedMood = list as MutableList<Mood>
+        //Log.d("retrieved mood", "$retrievedMood")
+        moodKeywords.clear()
+
+        for (item in retrievedMood) {
+
+            mood = item
+            val keywordList=mood.positives
+
+            for (word in keywordList){
+                moodKeywords.add(word)
+
+            }
+
+        }
+        Log.d("merlin", "$moodKeywords")
+        return moodKeywords
+
+    }
 
     fun getCurrentUserName(id: String): Task<QuerySnapshot>{
 
@@ -219,6 +289,30 @@ class ViewModel() {
 
 
         return query
+    }
+
+    var keywordMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
+    fun retrieveMoodByKeyword(id: String, keyword: String):  LiveData<List<Mood>>{
+        firebaseUtils.retrieveAllMoodEntries(id).whereArrayContains("keywords", keyword).addSnapshotListener { snapshot, e ->
+
+            if (e != null) {
+                Log.w(TAG, "Listen failed.", e)
+                keywordMoodsRetrieved.value = emptyList()
+                return@addSnapshotListener
+            }
+
+            val moodItemList: MutableList<Mood> = mutableListOf()
+            for (doc in snapshot!!) {
+                val moodItem = doc.toObject(Mood::class.java)
+                moodItemList.add(moodItem)
+                Log.d("list", moodItemList.toString())
+
+            }
+            keywordMoodsRetrieved.value = moodItemList
+        }
+        Log.d("sancho", "moo")
+
+        return keywordMoodsRetrieved
     }
 
 

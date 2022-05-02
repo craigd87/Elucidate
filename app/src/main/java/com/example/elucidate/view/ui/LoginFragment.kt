@@ -44,7 +44,7 @@ class LoginFragment : Fragment() {
             binding.btnLogin.setOnClickListener {
                 login("$email", "$password")
 
-                view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
+                //view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
             }
 
 
@@ -81,12 +81,12 @@ class LoginFragment : Fragment() {
                                 Log.d("pain", "null")
                             }
 
-
+                            view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "signInWithEmail:failure", task.exception)
                             Toast.makeText(
-                                context, "Authentication failed.",
+                                context, "Username or password incorrect. Please try again.",
                                 Toast.LENGTH_SHORT
                             ).show()
 

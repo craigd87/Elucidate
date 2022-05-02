@@ -22,8 +22,6 @@ import java.util.*
 
 class RetreiveMoodEntriesFragment : Fragment() {
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -33,69 +31,48 @@ class RetreiveMoodEntriesFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         // Inflate the layout for this fragment
         val binding = FragmentRetreiveMoodEntriesBinding.inflate(layoutInflater)
-        //var retrievedMood= mutableListOf<Mood>()
-        //var moodEntries= mutableListOf<MoodView>()
-        //var mood: Mood
+
+        val id = globalUser.id
+        var mood: Mood
+        var keywords= mutableListOf<String>()
+        val map: MutableMap<String, Int> = HashMap()
+        viewModel.retrieveAllMoodEntries(id).observe(viewLifecycleOwner, Observer { it ->
+
+            val moodList= viewModel.accessRetrievedKeywordData(it)
+            val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
+            Log.d("Camelot", "$keywordGroups")
+
+        })
+
+        binding.btnSearch.setOnClickListener {
+
+            val keyword= binding.etSearch.text.toString().trim()
+            val retrieveKeywordMood= viewModel.retrieveMoodByKeyword(globalUser.id,keyword)
+            retrieveKeywordMood.observe(viewLifecycleOwner, Observer { it->
+
+                populateRecyclerView(it, binding)
+
+            })
+        }
 
         binding.btnViewAll.setOnClickListener {
 
             viewModel.retrieveAllMoodEntries(globalUser.id).observe(viewLifecycleOwner, Observer { it ->
-                //Log.d("garfield", "$it")
-                /*var retrievedMood = it as MutableList<Mood>
-                //Log.d("retrieved mood", "$retrievedMood")
-                moodEntries.clear()
 
-                for (item in retrievedMood) {
-                    mood = item
-
-                    val entry= mood.moodEntry
-                    val time= mood.time?.toDate()
-                    val formatedTime= SimpleDateFormat("HH:mm -dd/MM/yyyy").format(time)
-
-                    val moodView= MoodView(entry, formatedTime)
-
-                    moodEntries.add(moodView)
-
-                }*/
-                val moodEntries= viewModel.accessRetrievedMoodListData(it)
-
-                val adapter= MoodAdapter(moodEntries)
-                adapter.notifyDataSetChanged()
-                binding.rvMoodEntries.adapter= adapter
-
-                //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
-                binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
-                binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
-
+                populateRecyclerView(it, binding)
 
             })
         }
 
         binding.btnToday.setOnClickListener {
-            /*val date= Calendar.getInstance()
-            val currentDate = date.time
-            val formatedDate = SimpleDateFormat("yyyy/MM/dd").format(currentDate)
-            val simpleDateStart="$formatedDate 00:00:00"
-            val simpleDateEnd="$formatedDate 23:59:59"
-            val dateCreator= DateMillisCreator()
-            val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
-            val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)*/
-            //val moodText= viewModel.retrieveMoodEntryByDate(dateStartTime,dateEndTime)
-            //binding.textView2.text=moodText.toString()
-            //viewModel.retrieveMoodEntryByDate(globalUser.id, dateStartTime,dateEndTime).observe(viewLifecycleOwner, Observer { it->
+
             val retrieveCurrentDayMood= viewModel.retrieveCurrentDayMood(globalUser.id)
             retrieveCurrentDayMood.observe(viewLifecycleOwner, Observer { it->
-            val moodEntries= viewModel.accessRetrievedMoodListData(it)
 
-                val adapter= MoodAdapter(moodEntries)
-                adapter.notifyDataSetChanged()
-                binding.rvMoodEntries.adapter= adapter
-
-                //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
-                binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
-                binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+                populateRecyclerView(it, binding)
 
         })
     }
@@ -104,15 +81,8 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
             val retrieve7DaysMoods= viewModel.retrieve7DaysMoods(globalUser.id)
             retrieve7DaysMoods.observe(viewLifecycleOwner, Observer { it->
-                val moodEntries= viewModel.accessRetrievedMoodListData(it)
 
-                val adapter= MoodAdapter(moodEntries)
-                adapter.notifyDataSetChanged()
-                binding.rvMoodEntries.adapter= adapter
-
-                //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
-                binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
-                binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+                populateRecyclerView(it, binding)
 
             })
         }
@@ -121,55 +91,37 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
             val retrieve30DaysMoods= viewModel.retrieve30DaysMoods(globalUser.id)
             retrieve30DaysMoods.observe(viewLifecycleOwner, Observer { it->
-                val moodEntries= viewModel.accessRetrievedMoodListData(it)
 
-                val adapter= MoodAdapter(moodEntries)
-                adapter.notifyDataSetChanged()
-                binding.rvMoodEntries.adapter= adapter
-
-                //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
-                binding.rvMoodEntries.scrollToPosition(adapter.itemCount-1);
-                binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+                populateRecyclerView(it, binding)
 
             })
         }
 
         binding.btnByDate.setOnClickListener {
-    showDatePickerDialog(it)
+
+            showDatePickerDialog(it)
         }
 
 
         return binding.root
     }
+
     fun showDatePickerDialog(v: View) {
         val newFragment = DatePickerFragment()
         newFragment.show(requireActivity().supportFragmentManager, "datePicker")
     }
 
+    fun populateRecyclerView(list: List<Mood>, binding: FragmentRetreiveMoodEntriesBinding) {
 
-/*binding.btnCheckDate.setOnClickListener {
-            val date= binding.etEnterDate.text.toString()
-            val simpleDateStart="$date 00:00:00"
+        val moodEntries = viewModel.accessRetrievedMoodListData(list)
+        val adapter = MoodAdapter(moodEntries)
+        adapter.notifyDataSetChanged()
+        binding.rvMoodEntries.adapter = adapter
 
- val simpleDateEnd="$date 23:59:59"
-            val dateCreator= DateMillisCreator()
-            val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
-            val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
-            //val moodText= viewModel.retrieveMoodEntryByDate(dateStartTime,dateEndTime)
-            //binding.textView2.text=moodText.toString()
-            viewModel.retrieveMoodEntryByDate(dateStartTime,dateEndTime).observe(viewLifecycleOwner, Observer { it->
-                retrievedMood = it as MutableList<Mood>
-                Log.d("retrieved mood", "$retrievedMood")
-                var mood:Mood
-                for(item in retrievedMood){
-                    mood=item
-                    Log.d("Mood details", mood.toString())
-                    binding.textView2.text=mood.moodEntry
-                    Log.d("mood received",mood.moodEntry)
-                }
-        })
-    }*/
-
+        //https://www.codegrepper.com/code-examples/kotlin/android+recyclerview+not+scrolling+to+bottom
+        binding.rvMoodEntries.scrollToPosition(adapter.itemCount - 1);
+        binding.rvMoodEntries.layoutManager = LinearLayoutManager(activity)
+    }
 
 
 }

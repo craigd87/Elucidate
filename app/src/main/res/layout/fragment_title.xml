@@ -5,10 +5,15 @@
     android:id="@+id/frameLayout6"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TitleFragment">
+    tools:context=".view.ui.TitleFragment">
 
     <!-- TODO: Update blank fragment layout -->
-
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#fff"
+        android:src="@drawable/brain_gif" />
+    <!--
     <Button
         android:id="@+id/btnGetStarted"
         android:layout_width="wrap_content"
@@ -29,5 +34,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnGetStarted" />
+    -->
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,11 +26,14 @@ package com.example.elucidate
 import android.R
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import com.example.elucidate.databinding.FragmentCloudBinding
+import com.example.elucidate.dto.Mood
 import com.mordred.wordcloud.WordCloud
 
 
@@ -65,8 +68,29 @@ class CloudFragment : Fragment() {
         val binding= FragmentCloudBinding.inflate(layoutInflater)
 
         //val imgView: ImageView = findViewById(R.id.imageView)
+        val id = globalUser.id
+        var mood: Mood
+        var keywords= mutableListOf<String>()
+        //val map: MutableMap<String, Int> = HashMap()
+        //var keywordGroups:Map<String, Int>
+        viewModel.retrieveAllMoodEntries(id).observe(viewLifecycleOwner, Observer { it ->
 
-        val nMap: MutableMap<String, Int> = HashMap()
+            val moodList= viewModel.accessRetrievedKeywordData(it)
+            val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
+            Log.d("Camelot", "$keywordGroups")
+
+            val wd = WordCloud(keywordGroups, 250, 250, Color.BLACK, Color.WHITE)
+            wd.setWordColorOpacityAuto(true)
+            wd.setPaddingX(5)
+            wd.setPaddingY(5)
+
+            val generatedWordCloudBmp = wd.generate()
+
+            binding.imageView.setImageBitmap(generatedWordCloudBmp)
+
+        })
+
+        /*val nMap: MutableMap<String, Int> = HashMap()
 
         nMap["Craig"] = 2
         nMap["dissertation"] = 2
@@ -77,16 +101,17 @@ class CloudFragment : Fragment() {
         nMap["dog"] = 1
         nMap["cat"] = 1
         nMap["fox"] = 1
-        nMap["Spiderman"]=8
+        nMap["Spiderman"]=8*/
 
-        val wd = WordCloud(nMap, 250, 250, Color.BLACK, Color.WHITE)
+        //val wd = WordCloud(nMap, 250, 250, Color.BLACK, Color.WHITE)
+        /*val wd = WordCloud(keywordGroups, 250, 250, Color.BLACK, Color.WHITE)
         wd.setWordColorOpacityAuto(true)
         wd.setPaddingX(5)
         wd.setPaddingY(5)
 
         val generatedWordCloudBmp = wd.generate()
 
-        binding.imageView.setImageBitmap(generatedWordCloudBmp)
+        binding.imageView.setImageBitmap(generatedWordCloudBmp)*/
 
 
         return binding.root
