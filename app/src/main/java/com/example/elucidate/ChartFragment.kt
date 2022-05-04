@@ -50,7 +50,7 @@ class ChartFragment : Fragment() {
 
     private fun setupLineChartData(lineChart: LineChart) {
         val yVals = ArrayList<Entry>()
-        yVals.add(Entry(0f, 30f, "0"))
+        /*yVals.add(Entry(0f, 30f, "0"))
         yVals.add(Entry(1f, 2f, "1"))
         yVals.add(Entry(2f, 4f, "2"))
         yVals.add(Entry(3f, 6f, "3"))
@@ -61,7 +61,17 @@ class ChartFragment : Fragment() {
         yVals.add(Entry(8f, 22f, "8"))
         yVals.add(Entry(9f, 32f, "9"))
         yVals.add(Entry(10f, 54f, "10"))
-        yVals.add(Entry(11f, 28f, "11"))
+        yVals.add(Entry(11f, 28f, "11"))*/
+
+        //7 days
+        yVals.add(Entry(0f, 0f, "0"))
+        yVals.add(Entry(1f, 2f, "1"))
+        yVals.add(Entry(2f, 4f, "2"))
+        yVals.add(Entry(3f, 6f, "3"))
+        yVals.add(Entry(4f, 8f, "4"))
+        yVals.add(Entry(5f, 10f, "5"))
+        yVals.add(Entry(6f, 7f, "6"))
+        yVals.add(Entry(7f, 7f, "7"))
 
         val set1: LineDataSet
         set1 = LineDataSet(yVals, "DataSet 1")
@@ -93,7 +103,7 @@ class ChartFragment : Fragment() {
         lineChart.axisRight.enableGridDashedLine(5f, 5f, 0f)
         lineChart.axisLeft.enableGridDashedLine(5f, 5f, 0f)
         //lineChart.setDrawGridBackground()
-        lineChart.xAxis.labelCount = 11
+        lineChart.xAxis.labelCount = 7
         lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
     }
 

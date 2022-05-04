@@ -149,6 +149,9 @@ class DashboardFragment : Fragment() {
             binding.btnPopularPositives.setOnClickListener {
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_positiveCloudFragment)
             }
+            binding.btnMoodRatingGraph.setOnClickListener{
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_chartFragment)
+            }
 
             binding.btnDashLogOut.setOnClickListener {
                 //globalUser.

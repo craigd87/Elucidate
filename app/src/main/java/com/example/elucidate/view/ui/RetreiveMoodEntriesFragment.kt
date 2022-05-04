@@ -39,13 +39,13 @@ class RetreiveMoodEntriesFragment : Fragment() {
         var mood: Mood
         var keywords= mutableListOf<String>()
         val map: MutableMap<String, Int> = HashMap()
-        viewModel.retrieveAllMoodEntries(id).observe(viewLifecycleOwner, Observer { it ->
+        /*viewModel.retrieveAllMoodEntries(id).observe(viewLifecycleOwner, Observer { it ->
 
-            val moodList= viewModel.accessRetrievedKeywordData(it)
+            val moodList= viewModel.accessRetrievedWordsData(it,"keywords")
             val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
             Log.d("Camelot", "$keywordGroups")
 
-        })
+        })*/
 
         binding.btnSearch.setOnClickListener {
 
@@ -79,7 +79,8 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
         binding.btn7Days.setOnClickListener {
 
-            val retrieve7DaysMoods= viewModel.retrieve7DaysMoods(globalUser.id)
+            //val retrieve7DaysMoods= viewModel.retrieve7DaysMoods(globalUser.id)
+            val retrieve7DaysMoods= viewModel.retrieveDayRangeMoods(globalUser.id,7)
             retrieve7DaysMoods.observe(viewLifecycleOwner, Observer { it->
 
                 populateRecyclerView(it, binding)
@@ -89,7 +90,8 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
         binding.btn30Days.setOnClickListener {
 
-            val retrieve30DaysMoods= viewModel.retrieve30DaysMoods(globalUser.id)
+            //val retrieve30DaysMoods= viewModel.retrieve30DaysMoods(globalUser.id)
+            val retrieve30DaysMoods= viewModel.retrieveDayRangeMoods(globalUser.id, 30)
             retrieve30DaysMoods.observe(viewLifecycleOwner, Observer { it->
 
                 populateRecyclerView(it, binding)

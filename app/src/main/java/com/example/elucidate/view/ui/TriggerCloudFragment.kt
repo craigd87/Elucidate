@@ -39,7 +39,8 @@ class TriggerCloudFragment : Fragment() {
 
         viewModel.retrieveAllMoodEntries(id).observe(viewLifecycleOwner, Observer { it ->
 
-            val moodList= viewModel.accessRetrievedTriggerData(it)
+            //val moodList= viewModel.accessRetrievedTriggerData(it)
+            val moodList= viewModel.accessRetrievedWordsData(it,"triggers")
             val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
             Log.d("Camelot", "$keywordGroups")
 

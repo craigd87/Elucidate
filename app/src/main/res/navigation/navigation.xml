@@ -28,6 +28,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_triggerCloudFragment"
             app:destination="@id/triggerCloudFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -67,9 +70,6 @@
         <action
             android:id="@+id/action_titleFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
-        <action
-            android:id="@+id/action_titleFragment_to_chartFragment"
-            app:destination="@id/chartFragment" />
         <action
             android:id="@+id/action_titleFragment_to_cloudFragment"
             app:destination="@id/cloudFragment" />

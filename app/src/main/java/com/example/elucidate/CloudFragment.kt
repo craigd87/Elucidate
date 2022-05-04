@@ -67,15 +67,14 @@ class CloudFragment : Fragment() {
         // Inflate the layout for this fragment
         val binding= FragmentCloudBinding.inflate(layoutInflater)
 
-        //val imgView: ImageView = findViewById(R.id.imageView)
+
         val id = globalUser.id
         var mood: Mood
         var keywords= mutableListOf<String>()
-        //val map: MutableMap<String, Int> = HashMap()
-        //var keywordGroups:Map<String, Int>
+
         viewModel.retrieveAllMoodEntries(id).observe(viewLifecycleOwner, Observer { it ->
 
-            val moodList= viewModel.accessRetrievedKeywordData(it)
+            val moodList= viewModel.accessRetrievedWordsData(it, "keywords")
             val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
             Log.d("Camelot", "$keywordGroups")
 

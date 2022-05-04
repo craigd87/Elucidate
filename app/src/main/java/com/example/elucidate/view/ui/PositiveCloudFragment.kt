@@ -46,7 +46,8 @@ class PositiveCloudFragment : Fragment() {
 
         viewModel.retrieveAllMoodEntries(id).observe(viewLifecycleOwner, Observer { it ->
 
-            val moodList= viewModel.accessRetrievedPositivesData(it)
+            //val moodList= viewModel.accessRetrievedPositivesData(it)
+            val moodList= viewModel.accessRetrievedWordsData(it, "positives")
             val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
             Log.d("Camelot", "$keywordGroups")
 
