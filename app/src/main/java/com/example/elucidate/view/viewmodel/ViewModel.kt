@@ -38,6 +38,7 @@ class ViewModel() {
     val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
     val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
 
+
     private var keywordMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
 
 
@@ -187,17 +188,35 @@ class ViewModel() {
 
         for (item in retrievedMood) {
 
-            mood = item
+            var temp=mutableListOf<Mood>()
+            if (item.time?.toDate()!! < currentDate && item.time?.toDate()!! > dateStartTime){
+                temp.add(item)
+
+            }
+            if(temp.size>0){
+                var x=0
+                for (tempItem in temp){
+
+                    x+=tempItem.moodRating.toInt()
+                }
+                val average=x/temp.size
+                moodRatings.add(Entry(7f, average.toFloat(),"7"))
+            }else{
+                for (tempItem in temp){
+                    moodRatings.add(Entry(7f, tempItem.moodRating.toFloat(),"7"))
+                }
+            if(item.time?.toDate()!!<currentDate && item.time?.toDate()!! > dateCreator.getDateDaysAgo(dateStartTime,1)){
+
+            }
+
+
+
+            /*mood = item
             val MoodRatingList=mood.moodRating
             //val MoodRatingList= ArrayList<Entry>()
             for (number in MoodRatingList){
-                //moodRatings.add(number)
-                    var day=0
-                if (mood.time?.toDate()!! < currentDate && mood.time?.toDate()!!<dateEndTime){
-                    day=1
+                //moodRatings.add(number)*/
 
-
-                }
 
             }
 

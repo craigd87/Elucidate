@@ -15,4 +15,14 @@ class DateMillisCreator {
         val finalDate= Date(dateMillis)
         return finalDate
     }
+    fun getDateDaysAgo(date: Date, daysAgo: Int): Date{
+        val simpleDate=SimpleDateFormat("yyyy/MM/dd").format(date)
+        val simpleDateStart="$simpleDate 00:00:00"
+        val dateParse=sdf.parse(simpleDateStart)
+        val dateParseMillis=dateParse.time
+        val finalDateMillis=dateParseMillis-(43200000*daysAgo)
+        val finalDate= Date(finalDateMillis)
+        return finalDate
+
+    }
 }
