@@ -81,7 +81,7 @@ class ViewModel() {
     }
 
     // get realtime updates from firebase regarding saved moods
-    fun retrieveMoodEntryByDate(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
+    fun retrieveMoodEntryByDateDesc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
 
         firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
@@ -105,16 +105,40 @@ class ViewModel() {
         return moodRetrieved
     }
 
+    fun retrieveMoodEntryByDateAsc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
+
+        firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
+                Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
+
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    moodRetrieved.value = emptyList()
+                    return@addSnapshotListener
+                }
+
+                val moodItemList: MutableList<Mood> = mutableListOf()
+                for (doc in snapshot!!) {
+                    val moodItem = doc.toObject(Mood::class.java)
+                    moodItemList.add(moodItem)
+
+                }
+                moodRetrieved.value = moodItemList
+            }
+
+        return moodRetrieved
+    }
+
 
     fun retrieveCurrentDayMood(id: String): LiveData<List<Mood>>{
 
 
-        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,dateEndTime)
+        val retrieved=viewModel.retrieveMoodEntryByDateDesc(id, dateStartTime,dateEndTime)
 
         return retrieved
     }
 
-    fun retrieveDayRangeMoods(id: String, numberOfDays: Int): LiveData<List<Mood>>{
+    fun retrieveDayRangeMoodsAsc(id: String, numberOfDays: Int): LiveData<List<Mood>>{
         var millisRange: Long=0
         when(numberOfDays){
 
@@ -125,7 +149,25 @@ class ViewModel() {
         val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
         val dateStartTime=Date(dateStartTimeMillis)
         val dateEndTime=Date(dateEndTimeMillisPlusMinute)
-        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,dateEndTime)
+
+        val retrieved=viewModel.retrieveMoodEntryByDateAsc(id, dateStartTime,dateEndTime)
+
+        return retrieved
+    }
+
+    fun retrieveDayRangeMoodsDesc(id: String, numberOfDays: Int): LiveData<List<Mood>>{
+        var millisRange: Long=0
+        when(numberOfDays){
+
+            7 -> millisRange=millisFor7Days
+            30 -> millisRange=millisFor30Days
+        }
+        val dateStartTimeMillis= dateEndTimeMillis-millisRange
+        val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
+        val dateStartTime=Date(dateStartTimeMillis)
+        val dateEndTime=Date(dateEndTimeMillisPlusMinute)
+
+        val retrieved=viewModel.retrieveMoodEntryByDateDesc(id, dateStartTime,dateEndTime)
 
         return retrieved
     }
@@ -176,8 +218,28 @@ class ViewModel() {
         return moodEntries
     }
 
+    fun accessRetrievedMoodRatingData(list: List<Mood>): MutableList<Float>{
 
-    fun accessRetrievedMoodRatingData(list: List<Mood>): ArrayList<Entry>{
+        val moodEntries= mutableListOf<Float>()
+        var mood: Mood
+        val retrievedMood = list as MutableList<Mood>
+        moodEntries.clear()
+
+        for (item in retrievedMood) {
+
+            mood = item
+            val moodRating = mood.moodRating.toFloat()
+            //val time = mood.time?.toDate()
+            //val formatedTime = SimpleDateFormat("HH:mm -dd/MM/yyyy").format(time)
+            //val moodView = MoodView(entry, formatedTime)
+            moodEntries.add(moodRating)
+        }
+
+        return moodEntries
+    }
+
+
+    /*fun accessRetrievedMoodRatingData(list: List<Mood>): ArrayList<Entry>{
 
         //val moodRatings= mutableListOf<Char>()
         val moodRatings= ArrayList<Entry>()
@@ -193,7 +255,7 @@ class ViewModel() {
                 temp.add(item)
 
             }
-            if(temp.size>0){
+            if(temp.size>1){
                 var x=0
                 for (tempItem in temp){
 
@@ -201,13 +263,16 @@ class ViewModel() {
                 }
                 val average=x/temp.size
                 moodRatings.add(Entry(7f, average.toFloat(),"7"))
-            }else{
-                for (tempItem in temp){
-                    moodRatings.add(Entry(7f, tempItem.moodRating.toFloat(),"7"))
+            }else if(temp.size==1) {
+                for (tempItem in temp) {
+                    moodRatings.add(Entry(7f, tempItem.moodRating.toFloat(), "7"))
                 }
-            if(item.time?.toDate()!!<currentDate && item.time?.toDate()!! > dateCreator.getDateDaysAgo(dateStartTime,1)){
+            }else{
 
             }
+            if(item.time?.toDate()!!<currentDate && item.time?.toDate()!! > dateCreator.getDateDaysAgo(dateStartTime,1)){
+
+
 
 
 
@@ -216,6 +281,57 @@ class ViewModel() {
             //val MoodRatingList= ArrayList<Entry>()
             for (number in MoodRatingList){
                 //moodRatings.add(number)*/
+
+
+            }
+
+        }
+        Log.d("merlin", "$moodRatings")
+        return moodRatings
+
+    }*/
+    fun accessRetrievedDaysMoodRatingData(list: List<Mood>, days:Int): ArrayList<Entry>{
+
+        //val moodRatings= mutableListOf<Char>()
+        val moodRatings= ArrayList<Entry>()
+        var mood: Mood
+
+        val retrievedMood = list as MutableList<Mood>
+        moodRatings.clear()
+
+        for (item in retrievedMood) {
+
+            var temp=mutableListOf<Mood>()
+            if (item.time?.toDate()!! < currentDate && item.time?.toDate()!! > dateStartTime){
+                temp.add(item)
+
+            }
+            if(temp.size>1){
+                var x=0
+                for (tempItem in temp){
+
+                    x+=tempItem.moodRating.toInt()
+                }
+                val average=x/temp.size
+                moodRatings.add(Entry(7f, average.toFloat(),"7"))
+            }else if(temp.size==1) {
+                for (tempItem in temp) {
+                    moodRatings.add(Entry(7f, tempItem.moodRating.toFloat(), "7"))
+                }
+            }else{
+
+            }
+            if(item.time?.toDate()!!<currentDate && item.time?.toDate()!! > dateCreator.getDateDaysAgo(dateStartTime,1)){
+
+
+
+
+
+                /*mood = item
+                val MoodRatingList=mood.moodRating
+                //val MoodRatingList= ArrayList<Entry>()
+                for (number in MoodRatingList){
+                    //moodRatings.add(number)*/
 
 
             }

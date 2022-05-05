@@ -2,11 +2,13 @@ package com.example.elucidate
 
 import android.graphics.Color
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.Observer
 import com.example.elucidate.databinding.FragmentChartBinding
 import com.example.elucidate.databinding.FragmentTitleBinding
 import com.github.mikephil.charting.charts.BarChart
@@ -49,8 +51,30 @@ class ChartFragment : Fragment() {
     }
 
     private fun setupLineChartData(lineChart: LineChart) {
+        val id = globalUser.id
         val yVals = ArrayList<Entry>()
-        /*yVals.add(Entry(0f, 30f, "0"))
+
+        var x = 0f
+
+        val retrieved7DaysMoods = viewModel.retrieveDayRangeMoodsAsc(id, 7)
+        //val size=retrieved7DaysMoods.
+        retrieved7DaysMoods.observe(viewLifecycleOwner, Observer { it ->
+            yVals.clear()
+            val moodRatingsList = viewModel.accessRetrievedMoodRatingData(it)
+            //val size = moodRatingsList.size
+            Log.d("Voldemort", "$moodRatingsList")
+            for (item in moodRatingsList) {
+                yVals.add(Entry(x, item, "x"))
+                x++
+                Log.d("Tonks", "$x- $yVals")
+            }
+            Log.d("Molly", "$yVals")
+            //})
+            val size = yVals.size
+            Log.d("Lucius", "$yVals")
+
+
+            /*yVals.add(Entry(0f, 30f, "0"))
         yVals.add(Entry(1f, 2f, "1"))
         yVals.add(Entry(2f, 4f, "2"))
         yVals.add(Entry(3f, 6f, "3"))
@@ -63,48 +87,49 @@ class ChartFragment : Fragment() {
         yVals.add(Entry(10f, 54f, "10"))
         yVals.add(Entry(11f, 28f, "11"))*/
 
-        //7 days
-        yVals.add(Entry(0f, 0f, "0"))
+            //7 days
+            /*yVals.add(Entry(0f, 0f, "0"))
         yVals.add(Entry(1f, 2f, "1"))
         yVals.add(Entry(2f, 4f, "2"))
         yVals.add(Entry(3f, 6f, "3"))
         yVals.add(Entry(4f, 8f, "4"))
         yVals.add(Entry(5f, 10f, "5"))
         yVals.add(Entry(6f, 7f, "6"))
-        yVals.add(Entry(7f, 7f, "7"))
+        yVals.add(Entry(7f, 7f, "7"))*/
 
-        val set1: LineDataSet
-        set1 = LineDataSet(yVals, "DataSet 1")
+            val set1: LineDataSet
+            set1 = LineDataSet(yVals, "DataSet 1")
 
-        // set1.fillAlpha = 110
-        // set1.setFillColor(Color.RED);
+            // set1.fillAlpha = 110
+            // set1.setFillColor(Color.RED);
 
-        // set the line to be drawn like this "- - - - - -"
-        // set1.enableDashedLine(5f, 5f, 0f);
-        // set1.enableDashedHighlightLine(10f, 5f, 0f);
-        set1.color = Color.BLUE
-        set1.setCircleColor(Color.BLUE)
-        set1.lineWidth = 1f
-        set1.circleRadius = 3f
-        set1.setDrawCircleHole(false)
-        set1.valueTextSize = 0f
-        set1.setDrawFilled(false)
+            // set the line to be drawn like this "- - - - - -"
+            // set1.enableDashedLine(5f, 5f, 0f);
+            // set1.enableDashedHighlightLine(10f, 5f, 0f);
+            set1.color = Color.BLUE
+            set1.setCircleColor(Color.BLUE)
+            set1.lineWidth = 1f
+            set1.circleRadius = 3f
+            set1.setDrawCircleHole(false)
+            set1.valueTextSize = 0f
+            set1.setDrawFilled(false)
 
-        val dataSets = ArrayList<ILineDataSet>()
-        dataSets.add(set1)
-        val data = LineData(dataSets)
+            val dataSets = ArrayList<ILineDataSet>()
+            dataSets.add(set1)
+            val data = LineData(dataSets)
 
-        // set data
-        lineChart.setData(data)
-        lineChart.description.isEnabled = false
-        lineChart.legend.isEnabled = false
-        lineChart.setPinchZoom(true)
-        lineChart.xAxis.enableGridDashedLine(5f, 5f, 0f)
-        lineChart.axisRight.enableGridDashedLine(5f, 5f, 0f)
-        lineChart.axisLeft.enableGridDashedLine(5f, 5f, 0f)
-        //lineChart.setDrawGridBackground()
-        lineChart.xAxis.labelCount = 7
-        lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+            // set data
+            lineChart.setData(data)
+            lineChart.description.isEnabled = false
+            lineChart.legend.isEnabled = false
+            lineChart.setPinchZoom(true)
+            lineChart.xAxis.enableGridDashedLine(5f, 5f, 0f)
+            lineChart.axisRight.enableGridDashedLine(5f, 5f, 0f)
+            lineChart.axisLeft.enableGridDashedLine(5f, 5f, 0f)
+            //lineChart.setDrawGridBackground()
+            lineChart.xAxis.labelCount = size
+            lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+        })
     }
 
     /*

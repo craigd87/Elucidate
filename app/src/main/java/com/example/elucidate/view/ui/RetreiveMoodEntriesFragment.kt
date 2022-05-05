@@ -80,7 +80,7 @@ class RetreiveMoodEntriesFragment : Fragment() {
         binding.btn7Days.setOnClickListener {
 
             //val retrieve7DaysMoods= viewModel.retrieve7DaysMoods(globalUser.id)
-            val retrieve7DaysMoods= viewModel.retrieveDayRangeMoods(globalUser.id,7)
+            val retrieve7DaysMoods= viewModel.retrieveDayRangeMoodsDesc(globalUser.id,7)
             retrieve7DaysMoods.observe(viewLifecycleOwner, Observer { it->
 
                 populateRecyclerView(it, binding)
@@ -91,7 +91,7 @@ class RetreiveMoodEntriesFragment : Fragment() {
         binding.btn30Days.setOnClickListener {
 
             //val retrieve30DaysMoods= viewModel.retrieve30DaysMoods(globalUser.id)
-            val retrieve30DaysMoods= viewModel.retrieveDayRangeMoods(globalUser.id, 30)
+            val retrieve30DaysMoods= viewModel.retrieveDayRangeMoodsDesc(globalUser.id, 30)
             retrieve30DaysMoods.observe(viewLifecycleOwner, Observer { it->
 
                 populateRecyclerView(it, binding)
