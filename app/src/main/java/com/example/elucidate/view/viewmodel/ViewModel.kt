@@ -148,7 +148,7 @@ class ViewModel() {
         val dateStartTimeMillis= dateEndTimeMillis-millisRange
         val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
         val dateStartTime=Date(dateStartTimeMillis)
-        val dateEndTime=Date(dateEndTimeMillisPlusMinute)
+        //val dateEndTime=Date(dateEndTimeMillisPlusMinute)
 
         val retrieved=viewModel.retrieveMoodEntryByDateAsc(id, dateStartTime,dateEndTime)
 
@@ -165,7 +165,7 @@ class ViewModel() {
         val dateStartTimeMillis= dateEndTimeMillis-millisRange
         val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
         val dateStartTime=Date(dateStartTimeMillis)
-        val dateEndTime=Date(dateEndTimeMillisPlusMinute)
+        //val dateEndTime=Date(dateEndTimeMillisPlusMinute)
 
         val retrieved=viewModel.retrieveMoodEntryByDateDesc(id, dateStartTime,dateEndTime)
 

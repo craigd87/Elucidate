@@ -43,20 +43,21 @@ class ChartFragment : Fragment() {
         //var barChart= binding.barChart
         //var pieChart= binding.pieChart
         
-        setupLineChartData(lineChart)
+        setupLineChartData(lineChart,30)
+
         //setupBarChartData(barChart)
         //setUpPieChartData(pieChart)
 
         return binding.root
     }
 
-    private fun setupLineChartData(lineChart: LineChart) {
+    private fun setupLineChartData(lineChart: LineChart, numberOfDays: Int) {
         val id = globalUser.id
         val yVals = ArrayList<Entry>()
 
         var x = 0f
 
-        val retrieved7DaysMoods = viewModel.retrieveDayRangeMoodsAsc(id, 7)
+        val retrieved7DaysMoods = viewModel.retrieveDayRangeMoodsAsc(id, numberOfDays)
         //val size=retrieved7DaysMoods.
         retrieved7DaysMoods.observe(viewLifecycleOwner, Observer { it ->
             yVals.clear()
