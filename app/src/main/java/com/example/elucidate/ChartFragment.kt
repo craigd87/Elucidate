@@ -1,17 +1,21 @@
 package com.example.elucidate
 
 import android.graphics.Color
+import android.graphics.Paint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.example.elucidate.databinding.FragmentChartBinding
 import com.example.elucidate.databinding.FragmentTitleBinding
 import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.charts.Chart
 import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.PieChart
 import com.github.mikephil.charting.components.XAxis
@@ -38,12 +42,28 @@ class ChartFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
+
         val binding = FragmentChartBinding.inflate(layoutInflater)
+        var dateRange=0
         var lineChart= binding.lineChart
+        setupLineChartData(lineChart,7, binding)
+        //lineChart.setNoDataText("Select a date range...")
         //var barChart= binding.barChart
         //var pieChart= binding.pieChart
-        
-        setupLineChartData(lineChart,30)
+        var id=binding.radioGroup.checkedRadioButtonId
+        //setupLineChartData(lineChart,30)
+        val checked=binding.radioGroup.findViewById<RadioButton>(id).text.toString()
+        binding.radioGroup.setOnCheckedChangeListener{group,checkedId->
+            when(checkedId){
+                R.id.rb7Days-> setupLineChartData(lineChart,7, binding)
+                R.id.rb30Days->setupLineChartData(lineChart,30, binding)
+                //R.id.rb7Days->dateRange=1
+
+            }
+
+        }
+
+
 
         //setupBarChartData(barChart)
         //setUpPieChartData(pieChart)
@@ -51,7 +71,7 @@ class ChartFragment : Fragment() {
         return binding.root
     }
 
-    private fun setupLineChartData(lineChart: LineChart, numberOfDays: Int) {
+    private fun setupLineChartData(lineChart: LineChart, numberOfDays: Int, binding: FragmentChartBinding) {
         val id = globalUser.id
         val yVals = ArrayList<Entry>()
 
@@ -130,6 +150,14 @@ class ChartFragment : Fragment() {
             //lineChart.setDrawGridBackground()
             lineChart.xAxis.labelCount = size
             lineChart.xAxis.position = XAxis.XAxisPosition.BOTTOM
+            lineChart.xAxis.setDrawLabels(false)
+            //val paint: Paint =lineChart.getPaint(Chart.PAINT_INFO)
+            //paint.textSize=40f
+            lineChart.invalidate()
+            lineChart.refreshDrawableState()
+            binding.tvDays.text="$numberOfDays Days"
+
+
         })
     }
 
