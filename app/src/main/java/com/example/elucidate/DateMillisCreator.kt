@@ -10,12 +10,12 @@ class DateMillisCreator {
         val dateParse= sdf.parse(simpleDate)
         val dateMillis=dateParse.time
 
-
         //create date objects from the milliseconds
         val finalDate= Date(dateMillis)
         return finalDate
     }
-    fun getDateDaysAgo(date: Date, daysAgo: Int): Date{
+
+    /*fun getDateDaysAgo(date: Date, daysAgo: Int): Date{
         val simpleDate=SimpleDateFormat("yyyy/MM/dd").format(date)
         val simpleDateStart="$simpleDate 00:00:00"
         val dateParse=sdf.parse(simpleDateStart)
@@ -24,5 +24,5 @@ class DateMillisCreator {
         val finalDate= Date(finalDateMillis)
         return finalDate
 
-    }
+    }*/
 }

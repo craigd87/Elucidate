@@ -60,11 +60,9 @@ class LoginFragment : Fragment() {
             .addOnCompleteListener() { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "signInWithEmail:success")
-                    //view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
                     val user: FirebaseUser = task.result!!.user!!
                     val userId = user.uid
-                    //idList.add(userId)
-                    var query = viewModel.retrieveUser(userId)
+                    val query = viewModel.retrieveUser(userId)
                     query.addOnCompleteListener() { task ->
                         if (task.isSuccessful) {
                             val documents = query.result

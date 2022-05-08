@@ -16,7 +16,6 @@ import com.google.android.material.chip.Chip
 
 class IdentifyTriggersFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -26,36 +25,30 @@ class IdentifyTriggersFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding=FragmentIdentifyTriggersBinding.inflate(layoutInflater)
 
         val chosenTriggers= mutableListOf<String>()
 
-
         for (item in globalMoodEntryDetails.keywords){
 
-            Log.d("triggerChips", item)
             val chip=inflater.inflate(R.layout.filter_chip, binding.cgTriggers, false) as Chip
             chip.text=item
-
-
             chip.setChipBackgroundColorResource(R.color.white)
-            //chip.setCloseIconVisible(true);
             binding.cgTriggers.addView(chip)
         }
 
         binding.btnNext.setOnClickListener { view: View ->
+
             val ids = binding.cgTriggers.checkedChipIds
 
             for (id in ids) {
                 val wordSelection =
                     binding.cgTriggers.findViewById<Chip>(id).text.toString()
                 chosenTriggers.add(wordSelection)
-
                 globalMoodEntryDetails.triggers=chosenTriggers
 
-
             }
-
 
             for (item in globalMoodEntryDetails.keywords){
 
@@ -63,15 +56,17 @@ class IdentifyTriggersFragment : Fragment() {
                     globalNonTriggersList.add(item)
                 }
             }
+
             findNavController().safeNavigate(com.example.elucidate.view.ui.IdentifyTriggersFragmentDirections.actionIdentifyTriggersFragmentToIdentifyPositivesFragment())
         }
+
         return binding.root
     }
 
     fun NavController.safeNavigate(direction: NavDirections) {
-        Log.d("navclick", "Click happened")
+
         currentDestination?.getAction(direction.actionId)?.run {
-            Log.d("navclick", "Click Propagated")
+
             navigate(direction)
         }
     }

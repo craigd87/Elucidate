@@ -9,7 +9,7 @@ import com.example.elucidate.dto.Mood
 import com.google.firebase.auth.FirebaseAuth
 
 const val TAG = "FIRESTORE"
-private lateinit var auth: FirebaseAuth
+//private lateinit var auth: FirebaseAuth
 lateinit var viewModel: ViewModel
 
 var globalNonTriggersList= mutableListOf<String>()
@@ -20,18 +20,13 @@ mutableListOf(), null)
 
 class MainActivity() : AppCompatActivity() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
 
         setContentView(binding?.root)
-        //val inputStream: InputStream = assets.open("stopwords.txt")
         viewModel= ViewModel()
 
-
     }
-
-
 
 }

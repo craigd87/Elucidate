@@ -15,6 +15,7 @@ import com.github.mikephil.charting.data.Entry
 import com.google.android.gms.tasks.Task
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
 import java.text.SimpleDateFormat
@@ -44,7 +45,10 @@ class ViewModel() {
 
     var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
 
-
+    fun getCurrentUser():FirebaseUser?{
+        val currentUser=firebaseUtils.getCurrentUser()
+        return currentUser
+    }
     fun saveUserDetailsToFirestore(user: User){
         firebaseUtils.saveUserDetails(user).addOnFailureListener {
             Log.e("vmtest","Failed to save Address!")
@@ -290,7 +294,7 @@ class ViewModel() {
         return moodRatings
 
     }*/
-    fun accessRetrievedDaysMoodRatingData(list: List<Mood>, days:Int): ArrayList<Entry>{
+    /*fun accessRetrievedDaysMoodRatingData(list: List<Mood>, days:Int): ArrayList<Entry>{
 
         //val moodRatings= mutableListOf<Char>()
         val moodRatings= ArrayList<Entry>()
@@ -340,7 +344,7 @@ class ViewModel() {
         Log.d("merlin", "$moodRatings")
         return moodRatings
 
-    }
+    }*/
     fun accessRetrievedWordsData(list: List<Mood>, type: String): MutableList<String>{
 
         val moodKeywords= mutableListOf<String>()

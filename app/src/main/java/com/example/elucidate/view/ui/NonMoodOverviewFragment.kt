@@ -11,7 +11,6 @@ import com.example.elucidate.databinding.FragmentNonMoodOverviewBinding
 
 class NonMoodOverviewFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

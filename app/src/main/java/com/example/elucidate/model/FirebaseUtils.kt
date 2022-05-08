@@ -26,6 +26,9 @@ class FirebaseUtils {
     //var userAuth = FirebaseAuth.getInstance().currentUser
     //val uid= userAuth?.uid
 
+    fun getCurrentUser(): FirebaseUser?{
+        return currentUser
+    }
     fun getCurrentUserId(): String{
 
         val currentUserId= currentUser?.uid.toString()

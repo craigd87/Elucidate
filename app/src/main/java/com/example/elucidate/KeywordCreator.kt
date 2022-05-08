@@ -40,13 +40,11 @@ class KeywordCreator {
         }
 
         val finalTextDistinct=finalText.toSet().toList()
-
         val printText= finalTextDistinct.filter{
             !it.isBlank()
         }
 
         return printText
     }
-
 
 }

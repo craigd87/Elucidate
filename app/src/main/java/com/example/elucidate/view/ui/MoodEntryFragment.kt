@@ -20,7 +20,6 @@ import kotlin.collections.HashMap
 
 class MoodEntryFragment : Fragment() {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -30,24 +29,10 @@ class MoodEntryFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
         val binding = FragmentMoodEntryBinding.inflate(layoutInflater)
 
-
-
-        /*val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
-        queryRef.whereEqualTo("id", "$uid")
-            .get()
-            .addOnSuccessListener { documents ->
-                for (document in documents) {
-                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                    val name = document.getString("name").toString()
-                    binding.tvEnterMood.text = "Hi " + name+"! please enter details about how you are feeling"
-                }
-
-            }*/
         binding.tvEnterMood.text = "Hi " + globalUser.name+"! please enter details about how you are feeling"
-
-
 
         binding.btnSubmitMood.setOnClickListener { view: View ->
 
@@ -55,40 +40,11 @@ class MoodEntryFragment : Fragment() {
             globalMoodEntryDetails.moodRating=binding.sbRateMood.progress.toString()
 
 
-            view?.findNavController()?.navigate(R.id.action_moodEntryFragment_to_identifyKeywordsFragment)
-
+            view.findNavController().navigate(R.id.action_moodEntryFragment_to_identifyKeywordsFragment)
 
         }
 
-
         return binding.root
-    }
-    fun logMood(moodDetails: HashMap<Any, Any>, uid: String, mood: String, moodRating: Int){
-        /*FirebaseUtils().fireStoreDatabase.collection("userMoods")
-            .add(hashMap)*/
-        moodDetails.put("id", uid)
-        moodDetails.put("moodEntry", mood)
-        moodDetails.put("moodRating", "$moodRating")
-        //moodRatingDetails.put("time", SimpleDateFormat("dd/mm/yyy hh:mm:ss").format(Date()))
-        moodDetails.put("time", Timestamp(Date()))
-
-        val userMoods = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-        userMoods.document().set(moodDetails)
-            .addOnSuccessListener {
-                //Log.d(TAG, "Added document with ID ${it.id}")
-                Toast.makeText(
-                    context, "SUCCESS!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .addOnFailureListener { exception ->
-                Log.w(ContentValues.TAG, "Error adding document $exception")
-                Toast.makeText(
-                    context, "Error adding document $exception",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        view?.findNavController()?.navigate(R.id.action_moodEntryFragment_to_identifyKeywordsFragment)
     }
 
 

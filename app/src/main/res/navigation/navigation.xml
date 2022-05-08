@@ -85,7 +85,7 @@
     </fragment>
     <fragment
         android:id="@+id/chartFragment"
-        android:name="com.example.elucidate.ChartFragment"
+        android:name="com.example.elucidate.view.ui.ChartFragment"
         android:label="fragment_chart"
         tools:layout="@layout/fragment_chart" />
     <fragment
@@ -131,7 +131,7 @@
         tools:layout="@layout/fragment_retreive_mood_entries" />
     <fragment
         android:id="@+id/cloudFragment"
-        android:name="com.example.elucidate.CloudFragment"
+        android:name="com.example.elucidate.view.ui.CloudFragment"
         android:label="fragment_cloud"
         tools:layout="@layout/fragment_cloud" />
     <fragment

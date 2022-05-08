@@ -1,38 +1,17 @@
 package com.example.elucidate.view.ui
 
-import android.content.ContentValues.TAG
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.elucidate.R
-
 import com.example.elucidate.databinding.FragmentDashboardBinding
 import com.example.elucidate.globalUser
-import com.google.firebase.Timestamp
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FieldPath
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
-import com.google.type.Date
-import java.text.SimpleDateFormat
-import java.time.LocalDate
-import java.util.*
-import java.util.logging.Level.parse
-import kotlin.collections.HashMap
 
-
-private lateinit var auth: FirebaseAuth
 
 class DashboardFragment : Fragment() {
 
@@ -49,43 +28,6 @@ class DashboardFragment : Fragment() {
 
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
 
-
-        auth = Firebase.auth
-        val user= auth.currentUser
-
-        //val uName = user!!.displayName
-        val id = user?.uid
-        var name = ""
-        var age = ""
-
-
-        //take date string and parse to obtain value in milliseconds from
-        val simpleDate1= "2022/02/12 00:00:00"
-        val simpleDate2= "2022/02/12 23:59:59"
-        val sdf= SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
-        val date1Parse= sdf.parse(simpleDate1)
-        val date2Parse= sdf.parse(simpleDate2)
-        val date1Millis=date1Parse.time
-        val date2Millis=date2Parse.time
-
-        //create date objects from the milliseconds
-        val finalDate1= Date(date1Millis)
-        val finalDate2= Date(date2Millis)
-
-        var moodRating=""
-
-
-        /*val queryRef = FirebaseUtils().fireStoreDatabase.collection("users")
-            queryRef.whereEqualTo("id", "$id")
-                .get()
-                .addOnSuccessListener { documents ->
-                    for (document in documents) {
-                        Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                        name = document.getString("name").toString()
-                        binding.tvDashWelcome.text = "Hi " + name+"!"
-                    }
-
-                }*/
         /*DO NOT DELETE YET
         val queryRef=FirebaseUtils().printName("$id")
             queryRef.addOnSuccessListener { documents ->
@@ -98,101 +40,55 @@ class DashboardFragment : Fragment() {
 
         }*/
 
-        /* //use this along with above date data for accessing moods
-           val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-
-           queryRef.whereGreaterThanOrEqualTo("time", finalDate1).whereLessThan("time", finalDate2)
-               .get()
-               .addOnSuccessListener { documents ->
-                   for (document in documents) {
-                       if(document!=null){
-                       Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                       //moodRating = document.getString("moodRating").toString()
-                           moodRating= document.getString("moodRating").toString()
-                           binding.textDashWelcome.text = "Hi " + moodRating
-                       }else{
-                           binding.textDashWelcome.text = "NULL"
-                       }
-
-                   }
-
-               }*/
-
-       /*} catch (e:Exception){
-           binding.textDashWelcome.text = "eXCEPTION"
-       }*/
-        //binding.textDashWelcome.text="$dateMillis1 then $dateMillis2"
-
-
-
-
-            /*val mood = binding.editTextMood.text
-            val uid = user?.uid
-            val moodDetails = hashMapOf<String, Any>()*/
 
             binding.btnLogMood.setOnClickListener { view: View ->
 
-                //logMood(moodDetails, uid, "$mood")
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodEntryFragment)
 
             }
+
             binding.btnInsights.setOnClickListener {
 
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_retreiveMoodEntriesFragment)
+
             }
+
             binding.btnPopularKeywords.setOnClickListener {
+
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_cloudFragment)
+
             }
+
             binding.btnPopularTriggers.setOnClickListener {
+
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_triggerCloudFragment)
+
             }
+
             binding.btnPopularPositives.setOnClickListener {
+
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_positiveCloudFragment)
+
             }
+
             binding.btnMoodRatingGraph.setOnClickListener{
+
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_chartFragment)
+
             }
 
             binding.btnDashLogOut.setOnClickListener {
-                //globalUser.
-                if(globalUser!=null){
-                    globalUser.id=""
-                    globalUser.name=""
-                }
+
+                globalUser.id=""
+                globalUser.name=""
 
                 Firebase.auth.signOut()
 
                 view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_titleFragment)
+
             }
-
-
 
         return binding.root
     }
-
-    /*fun logMood(moodDetails: HashMap<String, Any>, uid: String, mood: String){
-
-        moodDetails.put("id", uid)
-        moodDetails.put("mood", "$mood")
-
-        val userMoods = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-        userMoods.document().set(moodDetails)
-            .addOnSuccessListener {
-                //Log.d(TAG, "Added document with ID ${it.id}")
-                Toast.makeText(
-                    context, "SUCCESS!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            .addOnFailureListener { exception ->
-                Log.w(TAG, "Error adding document $exception")
-                Toast.makeText(
-                    context, "Error adding document $exception",
-                    Toast.LENGTH_LONG
-                ).show()
-            }
-        //view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodRatingFragment)
-    }*/
-
 
 }
