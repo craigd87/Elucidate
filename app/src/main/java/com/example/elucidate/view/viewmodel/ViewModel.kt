@@ -45,10 +45,10 @@ class ViewModel() {
     var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
     var entryRetrieved : MutableLiveData<List<NonMoodEntry>> = MutableLiveData()
 
-    fun getCurrentUser():FirebaseUser?{
+    /*fun getCurrentUser():FirebaseUser?{
         val currentUser=firebaseUtils.getCurrentUser()
         return currentUser
-    }
+    }*/
     fun saveUserDetailsToFirestore(user: User){
         firebaseUtils.saveUserDetails(user).addOnFailureListener {
             Log.e("vmtest","Failed to save Address!")
@@ -77,7 +77,6 @@ class ViewModel() {
         firebaseUtils.signup(email, password, name)
     }
 
-
     fun retrieveUser(id: String): Task<QuerySnapshot> {
         Log.d("oak", id)
 
@@ -86,11 +85,11 @@ class ViewModel() {
         return query
     }
 
-    fun getCurrentUserId(): String {
+    /*fun getCurrentUserId(): String {
         val currentUser=firebaseUtils.getCurrentUserId()
         return currentUser
 
-    }
+    }*/
 
     // get realtime updates from firebase regarding saved moods
     fun retrieveMoodEntryByDateDesc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{

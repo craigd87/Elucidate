@@ -1,5 +1,6 @@
 package com.example.elucidate.view.ui
 
+import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import com.example.elucidate.dto.Mood
 import com.example.elucidate.globalUser
 import com.example.elucidate.view.adapter.MoodAdapter
 import com.example.elucidate.viewModel
+import java.util.*
 
 
 class RetreiveMoodEntriesFragment : Fragment() {
@@ -84,7 +86,15 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
         binding.btnByDate.setOnClickListener {
 
+            var cal= Calendar.getInstance()
             showDatePickerDialog(it)
+            val dateSetListener=DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                cal.set(Calendar.YEAR, year)
+                cal.set(Calendar.MONTH, month)
+                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+            }
+
+
         }
 
 

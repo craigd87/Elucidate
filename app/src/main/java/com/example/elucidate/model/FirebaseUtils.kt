@@ -18,7 +18,7 @@ import com.google.firebase.firestore.*
 import com.google.firebase.ktx.Firebase
 import java.util.*
 
-//private lateinit var auth: FirebaseAuth
+
 //Serves as a API to allow adding getting, deleting and updating (section.io link)
 class FirebaseUtils {
     val fireStoreDatabase = FirebaseFirestore.getInstance()
@@ -28,8 +28,10 @@ class FirebaseUtils {
     //val uid= userAuth?.uid
 
     fun getCurrentUser(): FirebaseUser?{
+
         return currentUser
     }
+
     fun getCurrentUserId(): String{
 
         val currentUserId= currentUser?.uid.toString()
@@ -58,102 +60,7 @@ class FirebaseUtils {
                     viewModel.saveUserDetailsToFirestore(userDetails)
 
                 }
-
             }
-
-    }
-
-    /*fun loginAfterSignup(email: String, password: String){
-        FirebaseAuth.AuthStateListener { auth ->
-            val user = auth.currentUser
-            if (user!=null){
-                Log.d("loginCheck", "user logged in")
-
-            }else{
-                auth.signInWithEmailAndPassword("$email", "$password")
-                    .addOnCompleteListener() { task ->
-                        if (task.isSuccessful) {
-
-                            val currentUser: FirebaseUser = task.result!!.user!!
-                            if(currentUser!=null){
-                                Log.d("queen2", "hearts")
-
-                            }else{
-                                Log.d("king2", "user is still null")
-                            }
-                            Log.d(ContentValues.TAG, "signInWithEmail:success")
-
-                        } else {
-
-                            Log.w(ContentValues.TAG, "signInWithEmail:failure", task.exception)
-
-                        }
-                    }
-            }
-        }
-    }*/
-
-    fun login(email: String, password: String): Task<AuthResult>{
-        //var userId=""
-        //var idList= mutableListOf<String>()
-        val task =auth.signInWithEmailAndPassword("$email", "$password")
-            .addOnCompleteListener() { task ->
-                /*if (task.isSuccessful) {
-                    Log.d(TAG, "signInWithEmail:success")
-                    //view?.findNavController()?.navigate(R.id.action_loginFragment2_to_dashboardFragment)
-                    val user : FirebaseUser = task.result!!.user!!
-                    val userId=user.uid
-                    idList.add(userId)
-                    Log.d("wtf", userId)
-                    Log.d("wtf2", idList.toString())*/
-
-                    /*val userList=viewModel.retrieveUser(userId).observe(viewLifecycleOwner, Observer { it ->
-                        Log.d("garfield", "$it")
-                        retrievedMood = it as MutableList<Mood>
-                        Log.d("retrieved mood", "$retrievedMood")
-                        var mood: Mood
-                        for (item in retrievedMood) {
-                            mood = item
-                    /*Log.d("ulist", "$userList")
-                    for (item in userList){
-                        Log.d("item", "Stark")
-                        globalUser=User(item.id,item.name)
-                    }*/
-                    //return@addOnCompleteListener
-                            */
-               // } else {
-                    // If sign in fails, display a message to the user.
-                    //Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    //Toast.makeText(context,"Authentication failed.", Toast.LENGTH_SHORT).show()
-
-                //}
-
-                //return user
-            }
-        /*auth.signInWithEmailAndPassword("$email", "$password")
-            .addOnCompleteListener() { task ->
-                if (task.isSuccessful) {
-                    Log.d(TAG, "logInWithEmail:success")
-                    val currentUser: FirebaseUser = task.result!!.user!!
-                    if(currentUser!=null){
-                        Log.d("queen", "hearts")
-
-                    }else{
-                        Log.d("king", "user is still null")
-                    }
-
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "logInWithEmail:failure", task.exception)
-                    //Toast.makeText(,"Authentication failed.",
-                      //  Toast.LENGTH_SHORT).show()
-
-                }
-            }*/
-        //Log.d("wtf3", idList.toString())
-        //return idList.toString()
-        return task
     }
 
     fun saveUserDetails(user: User): Task<Void> {
@@ -162,6 +69,7 @@ class FirebaseUtils {
 
         return documentReference.set(user)
     }
+
     fun saveMoodDetails(mood: Mood): Task<Void> {
 
         var documentReference = fireStoreDatabase.collection("userMoods").document()
@@ -172,30 +80,9 @@ class FirebaseUtils {
     fun saveGeneralEntryDetails(nonMoodEntry: NonMoodEntry): Task<Void> {
 
         var documentReference = fireStoreDatabase.collection("userNonMoods").document()
-
         return documentReference.set(nonMoodEntry)
     }
 
-    /*fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): MutableLiveData<String> {
-
-        var mutableLiveData= MutableLiveData<String>()
-
-        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods")
-        val moodEntry= queryRef.whereGreaterThanOrEqualTo("time", dateStart).whereLessThan("time", dateEnd).get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                if (document != null) {
-                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
-
-                    //moodEntry = document.getString("moodRating").toString()
-                    val docString =document.getString("moodEntry").toString()
-                    mutableLiveData.value=docString
-
-                }
-            }
-        }
-
-        return mutableLiveData
-    }*/
     fun retrieveMoodEntry(): CollectionReference {
         var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userMoods")
         return collectionReference
