@@ -3,6 +3,7 @@ package com.example.elucidate.model
 import android.content.ContentValues
 import android.util.Log
 import com.example.elucidate.dto.Mood
+import com.example.elucidate.dto.NonMoodEntry
 import com.example.elucidate.dto.User
 import com.example.elucidate.view.viewmodel.ViewModel
 import com.example.elucidate.viewModel
@@ -168,6 +169,13 @@ class FirebaseUtils {
         return documentReference.set(mood)
     }
 
+    fun saveGeneralEntryDetails(nonMoodEntry: NonMoodEntry): Task<Void> {
+
+        var documentReference = fireStoreDatabase.collection("userNonMoods").document()
+
+        return documentReference.set(nonMoodEntry)
+    }
+
     /*fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): MutableLiveData<String> {
 
         var mutableLiveData= MutableLiveData<String>()
@@ -193,8 +201,18 @@ class FirebaseUtils {
         return collectionReference
     }
 
+    fun retrieveGeneralEntry(): CollectionReference {
+        var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userNonMoods")
+        return collectionReference
+    }
+
     fun retrieveAllMoodEntries(id: String): Query {
         var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
+        return queryRef
+    }
+
+    fun retrieveAllGeneralEntries(id: String): Query {
+        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userNonMoods").whereEqualTo("id", "$id")
         return queryRef
     }
 

@@ -19,7 +19,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 
-//private lateinit var auth: FirebaseAuth
+private lateinit var auth: FirebaseAuth
 
 
 class TitleFragment : Fragment() {
@@ -38,10 +38,10 @@ class TitleFragment : Fragment() {
         //(requireActivity() as AppCompatActivity).supportActionBar?.hide()
         val binding = FragmentTitleBinding.inflate(layoutInflater)
 
-        //auth = Firebase.auth
-        //val user= auth.currentUser
+        auth = Firebase.auth
+        val user= auth.currentUser
         //val id = user?.uid
-        val user=viewModel.getCurrentUser()
+        //val user=viewModel.getCurrentUser()
         val id= user?.uid
 
         Handler(Looper.getMainLooper()).postDelayed({

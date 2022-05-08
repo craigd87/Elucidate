@@ -11,26 +11,11 @@
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard" >
         <action
-            android:id="@+id/action_dashboardFragment_to_moodEntryFragment"
-            app:destination="@id/moodEntryFragment" />
+            android:id="@+id/action_dashboardFragment_to_moodOverviewFragment"
+            app:destination="@id/moodOverviewFragment" />
         <action
-            android:id="@+id/action_dashboardFragment_to_titleFragment"
-            app:destination="@id/titleFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_retreiveMoodEntriesFragment"
-            app:destination="@id/retreiveMoodEntriesFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_cloudFragment"
-            app:destination="@id/cloudFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_positiveCloudFragment"
-            app:destination="@id/positiveCloudFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_triggerCloudFragment"
-            app:destination="@id/triggerCloudFragment" />
-        <action
-            android:id="@+id/action_dashboardFragment_to_chartFragment"
-            app:destination="@id/chartFragment" />
+            android:id="@+id/action_dashboardFragment_to_nonMoodOverviewFragment"
+            app:destination="@id/nonMoodOverviewFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment2"
@@ -70,9 +55,6 @@
         <action
             android:id="@+id/action_titleFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
-        <action
-            android:id="@+id/action_titleFragment_to_cloudFragment"
-            app:destination="@id/cloudFragment" />
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -142,4 +124,85 @@
         android:id="@+id/triggerCloudFragment"
         android:name="com.example.elucidate.view.ui.TriggerCloudFragment"
         android:label="TriggerCloudFragment" />
+    <fragment
+        android:id="@+id/moodOverviewFragment"
+        android:name="com.example.elucidate.view.ui.MoodOverviewFragment"
+        android:label="fragment_mood_overview"
+        tools:layout="@layout/fragment_mood_overview" >
+        <action
+            android:id="@+id/action_moodOverviewFragment_to_moodEntryFragment"
+            app:destination="@id/moodEntryFragment" />
+        <action
+            android:id="@+id/action_moodOverviewFragment_to_cloudFragment"
+            app:destination="@id/cloudFragment" />
+        <action
+            android:id="@+id/action_moodOverviewFragment_to_positiveCloudFragment"
+            app:destination="@id/positiveCloudFragment" />
+        <action
+            android:id="@+id/action_moodOverviewFragment_to_chartFragment"
+            app:destination="@id/chartFragment" />
+        <action
+            android:id="@+id/action_moodOverviewFragment_to_triggerCloudFragment"
+            app:destination="@id/triggerCloudFragment" />
+        <action
+            android:id="@+id/action_moodOverviewFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
+        <action
+            android:id="@+id/action_moodOverviewFragment_to_retreiveMoodEntriesFragment"
+            app:destination="@id/retreiveMoodEntriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/nonMoodOverviewFragment"
+        android:name="com.example.elucidate.view.ui.NonMoodOverviewFragment"
+        android:label="fragment_non_mood_overview"
+        tools:layout="@layout/fragment_non_mood_overview" >
+        <action
+            android:id="@+id/action_nonMoodOverviewFragment_to_generalEntryFragment"
+            app:destination="@id/generalEntryFragment" />
+        <action
+            android:id="@+id/action_nonMoodOverviewFragment_to_titleFragment"
+            app:destination="@id/titleFragment" />
+        <action
+            android:id="@+id/action_nonMoodOverviewFragment_to_generalCloudFragment"
+            app:destination="@id/generalCloudFragment" />
+        <action
+            android:id="@+id/action_nonMoodOverviewFragment_to_retrieveGeneralEntriesFragment"
+            app:destination="@id/retrieveGeneralEntriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/generalEntryFragment"
+        android:name="com.example.elucidate.view.ui.GeneralEntryFragment"
+        android:label="fragment_general_entry"
+        tools:layout="@layout/fragment_general_entry" >
+        <action
+            android:id="@+id/action_generalEntryFragment_to_identifyGeneralKeywordsFragment"
+            app:destination="@id/identifyGeneralKeywordsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/identifyGeneralKeywordsFragment"
+        android:name="com.example.elucidate.view.ui.IdentifyGeneralKeywordsFragment"
+        android:label="fragment_identify_general_keywords"
+        tools:layout="@layout/fragment_identify_general_keywords" >
+        <action
+            android:id="@+id/action_identifyGeneralKeywordsFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/generalCloudFragment"
+        android:name="com.example.elucidate.view.ui.GeneralCloudFragment"
+        android:label="fragment_general_cloud"
+        tools:layout="@layout/fragment_general_cloud" >
+        <action
+            android:id="@+id/action_generalCloudFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/retrieveGeneralEntriesFragment"
+        android:name="com.example.elucidate.view.ui.RetrieveGeneralEntriesFragment"
+        android:label="fragment_retrieve_general_entries"
+        tools:layout="@layout/fragment_retrieve_general_entries" >
+        <action
+            android:id="@+id/action_retrieveGeneralEntriesFragment_to_dashboardFragment"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
 </navigation>

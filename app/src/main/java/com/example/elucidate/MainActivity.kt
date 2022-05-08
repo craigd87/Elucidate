@@ -6,6 +6,7 @@ import com.example.elucidate.view.viewmodel.ViewModel
 import com.example.elucidate.dto.User
 import com.example.elucidate.databinding.ActivityMainBinding
 import com.example.elucidate.dto.Mood
+import com.example.elucidate.dto.NonMoodEntry
 import com.google.firebase.auth.FirebaseAuth
 
 const val TAG = "FIRESTORE"
@@ -17,6 +18,7 @@ lateinit var globalUser: User
 var globalMoodEntryDetails= Mood("", "",
 "", mutableListOf(), mutableListOf(),
 mutableListOf(), null)
+var globalGeneralEntryDetails= NonMoodEntry("","", mutableListOf(),null)
 
 class MainActivity() : AppCompatActivity() {
 

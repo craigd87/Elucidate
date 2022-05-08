@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout10"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.RetrieveGeneralEntriesFragment">
+
+    <TextView
+        android:id="@+id/tvGenSelectDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:text="@string/please_select_a_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvGenSelectTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/or_select_a_time_period"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGenViewAll" />
+
+    <Button
+        android:id="@+id/btnGenSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/etSearch"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenSelectDate" />
+
+    <EditText
+        android:id="@+id/etGenSearch"
+        android:layout_width="279dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="1dp"
+        android:ems="10"
+        android:hint="@string/enter_keywords"
+        android:minHeight="48dp"
+        app:layout_constraintEnd_toStartOf="@+id/btnGenSearch"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenSelectDate" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvNonMoodEntries"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingBottom="50dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGen30Days" />
+
+    <Button
+        android:id="@+id/btnGenToday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/today"
+        app:layout_constraintEnd_toStartOf="@+id/btnGen7Days"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenSelectTime" />
+
+    <Button
+        android:id="@+id/btnGen7Days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_7_days"
+        app:layout_constraintEnd_toStartOf="@+id/btnGen30Days"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnGenToday"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenSelectTime" />
+
+    <Button
+        android:id="@+id/btnGen30Days"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_30_days"
+        app:layout_constraintEnd_toStartOf="@+id/btnGenByDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnGen7Days"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenSelectTime" />
+
+    <Button
+        android:id="@+id/btnGenByDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/by_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnGen30Days"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenSelectTime"
+        />
+
+    <Button
+        android:id="@+id/btnGenViewAll"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/all_entries"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etGenSearch" />
+</androidx.constraintlayout.widget.ConstraintLayout>

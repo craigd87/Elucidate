@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1" />
+        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/drawable/general_icon.xml" value="0.173" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/activity_account_created.xml" value="0.15" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/activity_dashboard.xml" value="0.15" />
@@ -21,6 +22,9 @@
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_create_account.xml" value="0.25" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_date_picker.xml" value="0.1" />
+        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_general_cloud.xml" value="0.1314596554850408" />
+        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_general_entry.xml" value="0.1314596554850408" />
+        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_identify_general_keywords.xml" value="0.1314596554850408" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_identify_keywords.xml" value="0.21422101449275363" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_identify_positives.xml" value="0.1" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_identify_triggers.xml" value="0.1" />
@@ -28,12 +32,13 @@
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_login.xml" value="0.12" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_mood_entry.xml" value="0.14" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_mood_entry_jav.xml" value="0.17346014492753623" />
-        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_mood_overview.xml" value="0.1" />
+        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_mood_overview.xml" value="0.22" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_mood_rating.xml" value="0.22" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_new_account.xml" value="0.25" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_non_mood_overview.xml" value="0.1" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_positive_cloud.xml" value="0.1314596554850408" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_retreive_mood_entries.xml" value="0.15" />
+        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_retrieve_general_entries.xml" value="0.1314596554850408" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_sign_up.xml" value="0.2" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_string_test.xml" value="0.25" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_test_view_model.xml" value="0.17" />
@@ -41,6 +46,7 @@
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_trigger_cloud.xml" value="0.1314596554850408" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_update_profile.xml" value="0.16168478260869565" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/fragment_welcome.xml" value="0.25" />
+        <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/item_general_entry.xml" value="0.1314596554850408" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/item_mood_entry.xml" value="0.33" />
         <entry key="..\:/Users/craig/AndroidStudioProjects/Elucidate/app/src/main/res/layout/placeholder_layout.xml" value="0.1" />
       </map>

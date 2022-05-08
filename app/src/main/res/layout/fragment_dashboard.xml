@@ -9,27 +9,6 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
-        android:id="@+id/btnLogMood"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="100dp"
-        android:text="@string/log_mood"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDashWelcome" />
-
-    <Button
-        android:id="@+id/btnDashLogOut"
-        android:layout_width="211dp"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_out"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMoodRatingGraph" />
-
     <TextView
         android:id="@+id/tvDashWelcome"
         android:layout_width="wrap_content"
@@ -42,54 +21,62 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btnInsights"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/insights"
+    <ImageView
+        android:id="@+id/ivMood"
+        android:layout_width="262dp"
+        android:layout_height="222dp"
+        android:layout_marginTop="36dp"
+        android:src="@drawable/ic_mood_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogMood" />
+        app:layout_constraintTop_toBottomOf="@+id/tDashIntro" />
 
-    <Button
-        android:id="@+id/btnPopularKeywords"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/popular_keywords"
+    <ImageView
+        android:id="@+id/ivGeneral"
+        android:layout_width="263dp"
+        android:layout_height="268dp"
+        android:src="@drawable/ic_general_foreground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnInsights" />
+        app:layout_constraintTop_toBottomOf="@+id/ivMood" />
 
-    <Button
-        android:id="@+id/btnPopularTriggers"
+    <TextView
+        android:id="@+id/tvMoodSelector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/popular_triggers"
+        android:text="@string/mood_caps"
+        app:layout_constraintBottom_toBottomOf="@+id/ivMood"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPopularKeywords" />
+        app:layout_constraintTop_toTopOf="@+id/ivMood"
+        app:layout_constraintVertical_bias="0.067" />
 
-    <Button
-        android:id="@+id/btnPopularPositives"
+    <TextView
+        android:id="@+id/tvGeneralSelector"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/popular_positives"
+        android:text="@string/general_caps"
+        app:layout_constraintBottom_toBottomOf="@+id/ivGeneral"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPopularTriggers" />
+        app:layout_constraintTop_toTopOf="@+id/ivGeneral"
+        app:layout_constraintVertical_bias="0.148" />
 
-    <Button
-        android:id="@+id/btnMoodRatingGraph"
+    <TextView
+        android:id="@+id/tDashIntro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mood_rating_graph"
+        android:layout_marginTop="72dp"
+        android:text="@string/what_would_you_like_to_work_with_today"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnPopularPositives" />
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

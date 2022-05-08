@@ -62,5 +62,10 @@
     <string name="popular_triggers">Popular Triggers</string>
     <string name="popular_positives">Popular Positives</string>
     <string name="mood_rating_graph">Mood Rating Graph</string>
+    <string name="mood_text">Mood</string>
+    <string name="general">General</string>
+    <string name="mood_caps">MOOD</string>
+    <string name="general_caps">GENERAL</string>
+    <string name="what_would_you_like_to_work_with_today">What would you like to work with today?</string>
 
 </resources>

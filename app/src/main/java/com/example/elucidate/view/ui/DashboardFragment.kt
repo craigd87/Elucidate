@@ -41,51 +41,12 @@ class DashboardFragment : Fragment() {
         }*/
 
 
-            binding.btnLogMood.setOnClickListener { view: View ->
-
-                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodEntryFragment)
-
+            binding.ivMood.setOnClickListener {
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_moodOverviewFragment)
             }
 
-            binding.btnInsights.setOnClickListener {
-
-                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_retreiveMoodEntriesFragment)
-
-            }
-
-            binding.btnPopularKeywords.setOnClickListener {
-
-                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_cloudFragment)
-
-            }
-
-            binding.btnPopularTriggers.setOnClickListener {
-
-                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_triggerCloudFragment)
-
-            }
-
-            binding.btnPopularPositives.setOnClickListener {
-
-                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_positiveCloudFragment)
-
-            }
-
-            binding.btnMoodRatingGraph.setOnClickListener{
-
-                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_chartFragment)
-
-            }
-
-            binding.btnDashLogOut.setOnClickListener {
-
-                globalUser.id=""
-                globalUser.name=""
-
-                Firebase.auth.signOut()
-
-                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_titleFragment)
-
+            binding.ivGeneral.setOnClickListener {
+                view?.findNavController()?.navigate(R.id.action_dashboardFragment_to_nonMoodOverviewFragment)
             }
 
         return binding.root
