@@ -1,10 +1,13 @@
 package com.example.elucidate.view.ui
 
 import android.app.DatePickerDialog
+import android.content.Context
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +16,7 @@ import com.example.elucidate.dto.Mood
 import com.example.elucidate.globalUser
 import com.example.elucidate.view.adapter.MoodAdapter
 import com.example.elucidate.viewModel
+import com.google.rpc.context.AttributeContext
 import java.util.*
 
 
@@ -23,6 +27,7 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,9 +40,9 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
         binding.btnSearch.setOnClickListener {
 
-            val keyword= binding.etSearch.text.toString().trim()
-            val retrieveKeywordMood= viewModel.retrieveMoodByKeyword(id,keyword)
-            retrieveKeywordMood.observe(viewLifecycleOwner, Observer { it->
+            val keyword = binding.etSearch.text.toString().trim()
+            val retrieveKeywordMood = viewModel.retrieveMoodByKeyword(id, keyword)
+            retrieveKeywordMood.observe(viewLifecycleOwner, Observer { it ->
 
                 populateRecyclerView(it, binding)
 
@@ -55,18 +60,18 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
         binding.btnToday.setOnClickListener {
 
-            val retrieveCurrentDayMood= viewModel.retrieveCurrentDayMood(id)
-            retrieveCurrentDayMood.observe(viewLifecycleOwner, Observer { it->
+            val retrieveCurrentDayMood = viewModel.retrieveCurrentDayMood(id)
+            retrieveCurrentDayMood.observe(viewLifecycleOwner, Observer { it ->
 
                 populateRecyclerView(it, binding)
 
-             })
+            })
         }
 
         binding.btn7Days.setOnClickListener {
 
-            val retrieve7DaysMoods= viewModel.retrieveDayRangeMoodsDesc(id,7)
-            retrieve7DaysMoods.observe(viewLifecycleOwner, Observer { it->
+            val retrieve7DaysMoods = viewModel.retrieveDayRangeMoodsDesc(id, 7)
+            retrieve7DaysMoods.observe(viewLifecycleOwner, Observer { it ->
 
                 populateRecyclerView(it, binding)
 
@@ -76,8 +81,8 @@ class RetreiveMoodEntriesFragment : Fragment() {
         binding.btn30Days.setOnClickListener {
 
             //val retrieve30DaysMoods= viewModel.retrieve30DaysMoods(globalUser.id)
-            val retrieve30DaysMoods= viewModel.retrieveDayRangeMoodsDesc(id, 30)
-            retrieve30DaysMoods.observe(viewLifecycleOwner, Observer { it->
+            val retrieve30DaysMoods = viewModel.retrieveDayRangeMoodsDesc(id, 30)
+            retrieve30DaysMoods.observe(viewLifecycleOwner, Observer { it ->
 
                 populateRecyclerView(it, binding)
 
@@ -86,20 +91,14 @@ class RetreiveMoodEntriesFragment : Fragment() {
 
         binding.btnByDate.setOnClickListener {
 
-            var cal= Calendar.getInstance()
-            showDatePickerDialog(it)
-            val dateSetListener=DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, month)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-            }
-
+             showDatePickerDialog(it)
 
         }
 
-
         return binding.root
     }
+
+
 
     fun showDatePickerDialog(v: View) {
         val newFragment = DatePickerFragment()

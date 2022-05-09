@@ -94,43 +94,42 @@ class FirebaseUtils {
     }
 
     fun retrieveAllMoodEntries(id: String): Query {
-        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
         return queryRef
     }
 
     fun retrieveAllGeneralEntries(id: String): Query {
-        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userNonMoods").whereEqualTo("id", "$id")
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userNonMoods").whereEqualTo("id", "$id")
         return queryRef
     }
 
-    /*fun retrieveMoodByKeyword(id:String, keyword: String): Query {
-        var queryRef=FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
-    }*/
-
-
-    /*fun retrieveMoodEntriesForTimePeriod(id: String, date: Date): Query {
-        var queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
+    fun retrieveMoodEntriesByDateAsc(id: String, dateStart: Date, dateEnd: Date): Query{
+        val queryRef=FirebaseUtils().retrieveAllMoodEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
+                Query.Direction.ASCENDING)
         return queryRef
-    }*/
+    }
 
-    /*fun updateProfile(name: String){
-        val profileUpdates =
-            UserProfileChangeRequest.Builder()
-                .setDisplayName(name)
-                .build()
+    fun retrieveMoodEntriesByDateDesc(id: String, dateStart: Date, dateEnd: Date): Query{
+        val queryRef=FirebaseUtils().retrieveAllMoodEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
+                Query.Direction.DESCENDING)
+        return queryRef
+    }
 
-        userAuth!!.updateProfile(profileUpdates)
-            .addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    Log.d("windsor", "User profile updated.")
+    fun retrieveGeneralEntriesByDateAsc(id: String, dateStart: Date, dateEnd: Date): Query{
+        val queryRef=FirebaseUtils().retrieveAllGeneralEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
+                Query.Direction.ASCENDING)
+        return queryRef
+    }
 
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(ContentValues.TAG, "not updated", task.exception)
-
-                }
-            }
-    }*/
+    fun retrieveGeneralEntriesByDateDesc(id: String, dateStart: Date, dateEnd: Date): Query{
+        val queryRef=FirebaseUtils().retrieveAllGeneralEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
+            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
+                Query.Direction.DESCENDING)
+        return queryRef
+    }
 
     fun retrieveUser(): CollectionReference{
         var collectionReference = FirebaseUtils().fireStoreDatabase.collection("users")

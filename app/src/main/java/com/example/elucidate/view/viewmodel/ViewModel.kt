@@ -94,9 +94,10 @@ class ViewModel() {
     // get realtime updates from firebase regarding saved moods
     fun retrieveMoodEntryByDateDesc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
 
-        firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
+        /*firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->
+                Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->*/
+        firebaseUtils.retrieveMoodEntriesByDateDesc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
         if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -118,9 +119,10 @@ class ViewModel() {
 
     fun retrieveGeneralEntryByDateDesc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<NonMoodEntry>>{
 
-        firebaseUtils.retrieveGeneralEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
+        /*firebaseUtils.retrieveGeneralEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->
+                Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->*/
+        firebaseUtils.retrieveGeneralEntriesByDateDesc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
@@ -142,9 +144,10 @@ class ViewModel() {
 
     fun retrieveMoodEntryByDateAsc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
 
-        firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
+        /*firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
+                Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->*/
+        firebaseUtils.retrieveMoodEntriesByDateAsc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
@@ -166,9 +169,10 @@ class ViewModel() {
 
     fun retrieveGeneralEntryByDateAsc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<NonMoodEntry>>{
 
-        firebaseUtils.retrieveGeneralEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
+        /*firebaseUtils.retrieveGeneralEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->
+                Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->*/
+        firebaseUtils.retrieveGeneralEntriesByDateAsc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
