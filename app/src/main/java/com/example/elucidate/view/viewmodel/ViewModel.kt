@@ -21,9 +21,11 @@ import java.util.*
 
 //private lateinit var auth: FirebaseAuth
 class ViewModel() {
+
+    //Instance of FirebaseUtils
     private var firebaseUtils= FirebaseUtils()
 
-    //vals for working out date ranges
+    //Vals for working out date ranges
     private val calendar= Calendar.getInstance()
     private val currentDate= calendar.time
     private val dateCreator=DateMillisCreator()
@@ -31,72 +33,78 @@ class ViewModel() {
     private val sdf=SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
     private val millisFor7Days: Long= 604800000
     private val millisFor30Days: Long= 2592000000
-    val formatedDate = SimpleDateFormat("yyyy/MM/dd").format(currentDate)
-    val simpleDateStart="$formatedDate 00:00:00"
-    val simpleDateEnd="$formatedDate 23:59:59"
-    val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
-    val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
+    private val formatedDate = SimpleDateFormat("yyyy/MM/dd").format(currentDate)
+    private val simpleDateStart="$formatedDate 00:00:00"
+    private val simpleDateEnd="$formatedDate 23:59:59"
+    private val dateStartTime=dateCreator.getMilliseconds(simpleDateStart)
+    private val dateEndTime=dateCreator.getMilliseconds(simpleDateEnd)
 
-
+    //MutableLiveData lists
     private var keywordMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
     private var keywordGeneralRetrieved : MutableLiveData<List<NonMoodEntry>> = MutableLiveData()
-
-
-    var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
-    var entryRetrieved : MutableLiveData<List<NonMoodEntry>> = MutableLiveData()
+    private var moodRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
+    private var entryRetrieved : MutableLiveData<List<NonMoodEntry>> = MutableLiveData()
+    private var allMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
+    private var allEntriesRetrieved : MutableLiveData<List<NonMoodEntry>> = MutableLiveData()
 
     /*fun getCurrentUser():FirebaseUser?{
         val currentUser=firebaseUtils.getCurrentUser()
         return currentUser
     }*/
+
+    /**
+     * Saves a [user] to the database.
+     */
     fun saveUserDetailsToFirestore(user: User){
         firebaseUtils.saveUserDetails(user).addOnFailureListener {
-            Log.e("vmtest","Failed to save Address!")
+            Log.e("SavedUserFail","Failed to save user")
         }.addOnSuccessListener {
-            Log.d("slainte!", "working!")
+            Log.d("SavedUserSuccess", "User succesfully saved")
         }
     }
 
+    /**
+     * Saves a [mood] to the database.
+     */
     fun saveMoodDetailsToFirestore(mood: Mood){
         firebaseUtils.saveMoodDetails(mood).addOnFailureListener {
-            Log.e("vmtest","Failed to save Address!")
+            Log.e("SavedMoodFail","Failed to save mood")
         }.addOnSuccessListener {
-            Log.d("slainte!", "working!")
+            Log.d("SavedMoodSuccess", "Mood successfully saved")
         }
     }
 
+    /**
+     * Saves a [nonMoodEntry] to the database.
+     */
     fun saveGeneralEntryDetailsToFirestore(nonMoodEntry: NonMoodEntry){
         firebaseUtils.saveGeneralEntryDetails(nonMoodEntry).addOnFailureListener {
-            Log.e("vmtest","Failed to save Address!")
+            Log.e("SavedEntryFail","Failed to save entry")
         }.addOnSuccessListener {
-            Log.d("slainte!", "working!")
+            Log.d("SavedEntrySuccess", "Entry successfully saved")
         }
     }
 
+    /**
+     * Creates a user account on the database with the given [email] and [password].
+     */
     fun signup(email: String, password: String, name: String){
         firebaseUtils.signup(email, password, name)
     }
 
+    /**
+     * Retrieves a user from the database using the given associated [id].
+     */
     fun retrieveUser(id: String): Task<QuerySnapshot> {
         Log.d("oak", id)
 
-        val query=firebaseUtils.retrieveUser().whereEqualTo("id", "$id").get()
+        val query=firebaseUtils.retrieveUser(id)
 
         return query
     }
 
-    /*fun getCurrentUserId(): String {
-        val currentUser=firebaseUtils.getCurrentUserId()
-        return currentUser
-
-    }*/
-
-    // get realtime updates from firebase regarding saved moods
     fun retrieveMoodEntryByDateDesc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
 
-        /*firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
-            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->*/
         firebaseUtils.retrieveMoodEntriesByDateDesc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
         if (e != null) {
@@ -119,9 +127,6 @@ class ViewModel() {
 
     fun retrieveGeneralEntryByDateDesc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<NonMoodEntry>>{
 
-        /*firebaseUtils.retrieveGeneralEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
-            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.DESCENDING).addSnapshotListener { snapshot, e ->*/
         firebaseUtils.retrieveGeneralEntriesByDateDesc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
                 if (e != null) {
@@ -144,9 +149,6 @@ class ViewModel() {
 
     fun retrieveMoodEntryByDateAsc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<Mood>>{
 
-        /*firebaseUtils.retrieveMoodEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
-            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->*/
         firebaseUtils.retrieveMoodEntriesByDateAsc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
                 if (e != null) {
@@ -169,9 +171,6 @@ class ViewModel() {
 
     fun retrieveGeneralEntryByDateAsc(id: String, dateStart: Date, dateEnd: Date) : LiveData<List<NonMoodEntry>>{
 
-        /*firebaseUtils.retrieveGeneralEntry().whereEqualTo("id", "$id").whereGreaterThanOrEqualTo("time", dateStart)
-            .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
-                Query.Direction.ASCENDING).addSnapshotListener { snapshot, e ->*/
         firebaseUtils.retrieveGeneralEntriesByDateAsc(id,dateStart,dateEnd).addSnapshotListener { snapshot, e ->
 
                 if (e != null) {
@@ -195,7 +194,6 @@ class ViewModel() {
 
     fun retrieveCurrentDayMood(id: String): LiveData<List<Mood>>{
 
-
         val retrieved=viewModel.retrieveMoodEntryByDateDesc(id, dateStartTime,dateEndTime)
 
         return retrieved
@@ -203,12 +201,10 @@ class ViewModel() {
 
     fun retrieveCurrentDayGeneral(id: String): LiveData<List<NonMoodEntry>>{
 
-
         val retrieved=viewModel.retrieveGeneralEntryByDateDesc(id, dateStartTime,dateEndTime)
 
         return retrieved
     }
-
 
     fun retrieveDayRangeMoodsAsc(id: String, numberOfDays: Int): LiveData<List<Mood>>{
         var millisRange: Long=0
@@ -218,14 +214,12 @@ class ViewModel() {
             30 -> millisRange=millisFor30Days
         }
         val dateStartTimeMillis= dateEndTimeMillis-millisRange
-        val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
         val dateStartTime=Date(dateStartTimeMillis)
-        //val dateEndTime=Date(dateEndTimeMillisPlusMinute)
-
         val retrieved=viewModel.retrieveMoodEntryByDateAsc(id, dateStartTime,dateEndTime)
 
         return retrieved
     }
+
     fun retrieveDayRangeGeneralAsc(id: String, numberOfDays: Int): LiveData<List<NonMoodEntry>>{
         var millisRange: Long=0
         when(numberOfDays){
@@ -234,10 +228,7 @@ class ViewModel() {
             30 -> millisRange=millisFor30Days
         }
         val dateStartTimeMillis= dateEndTimeMillis-millisRange
-        val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
         val dateStartTime=Date(dateStartTimeMillis)
-        //val dateEndTime=Date(dateEndTimeMillisPlusMinute)
-
         val retrieved=viewModel.retrieveGeneralEntryByDateAsc(id, dateStartTime,dateEndTime)
 
         return retrieved
@@ -251,10 +242,7 @@ class ViewModel() {
             30 -> millisRange=millisFor30Days
         }
         val dateStartTimeMillis= dateEndTimeMillis-millisRange
-        val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
         val dateStartTime=Date(dateStartTimeMillis)
-        //val dateEndTime=Date(dateEndTimeMillisPlusMinute)
-
         val retrieved=viewModel.retrieveMoodEntryByDateDesc(id, dateStartTime,dateEndTime)
 
         return retrieved
@@ -268,21 +256,15 @@ class ViewModel() {
             30 -> millisRange=millisFor30Days
         }
         val dateStartTimeMillis= dateEndTimeMillis-millisRange
-        val dateEndTimeMillisPlusMinute=calendar.timeInMillis+60000
         val dateStartTime=Date(dateStartTimeMillis)
-        //val dateEndTime=Date(dateEndTimeMillisPlusMinute)
-
         val retrieved=viewModel.retrieveGeneralEntryByDateDesc(id, dateStartTime,dateEndTime)
 
         return retrieved
     }
 
-    var allMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
-    // get realtime updates from firebase regarding saved moods
     fun retrieveAllMoodEntries(id: String) : LiveData<List<Mood>>{
 
-        firebaseUtils.retrieveAllMoodEntries("$id").orderBy("time").addSnapshotListener { snapshot, e ->
-
+        firebaseUtils.retrieveAllMoodEntriesByTime(id).addSnapshotListener { snapshot, e ->
                 if (e != null) {
                     Log.w(TAG, "Listen failed.", e)
                     allMoodsRetrieved.value = emptyList()
@@ -303,12 +285,9 @@ class ViewModel() {
         return allMoodsRetrieved
     }
 
-    var allEntriesRetrieved : MutableLiveData<List<NonMoodEntry>> = MutableLiveData()
-    // get realtime updates from firebase regarding saved moods
     fun retrieveAllGeneralEntries(id: String) : LiveData<List<NonMoodEntry>>{
 
-        firebaseUtils.retrieveAllGeneralEntries("$id").orderBy("time").addSnapshotListener { snapshot, e ->
-
+        firebaseUtils.retrieveAllGeneralEntriesByTime(id).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 allEntriesRetrieved.value = emptyList()
@@ -348,6 +327,7 @@ class ViewModel() {
 
         return moodEntries
     }
+
     fun accessRetrievedGeneralListData(list: List<NonMoodEntry>): MutableList<NonMoodView>{
 
         val generalEntries= mutableListOf<NonMoodView>()
@@ -379,118 +359,12 @@ class ViewModel() {
 
             mood = item
             val moodRating = mood.moodRating.toFloat()
-            //val time = mood.time?.toDate()
-            //val formatedTime = SimpleDateFormat("HH:mm -dd/MM/yyyy").format(time)
-            //val moodView = MoodView(entry, formatedTime)
             moodEntries.add(moodRating)
         }
 
         return moodEntries
     }
 
-
-    /*fun accessRetrievedMoodRatingData(list: List<Mood>): ArrayList<Entry>{
-
-        //val moodRatings= mutableListOf<Char>()
-        val moodRatings= ArrayList<Entry>()
-        var mood: Mood
-
-        val retrievedMood = list as MutableList<Mood>
-        moodRatings.clear()
-
-        for (item in retrievedMood) {
-
-            var temp=mutableListOf<Mood>()
-            if (item.time?.toDate()!! < currentDate && item.time?.toDate()!! > dateStartTime){
-                temp.add(item)
-
-            }
-            if(temp.size>1){
-                var x=0
-                for (tempItem in temp){
-
-                    x+=tempItem.moodRating.toInt()
-                }
-                val average=x/temp.size
-                moodRatings.add(Entry(7f, average.toFloat(),"7"))
-            }else if(temp.size==1) {
-                for (tempItem in temp) {
-                    moodRatings.add(Entry(7f, tempItem.moodRating.toFloat(), "7"))
-                }
-            }else{
-
-            }
-            if(item.time?.toDate()!!<currentDate && item.time?.toDate()!! > dateCreator.getDateDaysAgo(dateStartTime,1)){
-
-
-
-
-
-            /*mood = item
-            val MoodRatingList=mood.moodRating
-            //val MoodRatingList= ArrayList<Entry>()
-            for (number in MoodRatingList){
-                //moodRatings.add(number)*/
-
-
-            }
-
-        }
-        Log.d("merlin", "$moodRatings")
-        return moodRatings
-
-    }*/
-    /*fun accessRetrievedDaysMoodRatingData(list: List<Mood>, days:Int): ArrayList<Entry>{
-
-        //val moodRatings= mutableListOf<Char>()
-        val moodRatings= ArrayList<Entry>()
-        var mood: Mood
-
-        val retrievedMood = list as MutableList<Mood>
-        moodRatings.clear()
-
-        for (item in retrievedMood) {
-
-            var temp=mutableListOf<Mood>()
-            if (item.time?.toDate()!! < currentDate && item.time?.toDate()!! > dateStartTime){
-                temp.add(item)
-
-            }
-            if(temp.size>1){
-                var x=0
-                for (tempItem in temp){
-
-                    x+=tempItem.moodRating.toInt()
-                }
-                val average=x/temp.size
-                moodRatings.add(Entry(7f, average.toFloat(),"7"))
-            }else if(temp.size==1) {
-                for (tempItem in temp) {
-                    moodRatings.add(Entry(7f, tempItem.moodRating.toFloat(), "7"))
-                }
-            }else{
-
-            }
-            if(item.time?.toDate()!!<currentDate && item.time?.toDate()!! > dateCreator.getDateDaysAgo(dateStartTime,1)){
-
-
-
-
-
-                /*mood = item
-                val MoodRatingList=mood.moodRating
-                //val MoodRatingList= ArrayList<Entry>()
-                for (number in MoodRatingList){
-                    //moodRatings.add(number)*/
-
-
-            }
-
-        }
-        Log.d("merlin", "$moodRatings")
-        return moodRatings
-
-    }*/
     fun accessRetrievedWordsData(list: List<Mood>, type: String): MutableList<String>{
 
         val moodKeywords= mutableListOf<String>()
@@ -514,9 +388,7 @@ class ViewModel() {
             }
         }
 
-        Log.d("merlin", "$moodKeywords")
         return moodKeywords
-
     }
 
     fun accessRetrievedGeneralWordsData(list: List<NonMoodEntry>, type: String): MutableList<String>{
@@ -532,21 +404,18 @@ class ViewModel() {
             var keywordList= mutableListOf<String>()
             keywordList=entry.keywords
 
-
             for (word in keywordList){
                 keywords.add(word)
 
             }
         }
 
-        Log.d("merlin", "$keywords")
         return keywords
-
     }
 
     fun getCurrentUserName(id: String): Task<QuerySnapshot>{
 
-           val query= firebaseUtils.getCurrentUserName(id).get()
+        val query= firebaseUtils.getCurrentUserName(id).get()
 
         return query
     }
@@ -554,8 +423,7 @@ class ViewModel() {
 
     fun retrieveMoodByKeyword(id: String, keyword: String):  LiveData<List<Mood>>{
 
-        firebaseUtils.retrieveAllMoodEntries(id).whereArrayContains("keywords", keyword).addSnapshotListener { snapshot, e ->
-
+        firebaseUtils.retrieveMoodByKeyword(id, keyword).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 keywordMoodsRetrieved.value = emptyList()
@@ -571,15 +439,13 @@ class ViewModel() {
             }
             keywordMoodsRetrieved.value = moodItemList
         }
-        Log.d("sancho", "moo")
 
         return keywordMoodsRetrieved
     }
 
     fun retrieveGeneralByKeyword(id: String, keyword: String):  LiveData<List<NonMoodEntry>>{
 
-        firebaseUtils.retrieveAllGeneralEntries(id).whereArrayContains("keywords", keyword).addSnapshotListener { snapshot, e ->
-
+        firebaseUtils.retrieveGeneralByKeyword(id, keyword).addSnapshotListener { snapshot, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
                 keywordGeneralRetrieved.value = emptyList()
@@ -595,129 +461,8 @@ class ViewModel() {
             }
             keywordGeneralRetrieved.value = generalItemList
         }
-        Log.d("sancho", "moo")
 
         return keywordGeneralRetrieved
     }
 
-    /*fun login(email: String, password: String,): Task<AuthResult> {
-       val task= firebaseUtils.login(email, password)
-        //Log.d("Derry", id)
-        return task
-    }*/
-
-    //-------------------------------------------------------------
-
-    /*fun retrieveMoodEntryByDate(dateStart: Date, dateEnd: Date): String {
-        firebaseUtils.retrieveMoodEntryByDate(dateStart, dateEnd).observe(this, observer:Observer)
-    }*/
-    /*
-    fun retrieveMoodEntryByDate(dateStart: Date, dateEnd:Date){
-        firebaseUtils.retrieveMoodEntryByDate().whereGreaterThanOrEqualTo("time", dateStart)
-            .whereLessThan("time", dateEnd).get().addOnSuccessListener { documents ->
-            for (document in documents) {
-                if (document != null) {
-                    Log.d("exist", "DocumentSnapshot data: ${document.data}")
-
-                    //moodEntry = document.getString("moodRating").toString()
-                    val docString =document.getString("moodEntry").toString()
-                    moodRetrieved.value=docString
-
-                }
-            }
-        }*/
-
-    //-----------------------------------------------------------------
-
-/*fun retrieve7DaysMoods(id: String): LiveData<List<Mood>>{
-
-        val dateStartTimeMillis= dateEndTimeMillis-millisFor7Days
-        val simpleDateStartTime=sdf.format(dateStartTimeMillis)
-        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
-        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
-
-        return retrieved
-    }
-
-    fun retrieve30DaysMoods(id: String): LiveData<List<Mood>>{
-
-        val dateStartTimeMillis= dateEndTimeMillis-millisFor30Days
-        val simpleDateStartTime=sdf.format(dateStartTimeMillis)
-        val dateStartTime=dateCreator.getMilliseconds(simpleDateStartTime)
-        val retrieved=viewModel.retrieveMoodEntryByDate(id, dateStartTime,currentDate)
-
-        return retrieved
-    }*/
-    //--------------------------------------------------------------
-
-    /*fun accessRetrievedKeywordData(list: List<Mood>): MutableList<String>{
-
-        val moodKeywords= mutableListOf<String>()
-        var mood: Mood
-        val retrievedMood = list as MutableList<Mood>
-        //Log.d("retrieved mood", "$retrievedMood")
-        moodKeywords.clear()
-
-        for (item in retrievedMood) {
-
-            mood = item
-            val keywordList=mood.keywords
-
-            for (word in keywordList){
-                moodKeywords.add(word)
-
-            }
-
-        }
-        Log.d("merlin", "$moodKeywords")
-        return moodKeywords
-
-    }
-    fun accessRetrievedTriggerData(list: List<Mood>): MutableList<String>{
-
-        val moodKeywords= mutableListOf<String>()
-        var mood: Mood
-        val retrievedMood = list as MutableList<Mood>
-        //Log.d("retrieved mood", "$retrievedMood")
-        moodKeywords.clear()
-
-        for (item in retrievedMood) {
-
-            mood = item
-            val keywordList=mood.triggers
-
-            for (word in keywordList){
-                moodKeywords.add(word)
-
-            }
-
-        }
-        Log.d("merlin", "$moodKeywords")
-        return moodKeywords
-
-    }
-
-    fun accessRetrievedPositivesData(list: List<Mood>): MutableList<String>{
-
-        val moodKeywords= mutableListOf<String>()
-        var mood: Mood
-        val retrievedMood = list as MutableList<Mood>
-        //Log.d("retrieved mood", "$retrievedMood")
-        moodKeywords.clear()
-
-        for (item in retrievedMood) {
-
-            mood = item
-            val keywordList=mood.positives
-
-            for (word in keywordList){
-                moodKeywords.add(word)
-
-            }
-
-        }
-        Log.d("merlin", "$moodKeywords")
-        return moodKeywords
-
-    }*/
 }

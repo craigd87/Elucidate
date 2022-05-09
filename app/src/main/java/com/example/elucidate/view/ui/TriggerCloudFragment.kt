@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.elucidate.databinding.FragmentTriggerCloudBinding
@@ -33,6 +34,10 @@ class TriggerCloudFragment : Fragment() {
 
             val moodList= viewModel.accessRetrievedWordsData(it,"triggers")
             val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
+
+            if(moodList.isEmpty()){
+                Toast.makeText(activity, "No data yet", Toast.LENGTH_SHORT).show()
+            }
             val wd = WordCloud(keywordGroups, 250, 250, Color.BLACK, Color.WHITE)
 
             wd.setWordColorOpacityAuto(true)

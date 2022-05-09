@@ -24,20 +24,15 @@ class FirebaseUtils {
     val fireStoreDatabase = FirebaseFirestore.getInstance()
     private val auth=Firebase.auth
     private val currentUser=auth.currentUser
-    //var userAuth = FirebaseAuth.getInstance().currentUser
-    //val uid= userAuth?.uid
 
-    fun getCurrentUser(): FirebaseUser?{
 
+    /*fun getCurrentUser(): FirebaseUser?{
         return currentUser
     }
-
     fun getCurrentUserId(): String{
-
         val currentUserId= currentUser?.uid.toString()
         return currentUserId
-
-    }
+    }*/
 
     fun getCurrentUserName(id: String): Query{
         var queryRef = FirebaseUtils().fireStoreDatabase.collection("users").whereEqualTo("id", "$id")
@@ -55,8 +50,8 @@ class FirebaseUtils {
 
                     val user : FirebaseUser = task.result!!.user!!
                     val userId=user.uid
-
                     val userDetails= User("$userId", "$name")
+
                     viewModel.saveUserDetailsToFirestore(userDetails)
 
                 }
@@ -83,57 +78,98 @@ class FirebaseUtils {
         return documentReference.set(nonMoodEntry)
     }
 
-    fun retrieveMoodEntry(): CollectionReference {
+    /*fun retrieveMoodEntry(): CollectionReference {
         var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userMoods")
         return collectionReference
     }
-
     fun retrieveGeneralEntry(): CollectionReference {
         var collectionReference = FirebaseUtils().fireStoreDatabase.collection("userNonMoods")
         return collectionReference
-    }
+    }*/
 
     fun retrieveAllMoodEntries(id: String): Query {
+
         val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id")
+
+        return queryRef
+    }
+
+    fun retrieveAllMoodEntriesByTime(id: String): Query {
+
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userMoods").whereEqualTo("id", "$id").orderBy("time")
+
         return queryRef
     }
 
     fun retrieveAllGeneralEntries(id: String): Query {
+
         val queryRef = FirebaseUtils().fireStoreDatabase.collection("userNonMoods").whereEqualTo("id", "$id")
+
+        return queryRef
+    }
+
+    fun retrieveAllGeneralEntriesByTime(id: String): Query {
+
+        val queryRef = FirebaseUtils().fireStoreDatabase.collection("userNonMoods").whereEqualTo("id", "$id").orderBy("time")
+
         return queryRef
     }
 
     fun retrieveMoodEntriesByDateAsc(id: String, dateStart: Date, dateEnd: Date): Query{
+
         val queryRef=FirebaseUtils().retrieveAllMoodEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
                 Query.Direction.ASCENDING)
+
         return queryRef
     }
 
     fun retrieveMoodEntriesByDateDesc(id: String, dateStart: Date, dateEnd: Date): Query{
+
         val queryRef=FirebaseUtils().retrieveAllMoodEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
                 Query.Direction.DESCENDING)
+
         return queryRef
     }
 
     fun retrieveGeneralEntriesByDateAsc(id: String, dateStart: Date, dateEnd: Date): Query{
+
         val queryRef=FirebaseUtils().retrieveAllGeneralEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
                 Query.Direction.ASCENDING)
+
         return queryRef
     }
 
     fun retrieveGeneralEntriesByDateDesc(id: String, dateStart: Date, dateEnd: Date): Query{
+
         val queryRef=FirebaseUtils().retrieveAllGeneralEntries(id).whereGreaterThanOrEqualTo("time", dateStart)
             .whereLessThanOrEqualTo("time", dateEnd).orderBy("time",
                 Query.Direction.DESCENDING)
+
         return queryRef
     }
 
-    fun retrieveUser(): CollectionReference{
-        var collectionReference = FirebaseUtils().fireStoreDatabase.collection("users")
-        return collectionReference
+    fun retrieveMoodByKeyword(id: String, keyword:String): Query{
+
+        val queryRef=FirebaseUtils().retrieveAllMoodEntries(id).whereArrayContains("keywords", keyword)
+
+        return queryRef
+    }
+
+    fun retrieveGeneralByKeyword(id: String, keyword:String): Query{
+
+        val queryRef=FirebaseUtils().retrieveAllGeneralEntries(id).whereArrayContains("keywords", keyword)
+
+        return queryRef
+    }
+
+    fun retrieveUser(id: String): Task<QuerySnapshot>{
+
+        val query = FirebaseUtils().fireStoreDatabase.collection("users").whereEqualTo("id", "$id").get()
+
+        return query
     }
 
 }

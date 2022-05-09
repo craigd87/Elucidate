@@ -29,6 +29,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.example.elucidate.databinding.FragmentCloudBinding
@@ -65,7 +66,12 @@ class CloudFragment : Fragment() {
             val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
             Log.d("Camelot", "$keywordGroups")
 
-            val wd = WordCloud(keywordGroups, 250, 250, Color.BLACK, Color.WHITE)
+            if(keywordGroups.isEmpty()) {
+                Toast.makeText(activity, "No data yet", Toast.LENGTH_SHORT).show()
+
+            }
+
+                val wd = WordCloud(keywordGroups, 250, 250, Color.BLACK, Color.WHITE)
             wd.setWordColorOpacityAuto(true)
             wd.setPaddingX(5)
             wd.setPaddingY(5)
