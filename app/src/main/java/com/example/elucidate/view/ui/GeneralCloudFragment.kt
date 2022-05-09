@@ -16,9 +16,8 @@ import com.example.elucidate.viewModel
 import com.mordred.wordcloud.WordCloud
 
 /**
- * A simple [Fragment] subclass.
- * Use the [GeneralCloudFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A [Fragment] to create and display a weighted cloud bitmap image
+ * based on selection and frequency of user [NonMood] keywords.
  */
 class GeneralCloudFragment : Fragment() {
 

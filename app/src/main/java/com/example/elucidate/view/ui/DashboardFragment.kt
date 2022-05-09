@@ -12,7 +12,9 @@ import com.example.elucidate.globalUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-
+/**
+ * A [Fragment] to show the main dashboard.
+ */
 class DashboardFragment : Fragment() {
 
 

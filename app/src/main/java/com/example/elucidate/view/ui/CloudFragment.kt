@@ -39,9 +39,8 @@ import com.mordred.wordcloud.WordCloud
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [CloudFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A [Fragment] to create and display a weighted cloud bitmap image
+ * based on selection and frequency of user [Mood] keywords.
  */
 class CloudFragment : Fragment() {
 

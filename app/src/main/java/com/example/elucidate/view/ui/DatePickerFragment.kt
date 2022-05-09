@@ -12,6 +12,9 @@ import androidx.fragment.app.DialogFragment
 import com.example.elucidate.R
 import java.util.*
 
+/**
+ * A class to display a [DatePicker] [DialogFragment].
+ */
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         // Use the current date as the default date in the picker

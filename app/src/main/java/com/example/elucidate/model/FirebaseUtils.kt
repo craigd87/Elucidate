@@ -20,6 +20,10 @@ import java.util.*
 
 
 //Serves as a API to allow adding getting, deleting and updating (section.io link)
+
+/**
+ * A class to query the [FirebaseFirestore] database.
+ */
 class FirebaseUtils {
     val fireStoreDatabase = FirebaseFirestore.getInstance()
     private val auth=Firebase.auth

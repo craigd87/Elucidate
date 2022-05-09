@@ -7,6 +7,10 @@ import java.util.*
 
 //https://medium.com/@deepak140596/firebase-firestore-using-view-models-and-livedata-f9a012233917
 //also find SO links for no-argument constructor error
+
+/**
+ * A data class to create a [Mood] object.
+ */
 data class Mood (var id: String,
                  var moodEntry: String,
                  var moodRating: String,
@@ -15,7 +19,8 @@ data class Mood (var id: String,
                  var positives: MutableList<String>,
                  var time: Timestamp?
 ): Serializable{
-   constructor() : this("", "",
+
+    constructor() : this("", "",
         "", mutableListOf(), mutableListOf(),
         mutableListOf(), null
     )

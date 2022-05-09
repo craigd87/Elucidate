@@ -8,6 +8,9 @@ import com.example.elucidate.databinding.ItemMoodEntryBinding
 import com.example.elucidate.dto.MoodView
 import com.example.elucidate.dto.NonMoodView
 
+/**
+ * An adapter class to populate the RecyclerView with [NonMoodView]s
+ */
 class NonMoodAdapter(var nonMoodViews: MutableList<NonMoodView>): RecyclerView.Adapter<NonMoodAdapter.NonMoodViewHolder>() {
 
 

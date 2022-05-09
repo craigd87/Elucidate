@@ -19,9 +19,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [ChartFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * A [Fragment] to create and display a lineChart of user [Mood] ratings by date range.
  */
 class ChartFragment : Fragment() {
 
