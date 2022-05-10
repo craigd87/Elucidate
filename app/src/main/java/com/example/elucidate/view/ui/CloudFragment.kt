@@ -63,7 +63,6 @@ class CloudFragment : Fragment() {
 
             val moodList= viewModel.accessRetrievedWordsData(it, "keywords")
             val keywordGroups=moodList.groupingBy { it }.eachCount().filter { it.value>0 }
-            Log.d("Camelot", "$keywordGroups")
 
             if(keywordGroups.isEmpty()) {
                 Toast.makeText(activity, "No data yet", Toast.LENGTH_SHORT).show()
