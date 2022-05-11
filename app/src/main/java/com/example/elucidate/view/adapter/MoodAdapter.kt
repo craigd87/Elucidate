@@ -6,6 +6,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.elucidate.dto.MoodView
 import com.example.elucidate.databinding.ItemMoodEntryBinding
 
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
+
 /*
 help from https://stackoverflow.com/questions/60423596/how-to-use-viewbinding-in-a-recyclerview-adapter
 

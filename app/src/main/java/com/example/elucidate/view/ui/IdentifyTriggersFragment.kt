@@ -13,7 +13,13 @@ import com.example.elucidate.*
 import com.example.elucidate.databinding.FragmentIdentifyTriggersBinding
 import com.google.android.material.chip.Chip
 
-
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 class IdentifyTriggersFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

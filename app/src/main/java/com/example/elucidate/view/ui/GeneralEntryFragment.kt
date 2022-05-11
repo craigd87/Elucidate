@@ -12,6 +12,13 @@ import com.example.elucidate.globalGeneralEntryDetails
 import com.example.elucidate.globalMoodEntryDetails
 import com.example.elucidate.globalUser
 
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 
 /**
  * A simple [Fragment] subclass.

@@ -19,7 +19,24 @@ import com.google.firebase.firestore.QuerySnapshot
 import java.text.SimpleDateFormat
 import java.util.*
 
-//private lateinit var auth: FirebaseAuth
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
+
+/**
+ * Concepts and aspects of code relating to DTOs, FirebaseUtils and ViewModel courtesy of:
+ * https://medium.com/@deepak140596/firebase-firestore-using-view-models-and-livedata-f9a012233917
+ * Deepak Prasad
+ * Feb 24, 2019
+ */
+
+/**
+ * A [ViewModel] class.
+ */
 class ViewModel() {
 
     //Instance of FirebaseUtils
@@ -47,10 +64,6 @@ class ViewModel() {
     private var allMoodsRetrieved : MutableLiveData<List<Mood>> = MutableLiveData()
     private var allEntriesRetrieved : MutableLiveData<List<NonMoodEntry>> = MutableLiveData()
 
-    /*fun getCurrentUser():FirebaseUser?{
-        val currentUser=firebaseUtils.getCurrentUser()
-        return currentUser
-    }*/
 
     /**
      * Saves a [user] to the database.

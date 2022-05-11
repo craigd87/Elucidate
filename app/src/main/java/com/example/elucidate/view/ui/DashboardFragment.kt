@@ -13,6 +13,14 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 /**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+*/
+
+/**
  * A [Fragment] to show the main dashboard.
  */
 class DashboardFragment : Fragment() {
@@ -29,18 +37,6 @@ class DashboardFragment : Fragment() {
     ): View? {
 
         val binding = FragmentDashboardBinding.inflate(layoutInflater)
-
-        /*DO NOT DELETE YET
-        val queryRef=FirebaseUtils().printName("$id")
-            queryRef.addOnSuccessListener { documents ->
-            for (document in documents) {
-                Log.d("exist", "DocumentSnapshot data: ${document.data}")
-                val name = document.getString("name").toString()
-                binding.tvDashWelcome.text = "Hi " + name+"!"
-
-            }
-
-        }*/
 
 
             binding.ivMood.setOnClickListener {

@@ -15,10 +15,16 @@ import com.example.elucidate.viewModel
 import com.mordred.wordcloud.WordCloud
 
 /**
- * A simple [Fragment] subclass.
- * Use the [PositiveCloudFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ *
+ * Using WordCloud by sirmordred
+ * https://github.com/sirmordred/WordCloud
  */
+
 class PositiveCloudFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

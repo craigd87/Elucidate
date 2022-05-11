@@ -20,9 +20,11 @@ import com.example.elucidate.viewModel
 
 
 /**
- * A simple [Fragment] subclass.
- * Use the [RetrieveGeneralEntriesFragment.newInstance] factory method to
- * create an instance of this fragment.
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
  */
 class RetrieveGeneralEntriesFragment : Fragment() {
 
@@ -91,7 +93,7 @@ class RetrieveGeneralEntriesFragment : Fragment() {
 
         binding.btnGen30Days.setOnClickListener {
 
-            //val retrieve30DaysMoods= viewModel.retrieve30DaysMoods(globalUser.id)
+
             val retrieve30DaysMoods= viewModel.retrieveDayRangeGeneralDesc(id, 30)
             retrieve30DaysMoods.observe(viewLifecycleOwner, Observer { it->
 

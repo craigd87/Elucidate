@@ -11,7 +11,13 @@ import com.example.elucidate.databinding.FragmentSignUpBinding
 import com.example.elucidate.viewModel
 
 
-//private lateinit var auth: FirebaseAuth
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 
 
 class SignUpFragment : Fragment() {

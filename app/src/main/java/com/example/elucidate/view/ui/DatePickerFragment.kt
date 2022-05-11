@@ -13,7 +13,15 @@ import com.example.elucidate.R
 import java.util.*
 
 /**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
+/**
  * A class to display a [DatePicker] [DialogFragment].
+ * https://developer.android.com/guide/topics/ui/controls/pickers
  */
 class DatePickerFragment : DialogFragment(), DatePickerDialog.OnDateSetListener {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {

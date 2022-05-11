@@ -14,6 +14,13 @@ import com.example.elucidate.R
 import com.example.elucidate.databinding.FragmentIdentifyKeywordsBinding
 import com.example.elucidate.globalMoodEntryDetails
 import com.google.android.material.chip.Chip
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 
 class IdentifyKeywordsFragment : Fragment() {
 

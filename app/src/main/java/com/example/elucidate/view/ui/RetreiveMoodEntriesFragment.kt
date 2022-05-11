@@ -19,7 +19,13 @@ import com.example.elucidate.viewModel
 import com.google.rpc.context.AttributeContext
 import java.util.*
 
-
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 class RetreiveMoodEntriesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

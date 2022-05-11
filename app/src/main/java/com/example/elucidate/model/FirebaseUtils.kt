@@ -19,25 +19,25 @@ import com.google.firebase.ktx.Firebase
 import java.util.*
 
 
-//Serves as a API to allow adding getting, deleting and updating (section.io link)
+/**
+ * Concepts and aspects of code relating to DTOs, FirebaseUtils and ViewModel courtesy of:
+ * https://medium.com/@deepak140596/firebase-firestore-using-view-models-and-livedata-f9a012233917
+ * Deepak Prasad
+ * Feb 24, 2019
+ */
 
 /**
  * A class to query the [FirebaseFirestore] database.
  */
 class FirebaseUtils {
+
     val fireStoreDatabase = FirebaseFirestore.getInstance()
     private val auth=Firebase.auth
     private val currentUser=auth.currentUser
 
-
-    /*fun getCurrentUser(): FirebaseUser?{
-        return currentUser
-    }
-    fun getCurrentUserId(): String{
-        val currentUserId= currentUser?.uid.toString()
-        return currentUserId
-    }*/
-
+    /**
+     * A function to query the FirebaseFirestore database using [id] to retur
+     */
     fun getCurrentUserName(id: String): Query{
         var queryRef = FirebaseUtils().fireStoreDatabase.collection("users").whereEqualTo("id", "$id")
         return queryRef

@@ -18,7 +18,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 private lateinit var auth: FirebaseAuth
 
 
@@ -34,14 +40,12 @@ class TitleFragment : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-        // Inflate the layout for this fragment
-        //(requireActivity() as AppCompatActivity).supportActionBar?.hide()
+
         val binding = FragmentTitleBinding.inflate(layoutInflater)
 
         auth = Firebase.auth
         val user= auth.currentUser
-        //val id = user?.uid
-        //val user=viewModel.getCurrentUser()
+
         val id= user?.uid
 
         Handler(Looper.getMainLooper()).postDelayed({

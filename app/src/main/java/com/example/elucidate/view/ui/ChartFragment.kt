@@ -17,9 +17,22 @@ import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.data.*
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
 
-
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
+/**
+ * Help with Kotlin from
+ * mansigoel94 / Barchart-LineChart-PieChart
+ * https://github.com/mansigoel94/Barchart-LineChart-PieChart
+ */
 /**
  * A [Fragment] to create and display a lineChart of user [Mood] ratings by date range.
+ * Using MPAndroidChart by PhilJay
+ * https://github.com/PhilJay/MPAndroidChart
  */
 class ChartFragment : Fragment() {
 

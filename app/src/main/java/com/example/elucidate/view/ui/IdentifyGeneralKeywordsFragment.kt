@@ -14,6 +14,13 @@ import com.google.android.material.chip.Chip
 import com.google.firebase.Timestamp
 import java.util.*
 
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 
 /**
  * A simple [Fragment] subclass.

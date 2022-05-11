@@ -37,10 +37,19 @@ import com.example.elucidate.globalUser
 import com.example.elucidate.viewModel
 import com.mordred.wordcloud.WordCloud
 
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 
 /**
  * A [Fragment] to create and display a weighted cloud bitmap image
  * based on selection and frequency of user [Mood] keywords.
+ * Using WordCloud by sirmordred
+ * https://github.com/sirmordred/WordCloud
  */
 class CloudFragment : Fragment() {
 

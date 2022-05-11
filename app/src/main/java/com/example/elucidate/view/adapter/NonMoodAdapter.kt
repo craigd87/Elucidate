@@ -9,6 +9,14 @@ import com.example.elucidate.dto.MoodView
 import com.example.elucidate.dto.NonMoodView
 
 /**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
+
+/**
  * An adapter class to populate the RecyclerView with [NonMoodView]s
  */
 class NonMoodAdapter(var nonMoodViews: MutableList<NonMoodView>): RecyclerView.Adapter<NonMoodAdapter.NonMoodViewHolder>() {

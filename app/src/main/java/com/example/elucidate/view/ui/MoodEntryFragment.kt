@@ -17,7 +17,13 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 class MoodEntryFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

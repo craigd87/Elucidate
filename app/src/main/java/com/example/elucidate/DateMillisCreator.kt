@@ -3,6 +3,13 @@ package com.example.elucidate
 import java.text.SimpleDateFormat
 import java.util.*
 
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 class DateMillisCreator {
     private val sdf= SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
 

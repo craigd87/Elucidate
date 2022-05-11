@@ -9,8 +9,15 @@ import com.example.elucidate.dto.Mood
 import com.example.elucidate.dto.NonMoodEntry
 import com.google.firebase.auth.FirebaseAuth
 
+/**
+ * Large amounts of research taken from:
+ * https://developer.android.com/
+ * https://developer.android.com/codelabs
+ * and the videos of Philipp Lackner
+ * https://www.youtube.com/c/PhilippLackner
+ */
 const val TAG = "FIRESTORE"
-//private lateinit var auth: FirebaseAuth
+
 lateinit var viewModel: ViewModel
 
 var globalNonTriggersList= mutableListOf<String>()
