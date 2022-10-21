@@ -31,7 +31,11 @@ class KeywordCreator {
         val moodText= stringToSplit.split(delim1,delim2,delim3,delim4,delim5,delim6,delim7,delim8,delim9,delim10,
             delim11,delim12,delim13,delim14)
 
-        val moodTextList= mutableListOf<String>()
+        val printText= moodText.filter {
+            !stopWords.contains(it)&& !it.isBlank()
+        }.distinct()
+
+        /*val moodTextList= mutableListOf<String>()
 
         moodText.forEach{
             moodTextList.add(it)
@@ -49,7 +53,7 @@ class KeywordCreator {
         val finalTextDistinct=finalText.toSet().toList()
         val printText= finalTextDistinct.filter{
             !it.isBlank()
-        }
+        }*/
 
         return printText
     }
